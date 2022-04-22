@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "604090262877",
+    "project_id": "teleortho-5f7c3",
+    "storage_bucket": "teleortho-5f7c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604090262877:android:6e34eb06c8f46c90fe34b4",
+        "android_client_info": {
+          "package_name": "com.example.u_finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604090262877-9ho8cjag9itbvohhlfffmpj5srfpotma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_XnC4Gx9rsoCeUcCwDKL9Y39zqbd8i2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "604090262877-9ho8cjag9itbvohhlfffmpj5srfpotma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
