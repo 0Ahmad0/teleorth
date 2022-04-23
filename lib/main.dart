@@ -1,7 +1,9 @@
 import 'package:_finalproject/screens/doctor/AddPatient.dart';
 import 'package:_finalproject/screens/doctor/Message.dart';
 import 'package:_finalproject/screens/doctor/Mypatients.dart';
+import 'package:_finalproject/screens/doctor/Myprofile.dart';
 import 'package:_finalproject/screens/doctor/myPatient.dart';
+import 'package:_finalproject/screens/patient/Edit_Profile.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:_finalproject/screens/wlcome_screen.dart';
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: Message(),//const Message(), // when the app run , welcomeScreen is the home page
+      home: Edit_Profile(),//const Message(), // when the app run , welcomeScreen is the home page
     );
   }
 }

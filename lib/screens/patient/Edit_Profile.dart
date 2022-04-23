@@ -17,63 +17,61 @@ import 'main_PagePatient.dart';
 class Edit_Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Stack(children: [
-                  ClipPath(
-                    clipper: Customshape(),
-                    child: Container(
-                      height: 200,
-                      width: 392.7,
-                      color: Color(0xFF4d8d6e),
-                    ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(children: [
+              ClipPath(
+                clipper: Customshape(),
+                child: Container(
+                  height: 200,
+                  width: 392.7,
+                  color: Color(0xFF4d8d6e),
+                ),
+              ),
+              Positioned(
+                top: 10,
+                left: 8,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 35.0,
+                    color: Colors.white,
                   ),
-                  Positioned(
-                    top: 10,
-                    left: 8,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 35.0,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const main_PagePatient()),
-                        );
-                      },
-                    ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const main_PagePatient()),
+                    );
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: 74,
+                right: 35,
+                left: 20,
+                child: Icon(
+                  Icons.account_circle_rounded,
+                  size: 90.0,
+                  color: Colors.white,
+                ),
+              ),
+              Positioned(
+                bottom: 40,
+                left: 128,
+                child: Text(
+                  SignInScreen.fullName,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Positioned(
-                    bottom: 74,
-                    right: 35,
-                    left: 20,
-                    child: Icon(
-                      Icons.account_circle_rounded,
-                      size: 90.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 40,
-                    left: 128,
-                    child: Text(
-                      SignInScreen.fullName,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  /*Positioned(
+                ),
+              ),
+              /*Positioned(
                     bottom: 40,
                     left: 150,
                     child: Text(
@@ -85,8 +83,8 @@ class Edit_Profile extends StatelessWidget {
                       ),
                     ),
                   ),*/
-                ]),
-                /*Card(
+            ]),
+            /*Card(
                   elevation: 0,
                   child: ListTile(
                     trailing: IconButton(
@@ -97,7 +95,7 @@ class Edit_Profile extends StatelessWidget {
                       ),
                       onPressed: () {},
                     ),
-                    title: 
+                    title:
                     Text(
                       'Name',
                       style: TextStyle(
@@ -114,10 +112,10 @@ class Edit_Profile extends StatelessWidget {
                     ),
                   ),
                 ),*/
-                /*Card(
+            /*Card(
                   elevation: 0,
                   child: ListTile(
-                    title: 
+                    title:
                     Text(
                       'Username',
                       style: TextStyle(
@@ -134,7 +132,7 @@ class Edit_Profile extends StatelessWidget {
                     ),
                   ),
                 ),*/
-                /*Card(
+            /*Card(
                   elevation: 0,
                   child: ListTile(
                     trailing: IconButton(
@@ -162,179 +160,179 @@ class Edit_Profile extends StatelessWidget {
                   ),
                 ),*/
 
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-                  child: buildTextField('Name', SignInScreen.fullName, false),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+              child: buildTextField('Name', SignInScreen.fullName, false),
+            ),
+            Container(
+              width: 350.0,
+              height: 12.0,
+              margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
+              child: Text(
+                'Username',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12.0,
                 ),
-                Container(
-                  width: 350.0,
-                  height: 12.0,
-                  margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
-                  child: Text(
-                    'Username',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12.0,
-                    ),
-                  ),
+              ),
+            ),
+            Container(
+              width: 350.0,
+              height: 16.0,
+              margin: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 8.0),
+              child: Text(
+                SignInScreen.userName,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
                 ),
-                Container(
-                  width: 350.0,
-                  height: 16.0,
-                  margin: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 8.0),
-                  child: Text(
-                    SignInScreen.userName,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                    ),
-                  ),
+              ),
+            ),
+            SizedBox(
+              width: 350.0,
+              height: 12.0,
+              child: Divider(
+                thickness: 1.3,
+                color: Colors.grey[400],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+              child:  buildTextField('E-mail', SignInScreen.email, false),
+            ),
+            Container(
+              width: 350.0,
+              height: 12.0,
+              margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
+              child: Text(
+                'Gender',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12.0,
                 ),
-                SizedBox(
-                  width: 350.0,
-                  height: 12.0,
-                  child: Divider(
-                    thickness: 1.3,
-                    color: Colors.grey[400],
-                  ),
+              ),
+            ),
+            Container(
+              width: 350.0,
+              height: 16.0,
+              margin: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 8.0),
+              child: Text(
+                SignInScreen.gender,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                  child:  buildTextField('E-mail', SignInScreen.email, false),
-                ),
-                Container(
-                  width: 350.0,
-                  height: 12.0,
-                  margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
-                  child: Text(
-                    'Gender',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12.0,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 350.0,
-                  height: 16.0,
-                  margin: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 8.0),
-                  child: Text(
-                     SignInScreen.gender,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 350.0,
-                  height: 1.0,
-                  child: Divider(
-                    thickness: 1.3,
-                    color: Colors.grey[400],
-                  ),
-                ),
+              ),
+            ),
+            SizedBox(
+              width: 350.0,
+              height: 1.0,
+              child: Divider(
+                thickness: 1.3,
+                color: Colors.grey[400],
+              ),
+            ),
 
 
-             
-              
-                // Container(
-                //   width: 350.0,
-                //   height: 50.0,
-                //   margin: const EdgeInsets.fromLTRB(4.0, 0.0, 0, 0),
-                //   child: DropdownButtonFormField(
-                //     iconDisabledColor: Color(0xFF4d8d6e),
-                //     decoration: const InputDecoration(
-                //       isDense: true,
-                //       contentPadding: EdgeInsets.all(12),
-                //       enabledBorder: OutlineInputBorder(
-                //         borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                //         borderSide: BorderSide(
-                //           color: Colors.grey,
-                //         ),
-                //       ),
-                //     ),
-                //     hint: const Text("Select your gender",
-                //         style: TextStyle(
-                //           fontSize: 16.0,
-                //           color: Colors.black,
-                //         )),
-                //     items: const [
-                //       DropdownMenuItem(
-                //         child: Text('Male',
-                //             style: TextStyle(
-                //               fontSize: 16.0,
-                //               color: Colors.black,
-                //             )),
-                //         value: '1',
-                //       ),
-                //       DropdownMenuItem(
-                //         child: Text('Female',
-                //             style: TextStyle(
-                //               fontSize: 16.0,
-                //               color: Colors.black,
-                //             )),
-                //         value: '2',
-                //       ),
-                //     ],
-                //     onChanged: (_) {},
-                //   ),
-                // ),
-                Container(
-                  width: 350.0,
-                  height: 12.0,
-                  margin: const EdgeInsets.fromLTRB(4.0, 10.0, 0, 0),
-                  child: Text(
-                    'Language',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12.0,
-                    ),
-                  ),
+
+
+            // Container(
+            //   width: 350.0,
+            //   height: 50.0,
+            //   margin: const EdgeInsets.fromLTRB(4.0, 0.0, 0, 0),
+            //   child: DropdownButtonFormField(
+            //     iconDisabledColor: Color(0xFF4d8d6e),
+            //     decoration: const InputDecoration(
+            //       isDense: true,
+            //       contentPadding: EdgeInsets.all(12),
+            //       enabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            //         borderSide: BorderSide(
+            //           color: Colors.grey,
+            //         ),
+            //       ),
+            //     ),
+            //     hint: const Text("Select your gender",
+            //         style: TextStyle(
+            //           fontSize: 16.0,
+            //           color: Colors.black,
+            //         )),
+            //     items: const [
+            //       DropdownMenuItem(
+            //         child: Text('Male',
+            //             style: TextStyle(
+            //               fontSize: 16.0,
+            //               color: Colors.black,
+            //             )),
+            //         value: '1',
+            //       ),
+            //       DropdownMenuItem(
+            //         child: Text('Female',
+            //             style: TextStyle(
+            //               fontSize: 16.0,
+            //               color: Colors.black,
+            //             )),
+            //         value: '2',
+            //       ),
+            //     ],
+            //     onChanged: (_) {},
+            //   ),
+            // ),
+            Container(
+              width: 350.0,
+              height: 12.0,
+              margin: const EdgeInsets.fromLTRB(4.0, 10.0, 0, 0),
+              child: Text(
+                'Language',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12.0,
                 ),
-                Container(
-                  width: 350.0,
-                  height: 50.0,
-                  margin: const EdgeInsets.fromLTRB(4.0, 0.0, 0, 0),
-                  child: DropdownButtonFormField(
-                    iconDisabledColor: Color(0xFF4d8d6e),
-                    decoration: const InputDecoration(
-                      isDense: true,
-                      //contentPadding: EdgeInsets.all(12),
-                      /*enabledBorder: OutlineInputBorder(
+              ),
+            ),
+            Container(
+              width: 350.0,
+              height: 50.0,
+              margin: const EdgeInsets.fromLTRB(4.0, 0.0, 0, 0),
+              child: DropdownButtonFormField(
+                iconDisabledColor: Color(0xFF4d8d6e),
+                decoration: const InputDecoration(
+                  isDense: true,
+                  //contentPadding: EdgeInsets.all(12),
+                  /*enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30.0)),
                         borderSide: BorderSide(
                           color: Colors.grey,
                         ),
                       ),*/
-                    ),
-                    /*hint: const Text("Select your gender",
+                ),
+                /*hint: const Text("Select your gender",
                         style: TextStyle(
                           fontSize: 16.0,
                           color: Colors.black,
                         )),*/
-                    items: const [
-                      DropdownMenuItem(
-                        child: Text('Arabic',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black,
-                            )),
-                        value: '1',
-                      ),
-                      DropdownMenuItem(
-                        child: Text('English',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black,
-                            )),
-                        value: '2',
-                      ),
-                    ],
-                    onChanged: (_) {},
+                items: const [
+                  DropdownMenuItem(
+                    child: Text('Arabic',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                        )),
+                    value: '1',
                   ),
-                ),
-                /*Card(
+                  DropdownMenuItem(
+                    child: Text('English',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                        )),
+                    value: '2',
+                  ),
+                ],
+                onChanged: (_) {},
+              ),
+            ),
+            /*Card(
                   elevation: 0,
                   child: ListTile(
                     trailing: IconButton(
@@ -361,7 +359,7 @@ class Edit_Profile extends StatelessWidget {
                     ),
                   ),
                 ),*/
-                /*Card(
+            /*Card(
                   elevation: 0,
                   child: ListTile(
                     trailing: IconButton(
@@ -381,92 +379,101 @@ class Edit_Profile extends StatelessWidget {
                     ),
                   ),
                 ),*/
-                SizedBox(
-                  width: 350.0,
-                  height: 15.0,
-                  /*child: Divider(
+            SizedBox(
+              width: 350.0,
+              height: 15.0,
+              /*child: Divider(
                     color: Colors.grey,
                   ),*/
-                ),
-                SizedBox(
-                  width: 320,
-                  height: 45,
-                  child: OutlinedButton(
-                    style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF4d8d6e)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(40)))),
-                    child: Text(
-                      'Change password',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ResetPassword()));
-                    },
+            ),
+            SizedBox(
+              width: 320,
+              height: 45,
+              child: OutlinedButton(
+                style: ButtonStyle(
+                    foregroundColor:
+                    MaterialStateProperty.all<Color>(Color(0xFF4d8d6e)),
+                    shape:
+                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40)))),
+                child: Text(
+                  'Update & Save',
+                  style: TextStyle(
+                    fontSize: 14.0,
                   ),
                 ),
-                SizedBox(
-                  width: 350.0,
-                  height: 8.0,
-                ),
-                SizedBox(
-                  width: 320,
-                  height: 45,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF4d8d6e)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(40)))),
-                    child: Text(
-                      'Log out',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                      ),
-                    ),
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut().then((value) {
-                        // Firebase sign out function
-                        print("Signed Out"); //print to console
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const WelcomeScreen())); // when Signed Out clicked go back to Sign In Screen
-                      });
-                    },
+                onPressed: () {},
+              ),
+            ),
+            SizedBox(
+              width: 350.0,
+              height: 8.0,
+            ),
+            SizedBox(
+              width: 320,
+              height: 45,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all<Color>(Color(0xFF4d8d6e)),
+                    shape:
+                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40)))),
+                child: Text(
+                  'Reset Password',
+                  style: TextStyle(
+                    fontSize: 14.0,
                   ),
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.help_outline,
-                        size: 30.0,
-                        color: Color(0xFF4d8d6e),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => help()),
-                        );
-                      },
-                    ),
-                  ],
+                onPressed: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    // Firebase sign out function
+                    print("Signed Out"); //print to console
+                    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => const ResetPassword()));
+
+                   // when Signed Out clicked go back to Sign In Screen
+                  });
+                },
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.help_outline,
+                    size: 30.0,
+                    color: Color(0xFF4d8d6e),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => help()),
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.login,
+                    size: 30.0,
+                    color: Color(0xFF4d8d6e),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const WelcomeScreen()));
+                  },
                 ),
               ],
             ),
-          ),
+          ],
         ),
       ),
     );
