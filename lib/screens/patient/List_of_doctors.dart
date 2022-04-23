@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../firebase/chatting.dart';
+import '../../firebase/user.dart';
 import 'main_PagePatient.dart';
 import 'Message.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
@@ -11,8 +13,18 @@ class List_of_doctors extends StatefulWidget {
 
 // ignore: camel_case_types
 class _List_of_doctorsState extends State<List_of_doctors> {
+  final _search = TextEditingController();
+  Future<String?> getName({email,typeUser})async{
+    return await Chatting.getNameEmail(
+        email: email,
+        typeUser: typeUser
+    );
+  }
   @override
   Widget build(BuildContext context) {
+    Chatting.PATIENT_EMAIL=MyUser.EMAIL;
+    Chatting.EMAIL=MyUser.EMAIL;
+    Chatting.PATIENT_NAME=MyUser.FULLNAME;
     return MaterialApp(
       home: SafeArea(
         child: Scaffold(
@@ -41,7 +53,8 @@ class _List_of_doctorsState extends State<List_of_doctors> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const main_PagePatient()),
+
+                              builder: (context) =>  const main_PagePatient()),
                         );
                       },
                     ),
@@ -82,7 +95,7 @@ class _List_of_doctorsState extends State<List_of_doctors> {
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black)),
                       child: TextField(
-                        //controller: _search,
+                        controller: _search,
                         decoration: InputDecoration(
                           hintText: "  Doctor name/username",
                           hintStyle:
@@ -94,7 +107,12 @@ class _List_of_doctorsState extends State<List_of_doctors> {
                       width: 6,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Chatting.name=_search.text.toLowerCase();
+                        Chatting.getAdditives();
+                        // print("length : "+"${Chatting.listHellper.length}");
+                        setState(() {});
+                      },
                       child: Text("Search",
                           style: TextStyle(
                             fontSize: 16.0,
@@ -125,13 +143,55 @@ class _List_of_doctorsState extends State<List_of_doctors> {
               ),
               Container(
                 height: 500,
-                child: ListView(scrollDirection: Axis.vertical, children: [
-                  doctor('Dr. Ali Khaled'),
-                  doctor('Dr. Omar Abdulrhman'),
-                  doctor('Dr. Lama Khaled'),
-                  doctor('Dr. Joud Abdulrhman'),
-                ]),
+              child: FutureBuilder(
+                future: Chatting.getAdditives(),
+                builder: (context,snapshot){
+
+                if(!snapshot.hasData){
+                return Center(
+                child: CircularProgressIndicator(),
+                );
+                }else{
+                  return ListView.builder(
+                    itemCount: Chatting.listHellper.length,
+                    itemBuilder: (_,index){
+                      return FutureBuilder(
+                          future: getName(
+                              email: Chatting.listHellper[index]['doctor_email'],
+                              typeUser:"doctor"
+                          ),
+                          builder: (context,snapshot){
+                            if(!snapshot.hasData){
+                              return SizedBox();
+                            }else{
+                              return snapshot.data.toString().contains(Chatting.name)?
+                              doctor('${snapshot.data}',Chatting.listHellper[index]['doctor_email']):
+                              SizedBox.fromSize();
+                              // return doctor(Chatting.listHellper[index]['patient_email']);
+                            }
+                          });
+                      //  print(
+                      //      "NAMMMMMMMEEEE"
+                      //          "${  getsss(
+                      //          email: Chatting.listHellper[index]['patient_email'],
+                      //          typeUser:"patient"
+                      //      )}");
+                      //  Chatting.PATIENT_EMAIL=Chatting.listHellper[index]['patient_email'];
+                      // // print("hhhh"+Chatting.PATIENT_EMAIL!);patient_email
+                      //  return doctor("${
+                      //      getsss(
+                      //          email: Chatting.listHellper[index]['patient_email'],
+                      //          typeUser:"patient"
+                      //      )
+                      //  }");
+                    },
+                  );
+
+                }
+                }
               ),
+              )
+
             ]),
           ),
         ),
@@ -139,7 +199,7 @@ class _List_of_doctorsState extends State<List_of_doctors> {
     );
   }
 
-  Widget doctor(String name) {
+  Widget doctor(String name,String email) {
     return Card(
       margin: const EdgeInsets.fromLTRB(10, 0, 8, 8),
       shadowColor: Colors.grey,
@@ -156,7 +216,7 @@ class _List_of_doctorsState extends State<List_of_doctors> {
               width: 10,
             ),
             Container(
-              width: 230,
+              width: 200,
               child: Text(
                 name,
                 style: const TextStyle(
@@ -174,6 +234,10 @@ class _List_of_doctorsState extends State<List_of_doctors> {
                 color: Color(0xFF4d8d6e),
               ),
               onPressed: () {
+                Chatting.DOCTOR_EMAIL=email;
+                //print(Chatting.PATIENT_EMAIL);
+                Chatting.DOCTOR_NAME="${name}";
+                Chatting.NAME="${name}";
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Message()),
