@@ -2,6 +2,7 @@
 //import 'dart:ui';
 
 import 'package:_finalproject/firebase/chatting.dart';
+import 'package:_finalproject/firebase/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,8 @@ class _AddPatientState extends State<AddPatient> {
   final _search = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Chatting.DOCTOR_EMAIL="doctor@gmail.com";
+    //Chatting.DOCTOR_EMAIL="doctor@gmail.com";
+    Chatting.DOCTOR_EMAIL=MyUser.EMAIL;
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Patient',style: TextStyle(

@@ -20,7 +20,7 @@ class _MessageState extends State<Message> {
   final _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    Chatting.EMAIL = "sender@gmail.com";
+    //Chatting.EMAIL = "sender@gmail.com";
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xFF4d8d6e),
@@ -33,7 +33,8 @@ class _MessageState extends State<Message> {
                 height: 50,
               ),
               const SizedBox(width: 10),
-              const Text('Ali Khaled')
+             // const Text('Ali Khaled')
+              Text('${Chatting.NAME}')
             ],
           ),
           leading: IconButton(
