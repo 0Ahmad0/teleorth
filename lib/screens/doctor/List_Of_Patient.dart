@@ -186,7 +186,7 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
               image: AssetImage('assets/images/patient.png'),
             ),
             const SizedBox(
-         width: 10,
+     r         width: 10,
             ),
             Container(
               width: 230,

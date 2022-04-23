@@ -1,3 +1,4 @@
+import 'package:_finalproject/firebase/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
@@ -5,6 +6,7 @@ class Chatting {
   static String name="";
   static String userName="";
   static String? EMAIL;
+  static String? NAME;
   static String? ID_CHAT;
   static String? ID_MESSAGE;
   static String? DOCTOR_EMAIL;
@@ -21,10 +23,10 @@ class Chatting {
     try {
       await FirebaseFirestore.instance
           .collection('messages')
-          .where("doctor_email", isEqualTo: "doctor@gmail.com")
-          //.where("doctor_email", isEqualTo: "${DOCTOR_EMAIL}")
-          .where("patient_email", isEqualTo: "patient@gmail.com")
-          // .where("patient_email", isEqualTo: "${PATIENT_EMAIL}")
+          //.where("doctor_email", isEqualTo: "doctor@gmail.com")
+          .where("doctor_email", isEqualTo: "${DOCTOR_EMAIL}")
+          //.where("patient_email", isEqualTo: "patient@gmail.com")
+           .where("patient_email", isEqualTo: "${PATIENT_EMAIL}")
           .get()
           .then((value) {
         if (value.docs.isNotEmpty) {
@@ -32,7 +34,8 @@ class Chatting {
           ID_CHAT = value.docs[0].id;
           return true;
         } else {
-          //addChat();
+          ID_CHAT ="null";
+         addChat();
           return false;
         }
      // print('Heelllo');
@@ -45,18 +48,23 @@ class Chatting {
 
   static Future<void> sendMessage() async {
     try {
-      await FirebaseFirestore.instance
-          .collection('messages')
-           .doc("2Ph0SdvtmQzhQ5SA8kGs")
-         // .doc("${ID_CHAT}")
-          .collection('chat',)
-          .add({
-        "date_message": DateTime.now(),
-         "sender_email": "sender@gmail.com",
-        //"sender_email": "${EMAIL}",
-        // "text": "text_message",
-        "text": "${TEXT_MESSAGE}",
-      }).then((value) => {print("done send message")});
+      if(ID_CHAT=="null") {
+        await addChat();
+      }else{
+
+        await FirebaseFirestore.instance
+            .collection('messages')
+        //  .doc("2Ph0SdvtmQzhQ5SA8kGs")
+            .doc("${ID_CHAT}")
+            .collection('chat',)
+            .add({
+          "date_message": DateTime.now(),
+          // "sender_email": "sender@gmail.com",
+          "sender_email": "${EMAIL}",
+          // "text": "text_message",
+          "text": "${TEXT_MESSAGE}",
+        }).then((value) => {print("done send message")});
+      }
     } catch (e) {
       print(e);
     }
@@ -76,6 +84,7 @@ class Chatting {
             "text": "create",
           }).then((value) => {
                 print("Done Add Chat!"),
+                getIdMessages(),
               }));
     } on FirebaseException catch (e) {
       print(e.message);
@@ -182,7 +191,7 @@ class Chatting {
             if(snapshot.docs.isNotEmpty)
               print("done fetch pateints ");
             snapshot.docs.forEach((element) {
-              print(element['displayName']);
+             //* print(element['displayName']);
             });
           }else{
             print("NOT FOUND PATIENS");
@@ -198,18 +207,21 @@ class Chatting {
             if(snapshot.docs.isNotEmpty)
               print("done fetch pateints ");
             snapshot.docs.forEach((element) {
-              print(element['displayName']);
+           //*   print(element['displayName']);
             });
           }else{
             print("NOT FOUND PATIENS");
           }
-          var list=snapshot.docs;
+          var list=[];
           list.clear();
           snapshot.docs.forEach((element) {
+            //print("name : "+element['displayName'].toLowerCase());
+            //print("ok : "+"${ element['displayName'].toLowerCase().contains(name)}");
             element['displayName'].toLowerCase().contains(name)?list.add(element):"";
           });
+          //print("length : "+"${list.length}");
           listHellper=list;
-          //print(listHellper.length);
+          //print("length : "+"${listHellper.length}");
           return true;
         });
       }
@@ -232,7 +244,7 @@ class Chatting {
             if(snapshot.docs.isNotEmpty)
               print("done fetch pateints i");
             snapshot.docs.forEach((element) {
-              print(element['userName']);
+          //*    print(element['userName']);
             });
           }else{
             print("NOT FOUND PATIENS");
@@ -251,17 +263,18 @@ class Chatting {
     return false;
   }
   static Future<bool> getAdditives() async{
+  //  name="";
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection('additives')
-          .where('doctor_email',isEqualTo: "doctor@gmail.com")
-         // .where('TYPE_USER',isEqualTO:"EAMIL");
+          //.where('doctor_email',isEqualTo: "doctor@gmail.com")
+         .where('${MyUser.TYPEUSER}_email',isEqualTo:"${EMAIL}")
           .get();
             if(snapshot.docs.isNotEmpty){
               print("done emails additives :" );
               for(int i=0;i<snapshot.docs.length;i++){
                 //print(snapshot.docs[i]["${TYPE_USER2}"]);
-                print(snapshot.docs[i]["patient_email"]);
+                //*print(snapshot.docs[i]["patient_email"]);
               }
               listHellper=snapshot.docs;
               /*for(int i=0;i<snapshot.docs.length;i++){
@@ -284,6 +297,95 @@ class Chatting {
     }
     return false;
   }
+  static Future<bool> getAdditives1() async{
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('additives')
+      //.where('doctor_email',isEqualTo: "doctor@gmail.com")
+          .where('${MyUser.TYPEUSER}_email',isEqualTo:"${EMAIL}")
+          .get();
+      if(snapshot.docs.isNotEmpty){
+        print("done emails additives :" );
+        for(int i=0;i<snapshot.docs.length;i++){
+          //print(snapshot.docs[i]["${TYPE_USER2}"]);
+          print(snapshot.docs[i]["patient_email"]);
+        }
+        listHellper=snapshot.docs;
+        /*for(int i=0;i<snapshot.docs.length;i++){
+                print(i);
+                String? name=await getNameEmail(
+                  //email: listHellper[i]["${TYPE_USER2}"],
+                  email: listHellper[i]["patient_email"],
+                  typeUser: "patient",
+                );
+                listHellper[i]["name"]=name;
+                print("name : "+ listHellper[i]["name"]);
+                //print("name"+listHellper[i]['doctor_email']);
+              }*/
+        return true;
+      }else{
+        print("NOT FOUND Eamil");
+      }
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
+    return false;
+  }
+  /*static Future<bool> getAdditives1()async{
+    try{
+      if(name==""){
+        await FirebaseFirestore.instance
+            .collection("additives")
+           //.where('doctor_email',isEqualTo: "doctor@gmail.com")
+            .where('${MyUser.TYPEUSER}_email',isEqualTo:"${EMAIL}")
+            .get().then((snapshot) {
+          if(snapshot.docs.isNotEmpty){
+            print("done emails additives :" );
+            for(int i=0;i<snapshot.docs.length;i++){
+              //print(snapshot.docs[i]["${TYPE_USER2}"]);
+              print(snapshot.docs[i]["patient_email"]);
+            }
+            listHellper=snapshot.docs;
+          }else{
+            print("NOT FOUND PATIENS");
+          }
+          return true;
+        });
+      }
+      else{
+        await FirebaseFirestore.instance
+            .collection("additives")
+        //.where('doctor_email',isEqualTo: "doctor@gmail.com")
+            .where('${MyUser.TYPEUSER}_email',isEqualTo:"${EMAIL}")
+            .get().then((snapshot) {
+          if(snapshot.docs.isNotEmpty){
+            print("done emails additives :" );
+          }else{
+            print("NOT FOUND PATIENS");
+          }
+          var list=[];
+          //list.clear();
+          snapshot.docs.forEach((element) {
+            element['patient_email'].toLowerCase().contains(name)?list.add(element):"";
+          });
+          //print("length : "+"${list.length}");
+          listHellper=list;
+          for(int i=0;i<list.length;i++){
+            //print(snapshot.docs[i]["${TYPE_USER2}"]);
+            print(list[i]["patient_email"]);
+          }
+          //print("length : "+"${listHellper.length}");
+          return true;
+        });
+      }
+
+
+
+    }on FirebaseException catch(e){
+      print(e.message);
+    }
+    return false;
+  }*/
   static Future<String?> getNameEmail({email,typeUser}) async {
     try{
       final snapshot =  await FirebaseFirestore.instance
@@ -292,7 +394,7 @@ class Chatting {
           .get();
       if(snapshot.docs.isNotEmpty){
         // print("length addvities : ${snapshot}");
-        print("done fetch name : "+snapshot.docs[0]['displayName']);
+      //*  print("done fetch name : "+snapshot.docs[0]['displayName']);
         return snapshot.docs[0]['displayName'];
       }else{
         print("failed fetch name");

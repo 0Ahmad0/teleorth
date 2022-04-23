@@ -31,7 +31,8 @@ class _main_PagePatientState extends State<main_PagePatient> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
           //     verticalDirection: VerticalDirection.down,
           mainAxisAlignment: MainAxisAlignment.start,
           //      crossAxisAlignment: CrossAxisAlignment.center,
@@ -488,7 +489,7 @@ class _main_PagePatientState extends State<main_PagePatient> {
               ),
             ),
           ],
-        ),
+        ),),
       ),
     );
   }
