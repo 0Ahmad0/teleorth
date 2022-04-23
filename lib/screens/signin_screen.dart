@@ -1,3 +1,4 @@
+import 'package:_finalproject/firebase/user.dart';
 import 'package:_finalproject/screens/doctor/homePageDoctor.dart';
 import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -100,8 +101,13 @@ class _SignInScreenState extends State<SignInScreen> {
                 });
 
                 User user = FirebaseAuth.instance.currentUser!;
-                _fetch();
+                await _fetch();
+                MyUser.EMAIL=_emailTextController.text;
+               /* MyUser.FULLNAME = "$myName";
+                MyUser.USERNAME = "$myuserName";
+               MyUser.GENDER ="$myGender";*/
                 if (WelcomeScreen.isDoctor) {
+                  MyUser.TYPEUSER="doctor";
                   Future.delayed(const Duration(milliseconds: 2000), () {
                     setState(() {
                       Navigator.push(
@@ -115,6 +121,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     });
                   });
                 } else {
+                  MyUser.TYPEUSER="patient";
                   Future.delayed(const Duration(milliseconds: 2000), () {
                     setState(() {
                       Navigator.push(

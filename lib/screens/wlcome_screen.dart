@@ -44,9 +44,9 @@ class WelcomeScreen extends StatelessWidget {
                       Expanded(
                         child: TextButton(
                           onPressed: () {
-                            Chatting.getPatients();
-                          /*  Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const Login_Register()));*/
+                           // Chatting.getPatients();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const Login_Register()));
                             isDoctor = true;
                             print(isDoctor);
                           }, // if pressed open Reset password screen
