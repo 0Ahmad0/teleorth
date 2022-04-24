@@ -1,3 +1,4 @@
+import 'package:_finalproject/firebase/user.dart';
 import 'package:flutter/material.dart';
 import '../../firebase/chatting.dart';
 import 'Message.dart';
@@ -12,7 +13,8 @@ class List_Of_Patient extends StatefulWidget {
 
 // ignore: camel_case_types
 class _List_of_dotorsState extends State<List_Of_Patient> {
-  Future<String?> getsss({email,typeUser})async{
+  final _search = TextEditingController();
+  Future<String?> getName({email,typeUser})async{
     return await Chatting.getNameEmail(
       email: email,
       typeUser: typeUser
@@ -20,9 +22,13 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
-    Chatting.DOCTOR_EMAIL="doctor@gmail.com";
+    // Chatting.DOCTOR_EMAIL="doctor@gmail.com";
+    Chatting.DOCTOR_EMAIL=MyUser.EMAIL;
+    Chatting.EMAIL=MyUser.EMAIL;
+    Chatting.DOCTOR_NAME=MyUser.FULLNAME;
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: Column(children: [
@@ -85,11 +91,16 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                 //  controller: _search,
+                  controller: _search,
                   decoration: InputDecoration(
                     hintText: "  Patient name/username",
                     border: OutlineInputBorder(),
                     suffixIcon: IconButton(
                       onPressed: (){
+                        Chatting.name=_search.text.toLowerCase();
+                        Chatting.getAdditives();
+                       // print("length : "+"${Chatting.listHellper.length}");
+                        setState(() {});
                       },
                       icon: Icon(Icons.search),
                     ),
@@ -133,11 +144,12 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
             child: CircularProgressIndicator(),
           );
         }else{
+          //print(Chatting.listHellper.length);
           return ListView.builder(
             itemCount: Chatting.listHellper.length,
             itemBuilder: (_,index){
               return FutureBuilder(
-                future: getsss(
+                future: getName(
                             email: Chatting.listHellper[index]['patient_email'],
                             typeUser:"patient"
                   ),
@@ -145,7 +157,10 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
                   if(!snapshot.hasData){
                     return SizedBox();
                   }else{
-                    return doctor('${snapshot.data}');
+                    return snapshot.data.toString().contains(Chatting.name)?
+                        doctor('${snapshot.data}',Chatting.listHellper[index]['patient_email']):
+                        SizedBox.fromSize();
+                   // return doctor(Chatting.listHellper[index]['patient_email']);
                   }
                   });
              //  print(
@@ -172,7 +187,7 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
     );
   }
 
-  Widget doctor(String name) {
+  Widget doctor(String name,String email) {
     return Card(
       margin: const EdgeInsets.fromLTRB(10, 0, 8, 8),
       shadowColor: Colors.grey,
@@ -186,10 +201,10 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
               image: AssetImage('assets/images/patient.png'),
             ),
             const SizedBox(
-     r         width: 10,
+              width: 10,
             ),
             Container(
-              width: 230,
+              width: 200,
               child: Text(
                 name,
                 style: const TextStyle(
@@ -207,6 +222,10 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
                 color: Color(0xFF4d8d6e),
               ),
               onPressed: () {
+                Chatting.PATIENT_EMAIL=email;
+                //print(Chatting.PATIENT_EMAIL);
+                Chatting.PATIENT_NAME="${name}";
+                Chatting.NAME="${name}";
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Message()),

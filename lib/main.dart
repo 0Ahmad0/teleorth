@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: Message(),//const Message(), // when the app run , welcomeScreen is the home page
+      home: WelcomeScreen(),//const Message(), // when the app run , welcomeScreen is the home page
     );
   }
 }

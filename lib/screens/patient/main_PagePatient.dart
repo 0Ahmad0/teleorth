@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors, camel_case_types, avoid_print, deprecated_member_use, unused_element
 
+import 'package:_finalproject/firebase/user.dart';
 import 'package:_finalproject/screens/patient/List_of_doctors.dart';
 import 'package:_finalproject/screens/patient/recovery_Plan_Summary.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
@@ -50,14 +51,16 @@ class _main_PagePatientState extends State<main_PagePatient> {
                   size: 55.0,
                 ),
                 title: Text(
-                  SignInScreen.fullName,
+                  MyUser.FULLNAME,
+                  //SignInScreen.fullName,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
                   ),
                 ),
                 subtitle: Text(
-                  SignInScreen.userName,
+                  MyUser.USERNAME,
+                  //SignInScreen.userName,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15.0,

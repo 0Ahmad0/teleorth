@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, avoid_print, avoid_unnecessary_containers, camel_case_types
 
+import 'package:_finalproject/firebase/user.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -38,14 +39,16 @@ class homePageDoctor extends StatelessWidget {
                   size: 60.0,
                 ),
                 title: Text(
-                  SignInScreen.fullName,
+                  MyUser.FULLNAME,
+                  //SignInScreen.fullName,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
                   ),
                 ),
                 subtitle: Text(
-                  SignInScreen.userName,
+                  MyUser.USERNAME,
+                  //SignInScreen.userName,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15.0,

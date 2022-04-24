@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 
 import '../../firebase/chatting.dart';
+import '../../firebase/user.dart';
 import 'AllReportOfPatient.dart';
 import 'homePageDoctor.dart';
 import 'myPatient.dart';
@@ -17,7 +18,10 @@ class _MypatientsState extends State<Mypatients> {
   final _search=TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Chatting.DOCTOR_EMAIL="doctor@gmail.com";
+   // Chatting.DOCTOR_EMAIL="doctor@gmail.com";
+    Chatting.DOCTOR_EMAIL=MyUser.EMAIL;
+    Chatting.EMAIL=MyUser.EMAIL;
+    Chatting.DOCTOR_NAME=MyUser.FULLNAME;
     return Scaffold(
       appBar: AppBar(
         title: Text('My Patient',style: TextStyle(
@@ -27,7 +31,8 @@ class _MypatientsState extends State<Mypatients> {
       ),
       backgroundColor: Colors.grey[50],
       body:   FutureBuilder(
-        future: Chatting.getPatients1(),
+       // future: Chatting.getPatients1(),
+        future: Chatting.getAdditives(),
         builder: (context,snapShot){
           if(!snapShot.hasData){
             return Center(
@@ -49,7 +54,8 @@ class _MypatientsState extends State<Mypatients> {
                           suffixIcon: IconButton(
                             onPressed: (){
                               Chatting.name=_search.text.toLowerCase();
-                              Chatting.getPatients();
+                              future: Chatting.getAdditives();
+                              //Chatting.getPatients();
                               setState(() {
                               });
                             },
@@ -90,10 +96,21 @@ class _MypatientsState extends State<Mypatients> {
                   ListView.builder(
                     itemCount: Chatting.listHellper.length,
                     itemBuilder: (_,index){
-                      Chatting.PATIENT_EMAIL=Chatting.listHellper[index]['email'];
-                      return patient("${
-                          Chatting.listHellper[index]['displayName']
-                      }", context);
+                      return FutureBuilder(
+                          future: Chatting.getNameEmail(
+                              email: Chatting.listHellper[index]['patient_email'],
+                              typeUser:"patient"
+                          ),
+                          builder: (context,snapshot){
+                            if(!snapshot.hasData){
+                              return SizedBox();
+                            }else{
+                              return snapshot.data.toString().toLowerCase().contains(Chatting.name)?
+                              patient('${snapshot.data}',snapshot.data.toString())://Chatting.listHellper[index]['patient_email']):
+                              SizedBox.fromSize();
+                              // return doctor(Chatting.listHellper[index]['patient_email']);
+                            }
+                          });
 
                     },
 
@@ -109,7 +126,7 @@ class _MypatientsState extends State<Mypatients> {
     );
   }
 
-  Widget patient(String name, BuildContext context) {
+  Widget patient(String name, String email) {
     return Card(
       elevation: 4,
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
@@ -127,7 +144,7 @@ class _MypatientsState extends State<Mypatients> {
               width: 30,
             ),
             Container(
-              width: 150,
+              width: 110,
               child: Text(
                 name,
                 style: TextStyle(
@@ -145,6 +162,10 @@ class _MypatientsState extends State<Mypatients> {
                 color: Color(0xFF2d5240),
                 iconSize: 35,
                 onPressed: () {
+                  Chatting.PATIENT_EMAIL=email;
+                  //print(Chatting.PATIENT_EMAIL);
+                  Chatting.PATIENT_NAME="${name}";
+                  Chatting.NAME="${name}";
                   Navigator.push(
                     context,
                     MaterialPageRoute(

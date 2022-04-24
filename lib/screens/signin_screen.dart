@@ -36,6 +36,7 @@ class _SignInScreenState extends State<SignInScreen> {
   String myName = "";
     String myuserName = "";
     String myGender="";
+    String typeUser="";
   bool showSpinner = false;
 
   @override
@@ -101,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 });
 
                 User user = FirebaseAuth.instance.currentUser!;
-                await _fetch();
+                await _fetchUser();
                 MyUser.EMAIL=_emailTextController.text;
                /* MyUser.FULLNAME = "$myName";
                 MyUser.USERNAME = "$myuserName";
@@ -287,5 +288,20 @@ class _SignInScreenState extends State<SignInScreen> {
     }).catchError((e) {
       print(e);
     });}
+  }
+  _fetchUser() async{
+    WelcomeScreen.isDoctor? typeUser="doctor":typeUser="patient";
+    final firebaseUser = FirebaseAuth.instance.currentUser!;
+    await FirebaseFirestore.instance.collection("${typeUser}").
+    where("email",isEqualTo: firebaseUser.email).get().then((value){
+       if(value.docs.isNotEmpty){
+         MyUser.USERNAME=value.docs[0]["userName"];
+         MyUser.GENDER=value.docs[0]["gender"];
+         MyUser.FULLNAME=value.docs[0]["displayName"];
+         MyUser.ID=value.docs[0]["uid"];
+         return true;
+       }
+    });
+    return false;
   }
 }
