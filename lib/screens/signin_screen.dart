@@ -28,6 +28,8 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   late String errorMessage;
   final TextEditingController _passwordTextController =
+      TextEditingController();
+  final TextEditingController _confirmPasswordTextController =
       TextEditingController(); // password Text Controller
   final TextEditingController _emailTextController =
       TextEditingController(); // Email Text Controller
@@ -83,7 +85,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 "Enter Your Password",
                 Icons.lock_outline,
                 true, // call reusableTextField from the reusable widget
-                _passwordTextController),
+                _passwordTextController
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            reusableTextField(
+                "Confirm Password",
+                Icons.lock,
+                true, // call reusableTextField from the reusable widget
+                _confirmPasswordTextController
+            ),
             const SizedBox(
               height: 21,
             ),
@@ -95,7 +107,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   .signInWithEmailAndPassword(
                       // sign in function
                       email: _emailTextController.text,
-                      password: _passwordTextController.text)
+                      password: _passwordTextController.text,
+              )
                   .then((value) async {
                 setState(() {
                   showSpinner = true;

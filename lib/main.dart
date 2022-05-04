@@ -3,6 +3,7 @@ import 'package:_finalproject/screens/doctor/Message.dart';
 import 'package:_finalproject/screens/doctor/Mypatients.dart';
 import 'package:_finalproject/screens/doctor/myPatient.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
+import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: Message(),//const Message(), // when the app run , welcomeScreen is the home page
+      home: SignInScreen(),//const Message(), // when the app run , welcomeScreen is the home page
     );
   }
 }
