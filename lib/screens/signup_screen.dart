@@ -260,8 +260,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   }
                 }),
                   }else{
-                    print("user name already found!!"),
-                    Dialog(child: SizedBox(width: 10,height: 10,),  ),
+                    showDialog(context: context, builder: (_){
+                      return Material(
+                        color: Colors.transparent,
+                        child: Center(
+                          child: Container(
+                            padding: EdgeInsets.all(15.0),
+                            margin: EdgeInsets.all(20.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Text('user name already found!!',style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                  ),),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    TextButton(onPressed: (){
+                                      Navigator.pop(context);
+                                    }, child: Text('ok'))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                    print("user name already found!!")
                   }
                 });
 
