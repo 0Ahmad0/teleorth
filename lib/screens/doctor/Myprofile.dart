@@ -398,11 +398,7 @@ class _MyprofileState extends State<Myprofile> {
                         FirebaseAuth.instance.signOut().then((value) {
                           // Firebase sign out function
                           print("Signed Out"); //print to console
-                          Navigator.pop(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                  const WelcomeScreen())); // when Signed Out clicked go back to Sign In Screen
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>WelcomeScreen()),); // when Signed Out clicked go back to Sign In Screen
                         });
                       },
                     ),
