@@ -151,14 +151,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(
                 height: 10,
               ),
+
               firebaseUIButton(context, "Sign Up", () {
-                //call firebaseUIButton from the reusable widget, Sign up button
-                FirebaseAuth
-                    .instance // create Firebase authentication function for email and password
-                    .createUserWithEmailAndPassword(
-                        email: _emailTextController.text, //email controller
-                        password: _passwordTextController
-                            .text) // showSpinner is waiting sign until the sign up
+
+                FirebaseFirestore.instance.collection(WelcomeScreen.isDoctor?"doctor":"patient").
+                  where("userName",isEqualTo: "${_userNameTextController.text}").get().
+                then((value) => {
+                  if(value.docs.length==0){
+                    //call firebaseUIButton from the reusable widget, Sign up button
+                    FirebaseAuth
+                        .instance // create Firebase authentication function for email and password
+                        .createUserWithEmailAndPassword(
+                    email: _emailTextController.text, //email controller
+                    password: _passwordTextController
+                        .text) // showSpinner is waiting sign until the sign up
                     .then((value) async {
                   setState(() {
                     showSpinner = true;
@@ -185,8 +191,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       setState(() {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => homePageDoctor()),
-                            (Route<dynamic> route) => true);
+                                builder: (context) => const SignInScreen()/*homePageDoctor()*/),
+                                (Route<dynamic> route) => true);
                         /*  Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -197,7 +203,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                       });
                     }); // take me to home screen after sign up
-                  } else {
+                  }
+                  else {
                     await FirebaseFirestore.instance
                         .collection("patient")
                         .doc(user.uid)
@@ -215,7 +222,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                                 builder: (context) => main_PagePatient()),
-                            (Route<dynamic> route) => true);
+                                (Route<dynamic> route) => true);
                         /*  Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -251,7 +258,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                     print("${error.toString()}"); // print the error in console
                   }
+                }),
+                  }else{
+                    print("user name already found!!"),
+                    Dialog(child: SizedBox(width: 10,height: 10,),  ),
+                  }
                 });
+
               })
             ],
           ),

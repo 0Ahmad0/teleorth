@@ -3,6 +3,8 @@ import 'package:_finalproject/screens/doctor/Message.dart';
 import 'package:_finalproject/screens/doctor/Mypatients.dart';
 import 'package:_finalproject/screens/doctor/myPatient.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
+import 'package:_finalproject/temp/temp.dart';
+import 'package:_finalproject/temp/temp2.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ import 'const/pattel.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // initialize firebase
   await Firebase.initializeApp(); 
-  runApp(const MyApp());
+  runApp(MyApp());
 }                                       
 
 class MyApp extends StatelessWidget {
