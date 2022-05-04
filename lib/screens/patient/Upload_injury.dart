@@ -111,8 +111,8 @@ class UploadPic extends State<Upload_injury> {
                         ? null
                         : Image.file(
                             _image!,
-                            width: 420,
-                            height: 300,
+                            width: MediaQuery.of(context).size.width  - 20.0,
+                            height: MediaQuery.of(context).size.width  ,
                           ),
                   ),
                 ],
@@ -130,7 +130,7 @@ class UploadPic extends State<Upload_injury> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const quetions()),
+                              builder: (context) =>  QuestionPage()),
                         );
                       },
                       color: Color(0xFF4d8d6e),

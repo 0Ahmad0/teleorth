@@ -2,6 +2,7 @@ import 'package:_finalproject/screens/doctor/AddPatient.dart';
 import 'package:_finalproject/screens/doctor/Message.dart';
 import 'package:_finalproject/screens/doctor/Mypatients.dart';
 import 'package:_finalproject/screens/doctor/myPatient.dart';
+import 'package:_finalproject/screens/login_register_screen.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:_finalproject/screens/wlcome_screen.dart';
@@ -11,6 +12,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'Screens/doctor/Myprofile.dart';
 import 'Screens/doctor/homePageDoctor.dart';
 import 'const/pattel.dart';
+import 'screens/patient/Upload_injury.dart';
 
 
 void main() async {
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: Message(),//const Message(), // when the app run , welcomeScreen is the home page
+      home: Upload_injury(),//const Message(), // when the app run , welcomeScreen is the home page
     );
   }
 }
