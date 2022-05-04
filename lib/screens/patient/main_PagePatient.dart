@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors, camel_case_types, avoid_print, deprecated_member_use, unused_element
 
 import 'package:_finalproject/firebase/user.dart';
+import 'package:_finalproject/report/Report.dart';
 import 'package:_finalproject/screens/patient/List_of_doctors.dart';
 import 'package:_finalproject/screens/patient/recovery_Plan_Summary.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
@@ -507,6 +508,9 @@ class _main_PagePatientState extends State<main_PagePatient> {
 
     Widget ok = FlatButton(
       onPressed: () {
+        //===============================================//
+        SReport.report=Report();
+        //===============================================//
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Upload_injury()),

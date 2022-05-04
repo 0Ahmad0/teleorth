@@ -191,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       setState(() {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => const SignInScreen()/*homePageDoctor()*/),
+                                builder: (context) => const WelcomeScreen()/*homePageDoctor()*/),
                                 (Route<dynamic> route) => true);
                         /*  Navigator.push(
                           context,
@@ -221,7 +221,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       setState(() {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                                builder: (context) => main_PagePatient()),
+                                builder: (context) => const WelcomeScreen()/*main_PagePatient()*/),
                                 (Route<dynamic> route) => true);
                         /*  Navigator.push(
                             context,
