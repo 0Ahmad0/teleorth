@@ -66,7 +66,7 @@ class _AddPatientState extends State<AddPatient> {
                     TextButton(
                       onPressed: () {
                         //Chatting.listHellper.clear();
-                        Chatting.userName=_search.text.toLowerCase();
+                        Chatting.userName=_search.text;//.toLowerCase();
                         Chatting.getPatients();
                         setState(() {
                         });

@@ -164,7 +164,7 @@ class _List_of_doctorsState extends State<List_of_doctors> {
                             if(!snapshot.hasData){
                               return SizedBox();
                             }else{
-                              return snapshot.data.toString().contains(Chatting.name)?
+                              return snapshot.data.toString().toLowerCase().contains(Chatting.name)?
                               doctor('${snapshot.data}',Chatting.listHellper[index]['doctor_email']):
                               SizedBox.fromSize();
                               // return doctor(Chatting.listHellper[index]['patient_email']);

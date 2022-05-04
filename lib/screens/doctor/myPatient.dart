@@ -16,6 +16,7 @@ class myPatient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: const Color(0xFFf5f5f5),
       body: Column(
@@ -39,7 +40,7 @@ class myPatient extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pop(
                         context,
                         MaterialPageRoute(
                             builder: (context) => homePageDoctor()),

@@ -274,7 +274,7 @@ class Chatting {
               print("done emails additives :" );
               for(int i=0;i<snapshot.docs.length;i++){
                 //print(snapshot.docs[i]["${TYPE_USER2}"]);
-                //*print(snapshot.docs[i]["patient_email"]);
+                print(snapshot.docs[i]["patient_email"]);
               }
               listHellper=snapshot.docs;
               /*for(int i=0;i<snapshot.docs.length;i++){

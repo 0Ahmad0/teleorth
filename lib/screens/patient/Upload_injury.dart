@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, import_of_legacy_library_into_null_safe, camel_case_types, prefer_const_literals_to_create_immutables, prefer_const_constructors, deprecated_member_use, avoid_unnecessary_containers, unnecessary_null_comparison, unused_field, unused_local_variable
 
 import 'dart:io';
+import 'package:_finalproject/report/Report.dart';
 import 'package:path/path.dart' as p;
 //import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -157,7 +158,7 @@ class UploadPic extends State<Upload_injury> {
   void pickImage() async {
     // ImagePicker _picker = ImagePicker();
     ImagePicker _picker = ImagePicker();
-    var image = await _picker.pickImage(source: ImageSource.camera);
+    var image = await _picker.pickImage(source: ImageSource.gallery/*ImageSource.camera*/);
 
     //var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
@@ -166,7 +167,10 @@ class UploadPic extends State<Upload_injury> {
     }
     setState(() {
       _image = File(image.path);
-
+      //===============================================//
+      SReport.report.InjuryImages.add(Imager(_image!,DateTime.now()));
+      print(SReport.report.InjuryImages[0].file);
+      //===============================================//
       /*setState(() {
       _image = image;*/
     });

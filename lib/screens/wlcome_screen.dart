@@ -45,7 +45,8 @@ class WelcomeScreen extends StatelessWidget {
                         child: TextButton(
                           onPressed: () {
                            // Chatting.getPatients();
-                            Navigator.of(context).push(MaterialPageRoute(
+
+                           Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const Login_Register()));
                             isDoctor = true;
                             print(isDoctor);
