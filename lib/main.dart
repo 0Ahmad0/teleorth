@@ -11,6 +11,8 @@ import 'package:overlay_support/overlay_support.dart';
 
 import 'Screens/doctor/Myprofile.dart';
 import 'Screens/doctor/homePageDoctor.dart';
+import 'Screens/patient/Diagnosis_result.dart';
+import 'Screens/patient/recovery_plan.dart';
 import 'const/pattel.dart';
 
 
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: SignInScreen(),//const Message(), // when the app run , welcomeScreen is the home page
+      home: Diagnosis_result(),//const Message(), // when the app run , welcomeScreen is the home page
     );
   }
 }

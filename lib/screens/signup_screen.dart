@@ -34,6 +34,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
   static final TextEditingController _fullNameTextController =
       TextEditingController();
+  final TextEditingController _confirmPasswordTextController =
+  TextEditingController();
   static String _genderTextController = "";
   RegExp passwordRegex =
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
@@ -98,6 +100,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   true, // call reusableTextField from the reusable widget
                   _passwordTextController),
               const SizedBox(
+                height: 20,
+              ),
+              reusableTextField(
+                  "Confirm Password",
+                  Icons.lock,
+                  true, // call reusableTextField from the reusable widget
+                  _confirmPasswordTextController
+              ),
+              const SizedBox(
                 height: 10,
               ),
               Container(
@@ -154,147 +165,151 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               firebaseUIButton(context, "Sign Up", () {
 
-                FirebaseFirestore.instance.collection(WelcomeScreen.isDoctor?"doctor":"patient").
+                if(_passwordTextController.text==_confirmPasswordTextController.text){
+                  FirebaseFirestore.instance.collection(WelcomeScreen.isDoctor?"doctor":"patient").
                   where("userName",isEqualTo: "${_userNameTextController.text}").get().
-                then((value) => {
-                  if(value.docs.length==0){
-                    //call firebaseUIButton from the reusable widget, Sign up button
-                    FirebaseAuth
-                        .instance // create Firebase authentication function for email and password
-                        .createUserWithEmailAndPassword(
-                    email: _emailTextController.text, //email controller
-                    password: _passwordTextController
-                        .text) // showSpinner is waiting sign until the sign up
-                    .then((value) async {
-                  setState(() {
-                    showSpinner = true;
-                  });
+                  then((value) => {
+                    if(value.docs.length==0){
+                      //call firebaseUIButton from the reusable widget, Sign up button
+                      FirebaseAuth
+                          .instance // create Firebase authentication function for email and password
+                          .createUserWithEmailAndPassword(
+                          email: _emailTextController.text, //email controller
+                          password: _passwordTextController
+                              .text) // showSpinner is waiting sign until the sign up
+                          .then((value) async {
+                        setState(() {
+                          showSpinner = true;
+                        });
 
-                  // once the  account is created then go to home screen
-                  User user = FirebaseAuth.instance.currentUser!;
-                  _fetch();
-                  print(user.displayName);
-                  if (WelcomeScreen.isDoctor) {
-                    await FirebaseFirestore.instance
-                        .collection("doctor")
-                        .doc(user.uid)
-                        .set({
-                      // create collection (table) and add users to it
-                      'uid': user.uid,
-                      'email': _emailTextController.text,
-                      'password': _passwordTextController.text,
-                      'displayName': _fullNameTextController.text,
-                      'userName': _userNameTextController.text,
-                      'gender': _genderTextController
-                    });
-                    Future.delayed(const Duration(milliseconds: 2000), () {
-                      setState(() {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => const WelcomeScreen()/*homePageDoctor()*/),
-                                (Route<dynamic> route) => true);
-                        /*  Navigator.push(
+                        // once the  account is created then go to home screen
+                        User user = FirebaseAuth.instance.currentUser!;
+                        _fetch();
+                        print(user.displayName);
+                        if (WelcomeScreen.isDoctor) {
+                          await FirebaseFirestore.instance
+                              .collection("doctor")
+                              .doc(user.uid)
+                              .set({
+                            // create collection (table) and add users to it
+                            'uid': user.uid,
+                            'email': _emailTextController.text,
+                            'password': _passwordTextController.text,
+                            'displayName': _fullNameTextController.text,
+                            'userName': _userNameTextController.text,
+                            'gender': _genderTextController
+                          });
+                          Future.delayed(const Duration(milliseconds: 2000), () {
+                            setState(() {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => const WelcomeScreen()/*homePageDoctor()*/),
+                                      (Route<dynamic> route) => true);
+                              /*  Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
                                   const homePageDoctor()));*/ // take me to home screen after sign up
-                        setState(() {
-                          showSpinner = false;
-                        });
-                      });
-                    }); // take me to home screen after sign up
-                  }
-                  else {
-                    await FirebaseFirestore.instance
-                        .collection("patient")
-                        .doc(user.uid)
-                        .set({
-                      // create collection (table) and add users to it
-                      'uid': user.uid,
-                      'email': _emailTextController.text,
-                      'password': _passwordTextController.text,
-                      'displayName': _fullNameTextController.text,
-                      'userName': _userNameTextController.text,
-                      'gender': _genderTextController
-                    });
-                    Future.delayed(const Duration(milliseconds: 2000), () {
-                      setState(() {
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => const WelcomeScreen()/*main_PagePatient()*/),
-                                (Route<dynamic> route) => true);
-                        /*  Navigator.push(
+                              setState(() {
+                                showSpinner = false;
+                              });
+                            });
+                          }); // take me to home screen after sign up
+                        }
+                        else {
+                          await FirebaseFirestore.instance
+                              .collection("patient")
+                              .doc(user.uid)
+                              .set({
+                            // create collection (table) and add users to it
+                            'uid': user.uid,
+                            'email': _emailTextController.text,
+                            'password': _passwordTextController.text,
+                            'displayName': _fullNameTextController.text,
+                            'userName': _userNameTextController.text,
+                            'gender': _genderTextController
+                          });
+                          Future.delayed(const Duration(milliseconds: 2000), () {
+                            setState(() {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => const WelcomeScreen()/*main_PagePatient()*/),
+                                      (Route<dynamic> route) => true);
+                              /*  Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
                                     const main_PagePatient()));*/ // take me to home screen after sign up
+                              setState(() {
+                                showSpinner = false;
+                              });
+                            });
+                          }); // take me to home screen after sign up
+                        }
+                        print("Created New Account"); // print to console
+
                         setState(() {
                           showSpinner = false;
                         });
-                      });
-                    }); // take me to home screen after sign up
-                  }
-                  print("Created New Account"); // print to console
-
-                  setState(() {
-                    showSpinner = false;
-                  });
-                }).onError((error, stackTrace) {
-                  // if error
-                  if (error != null) {
-                    switch (error.toString()) {
-                      case "[firebase_auth/email-already-in-use] The email address is already in use by another account.":
-                        onClick("Email already used. Go to login page.");
-                        break;
-                      case "[firebase_auth/weak-password] Password should be at least 6 characters":
-                        onClick("Password should be at least 6 characters");
-                        break;
-                      case "[firebase_auth/invalid-email] The email address is badly formatted.":
-                        onClick("Email address is invalid.");
-                        break;
-                      default:
-                        onClick("signup failed. Please try again.");
-                        break;
-                    }
-                    print("${error.toString()}"); // print the error in console
-                  }
-                }),
-                  }else{
-                    showDialog(context: context, builder: (_){
-                      return Material(
-                        color: Colors.transparent,
-                        child: Center(
-                          child: Container(
-                            padding: EdgeInsets.all(15.0),
-                            margin: EdgeInsets.all(20.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: Text('user name already found!!',style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                  ),),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    TextButton(onPressed: (){
-                                      Navigator.pop(context);
-                                    }, child: Text('ok'))
-                                  ],
-                                )
-                              ],
+                      }).onError((error, stackTrace) {
+                        // if error
+                        if (error != null) {
+                          switch (error.toString()) {
+                            case "[firebase_auth/email-already-in-use] The email address is already in use by another account.":
+                              onClick("Email already used. Go to login page.");
+                              break;
+                            case "[firebase_auth/weak-password] Password should be at least 6 characters":
+                              onClick("Password should be at least 6 characters");
+                              break;
+                            case "[firebase_auth/invalid-email] The email address is badly formatted.":
+                              onClick("Email address is invalid.");
+                              break;
+                            default:
+                              onClick("signup failed. Please try again.");
+                              break;
+                          }
+                          print("${error.toString()}"); // print the error in console
+                        }
+                      }),
+                    }else{
+                      showDialog(context: context, builder: (_){
+                        return Material(
+                          color: Colors.transparent,
+                          child: Center(
+                            child: Container(
+                              padding: EdgeInsets.all(15.0),
+                              margin: EdgeInsets.all(20.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Text('user name already found!!',style: TextStyle(
+                                        fontWeight: FontWeight.bold
+                                    ),),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      TextButton(onPressed: (){
+                                        Navigator.pop(context);
+                                      }, child: Text('ok'))
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
-                    print("user name already found!!")
-                  }
-                });
+                        );
+                      }),
+                      print("user name already found!!")
+                    }
+                  });
+                }else{
+                  print("passwords is not equal!!");
+                }
 
               })
             ],
