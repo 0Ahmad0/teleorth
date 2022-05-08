@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:_finalproject/report/Report.dart';
+import 'package:_finalproject/screens/patient/recovery_Plan_Summary.dart';
 import 'package:path/path.dart' as p;
 //import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +132,7 @@ class UploadPic extends State<Upload_injury> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>  QuestionPage()),
+                              builder: (context) =>  const quetions()),
                         );
                       },
                       color: Color(0xFF4d8d6e),
