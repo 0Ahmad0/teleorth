@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:_finalproject/const/get_size.dart';
 import 'package:_finalproject/recovery_plan_screen2.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-
 import 'report/details_report.dart';
-
-
 
 class RecoveryPlanScreen1 extends StatefulWidget {
   @override
@@ -161,11 +159,26 @@ class _RecoveryPlanScreen1State extends State<RecoveryPlanScreen1> {
               ),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (ctx)=>
-                      RecoveryPlanScreen2(
-                    weberList: c,
-                        weberName: selectWeber,
-                  )));
+                  if(selectWeber.isEmpty){
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.ERROR,
+                      animType: AnimType.BOTTOMSLIDE,
+                      title: 'Warrning!!',
+                      desc: 'Please Select Weber',
+                      btnCancelOnPress: () {
+                      },
+                      btnOkOnPress: () {
+                      },
+                    )..show();
+                  }else{
+                    Navigator.push(context, MaterialPageRoute(builder: (ctx)=>
+                        RecoveryPlanScreen2(
+                          weberList: c,
+                          weberName: selectWeber,
+                          canEdit: true,
+                        )));
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,

@@ -43,7 +43,8 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: RecoveryPlanScreen1(),//const Message(), // when the app run , welcomeScreen is the home page
+      home: RecoveryPlanScreen1(),
+      //const Message(), // when the app run , welcomeScreen is the home page
     );
   }
 }

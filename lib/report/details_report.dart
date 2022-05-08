@@ -118,20 +118,20 @@ class DetailsReport{
     ],
 
     "Heel Raises":"Stand. Hold on to a stable object for support. Push up onto your toes, lifting your heels. Repeat 10 times.",
-  "Advice":[
+  "Advice":
     "Smoking cessation:\n"+
-    "Stopping smoking during the healing phase of your fracture will help ensure optimal recovery from this injury.",
+    "Stopping smoking during the healing phase of your fracture will help ensure optimal recovery from this injury."
 
     "Cold packs:\n"+
-    "A cold pack (ice pack or frozen peas wrapped in a damp towel) can provide short-term pain relief. Apply this to the sore area for up to 15 minutes every few hours, ensuring the ice is never in direct contact with the skin.",
+    "A cold pack (ice pack or frozen peas wrapped in a damp towel) can provide short-term pain relief. Apply this to the sore area for up to 15 minutes every few hours, ensuring the ice is never in direct contact with the skin."
 
     "Rest and elevation:\n"+
-    "Try to rest the foot for the first 24-72 hours after your injury to allow the early stage of healing to begin.",
+    "Try to rest the foot for the first 24-72 hours after your injury to allow the early stage of healing to begin."
 
-    "Raise your ankle above the level of your hips to reduce swelling. You can use pillows or a stool to keep your foot up.",
+    "Raise your ankle above the level of your hips to reduce swelling. You can use pillows or a stool to keep your foot up."
 
     "Early movement and exercise:\n"+
-    "Early movement of the ankle and foot is important to promote circulation and reduce the risk of developing a DVT (blood clot). Early weight bearing (putting weight through your injured foot) helps increase the speed of healing. Try to walk as normally as possible as this will help with your recovery.",
-  ],
+    "Early movement of the ankle and foot is important to promote circulation and reduce the risk of developing a DVT (blood clot). Early weight bearing (putting weight through your injured foot) helps increase the speed of healing. Try to walk as normally as possible as this will help with your recovery."
+  ,
 };
 }
