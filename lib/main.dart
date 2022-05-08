@@ -14,6 +14,7 @@ import 'Screens/doctor/homePageDoctor.dart';
 import 'Screens/patient/Diagnosis_result.dart';
 import 'Screens/patient/recovery_plan.dart';
 import 'const/pattel.dart';
+import 'recovery_plan_creen1.dart';
 
 
 void main() async {
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: Diagnosis_result(),//const Message(), // when the app run , welcomeScreen is the home page
+      home: RecoveryPlanScreen1(),//const Message(), // when the app run , welcomeScreen is the home page
     );
   }
 }

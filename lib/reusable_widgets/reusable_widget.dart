@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../const/get_size.dart';
 //logo Widget
 Image logoWidget(String imageName) {
   return Image.asset(
@@ -9,6 +11,29 @@ Image logoWidget(String imageName) {
     color: Colors.white,
   );
 }
+Widget mainLabel({text,context}){
+  return  Row(
+    children: [
+      Text("${text}",style: TextStyle(
+          fontWeight: FontWeight.w900,
+          fontSize: getScreenSize(context).width * 0.05
+      ),),
+    ],
+  );
+}
+
+Widget childMainLabel({text,context}){
+  return  Row(
+    children: [
+      Text("${text}",style: TextStyle(
+          fontWeight: FontWeight.bold,
+          height: 2,
+          fontSize: getScreenSize(context).width * 0.04
+      ),),
+    ],
+  );
+}
+
 
 TextField reusableTextField(String text, IconData icon, bool isPasswordType, //used with the sign in and signup fields
     TextEditingController controller) {

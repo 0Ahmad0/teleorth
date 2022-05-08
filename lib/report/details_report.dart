@@ -12,31 +12,42 @@ class DetailsReport{
    };
   static var recoveryPlan={
     "WeberA":[
-      [0,4],
-      [4,6],
-      [6,12],
-      [12,13]
+      "0",
+      "4",
+      "4",
+      "6",
+      "6",
+      "12",
+      "12",
+      "13"
     ],
     "WeberB":[
-      [0,6],
-      [6,8],
-      [8,12],
-      [12,13]
+      "0",
+      "6",
+      "6",
+      "8",
+      "8",
+      "12",
+      "12",
+      "13"
     ],
     "Phases":[
       //phase1
       "•	Wear the cast with TENS all of the time when walking. You do not need to wear it in bed or when resting at home.\n"+
       "•	Use the crutches to take some of the weight off your foot, as required.\n"+
       "•	Start Stage 1 Exercises & Advice.",
+
       //phase2
       "•	Gradually discontinue using the boot and elbow crutches. Try walking around the house without them first.\n"+
       "•	Wear the boot with TENS when walking longer distances outdoors.\n"+
       "•	Move on to Stage 2 Exercises.",
+
       //phase3
       "•	Fracture should be largely united (healed).\n"+
       "•	Gradually resume normal activities as pain allows.\n"+
       "•	Heavier or more strenuous tasks, including long walks, may still be difficult and cause discomfort and swelling at this stage.\n"+
       "•	Begin Stage 3 Exercises if required.",
+
       //phase4
       "•	Symptoms will continue to improve over the next few months.\n"+
       "•	If you are still experiencing significant pain and / or stiffness please contact us for further advice / management .",
@@ -50,6 +61,11 @@ class DetailsReport{
           "2.	Alternately turn your foot outwards leading with the outer bored of your foot (little toe) and then turn your foot inwards leading with the inner border of your foot (big toe), as shown in the picture. Make sure you keep the rest of your leg still. Repeat 10 times.",
           "3.	Make circles with your foot in one direction, then repeat in the other direction. Repeat 10 times.",
         ],
+        "Explanation":[
+          "assets/images/recoveryImages/s1E1.png",
+          "assets/images/recoveryImages/s1E2.png",
+          null
+        ]
       },
       {
         "text":"Exercises (3-4 times a day) ",
@@ -59,6 +75,10 @@ class DetailsReport{
           "2.	Sit on a chair. Cross your injured ankle over your other knee. Place your hand over the top of your ankle and stretch the top of your foot and ankle, pointing your toes downwards. Hold for 30 seconds. Repeat 3 times.\nOR\n"+
               "Place your foot on a chair behind you, as shown in the picture. Hold onto something for balance. Point your foot and ankle downwards. You should feel a stretch at the front of your foot & ankle. Hold or 30 seconds. Repeat 3 times.",
         ],
+        "Explanation":[
+          "assets/images/recoveryImages/s2E1.png",
+          "assets/images/recoveryImages/s2E2.png",
+        ]
       },
       {
         "text":"Exercises (3-4 times a day)",
@@ -71,20 +91,32 @@ class DetailsReport{
             "a)	Stand on your injured leg, with your hands together. Swing your arms in a figure of 8 in both directions for 30 seconds.\n"+
             "b)	As above, but with your eyes closed. Aim to balance for 10 seconds.",
         ],
+        "Explanation":[
+          "assets/images/recoveryImages/s3E1.png",
+          "assets/images/recoveryImages/s3E2.png",
+          null
+        ]
       },
     ],
     "BalanceExercises":[
       //level 1
-      "Level 1: (for those who could not balance on 1 leg prior to this injury)\n"+
-          "a)	Stand with your feet as close together as possible. Hold onto something for balance. Hold this for position for 30 seconds. If you can do this, move on to exercise Level 1b)\n"+
-          "b)	As above but do not hold onto anything for balance. Hold this for position for 30 seconds. If you can do this, move on to exercise Level 1c)\n"+
-          "c)	Put one foot in front of the other as close as you feel comfortable with. Hold onto something for balance. Hold this for position 30 seconds. Repeat with the other foot in front. If you can do this comfortably & safely, try this without holding onto anything.",
+      {
+        "text": "Level 1: (for those who could not balance on 1 leg prior to this injury)\n"+
+            "a)	Stand with your feet as close together as possible. Hold onto something for balance. Hold this for position for 30 seconds. If you can do this, move on to exercise Level 1b)\n"+
+            "b)	As above but do not hold onto anything for balance. Hold this for position for 30 seconds. If you can do this, move on to exercise Level 1c)\n"+
+            "c)	Put one foot in front of the other as close as you feel comfortable with. Hold onto something for balance. Hold this for position 30 seconds. Repeat with the other foot in front. If you can do this comfortably & safely, try this without holding onto anything.",
+        "image": "assets/images/recoveryImages/b1E1.png"
+      },
       //level 2
-      "Level 2: (for those who could balance on 1 leg prior to this injury)\n"+
-          "a)	Holding on to a firm surface for balance, aim to stand on just your injured leg, making sure it doesn’t increase your pain. Hold this position for 30 seconds. Once you can achieve this pain-free, move on to exercise Level 2b).\n"+
-          "b)	As above but without holding on to anything for balance. Hold this position for 30 seconds. If you can do this, move onto exercise Level 2c).\n"+
-          "c)	Progress to attempting the above exercise with your eyes closed. Always stand in a safe environment with a firm surface nearby should you require it. Hold this position for 10 seconds.",
+      {
+        "text":"Level 2: (for those who could balance on 1 leg prior to this injury)\n"+
+            "a)	Holding on to a firm surface for balance, aim to stand on just your injured leg, making sure it doesn’t increase your pain. Hold this position for 30 seconds. Once you can achieve this pain-free, move on to exercise Level 2b).\n"+
+            "b)	As above but without holding on to anything for balance. Hold this position for 30 seconds. If you can do this, move onto exercise Level 2c).\n"+
+            "c)	Progress to attempting the above exercise with your eyes closed. Always stand in a safe environment with a firm surface nearby should you require it. Hold this position for 10 seconds.",
+        "image": "assets/images/recoveryImages/b1E2.png"
+      },
     ],
+
     "Heel Raises":"Stand. Hold on to a stable object for support. Push up onto your toes, lifting your heels. Repeat 10 times.",
   "Advice":[
     "Smoking cessation:\n"+
