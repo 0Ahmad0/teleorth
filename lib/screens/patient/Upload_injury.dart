@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:_finalproject/screens/patient/quetions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
+import '../../screen/questions_screen.dart';
 import 'main_PagePatient.dart';
 
 ///import 'package:image_picker/image_picker.dart';
@@ -132,7 +133,7 @@ class UploadPic extends State<Upload_injury> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>  const quetions()),
+                              builder: (context) =>  const QuestionsScreen()),
                         );
                       },
                       color: Color(0xFF4d8d6e),
