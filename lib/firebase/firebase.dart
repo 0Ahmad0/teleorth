@@ -8,6 +8,8 @@ import '../Screens/patient/Diagnosis_result.dart';
 class FirebaseController{
   static List listReport=[];
   static int indexReport=0;
+  static int indexPatient=0;
+  static String userNamePatient="";
   static addReport() async {
     await FirebaseFirestore.instance.collection("reports").add(DetailsReport.report).then((value){
       print("done add report");
@@ -18,7 +20,22 @@ class FirebaseController{
   static Future<bool> fetchReportsPatient() async {
     try{
       await FirebaseFirestore.instance.collection("reports").
-     // where("userName",isEqualTo: MyUser.USERNAME).
+      where("userName",isEqualTo: MyUser.USERNAME).
+      get().
+      then((value){
+        listReport=value.docs;
+        print("listReport : "+"${listReport.length}");
+      });
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }
+  }
+  static Future<bool> fetchReportsDoctor() async {
+    try{
+      await FirebaseFirestore.instance.collection("reports").
+      where("userName",isEqualTo: userNamePatient).
       get().
       then((value){
         listReport=value.docs;

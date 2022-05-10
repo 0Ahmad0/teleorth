@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables, non_constant_identifier_names, use_key_in_widget_constructors, must_be_immutable
 //import 'dart:ui';
 
+import 'package:_finalproject/firebase/firebase.dart';
 import 'package:flutter/material.dart';
 
 import '../../firebase/chatting.dart';
@@ -105,6 +106,8 @@ class _MypatientsState extends State<Mypatients> {
                             if(!snapshot.hasData){
                               return SizedBox();
                             }else{
+                              FirebaseController.userNamePatient=Chatting.LISTUSER[index]["userName"];
+                              FirebaseController.indexPatient=index;
                               return snapshot.data.toString().toLowerCase().contains(Chatting.name)?
                               patient('${snapshot.data}',snapshot.data.toString())://Chatting.listHellper[index]['patient_email']):
                               SizedBox.fromSize();
@@ -166,11 +169,12 @@ class _MypatientsState extends State<Mypatients> {
                   //print(Chatting.PATIENT_EMAIL);
                   Chatting.PATIENT_NAME="${name}";
                   Chatting.NAME="${name}";
-                  Navigator.push(
+                  print(FirebaseController.indexPatient);
+                  /*Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => AllReportOfPatient()),
-                  );
+                  );*/
                   // setState(() {
                   //   _isBluetoothOn = !_isBluetoothOn;
                   // });

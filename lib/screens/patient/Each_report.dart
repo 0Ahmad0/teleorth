@@ -200,7 +200,11 @@ class Each_report extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => recovery_plan()),
+                            builder: (context) => recovery_plan(
+                              weberList: DetailsReport.recoveryPlan["WeberA"] as List,
+                              weberName: "Weber A",
+
+                            )),
                       );
                     },
                     child: Padding(

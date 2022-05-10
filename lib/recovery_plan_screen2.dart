@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'Screens/doctor/homePageDoctor.dart';
 import 'const/get_size.dart';
 
-class RecoveryPlanScreen2 extends StatefulWidget {
+class RecoveryPlanScreen2 extends StatefulWidget{
   List? weberList;
   String? weberName;
   bool canEdit = false;

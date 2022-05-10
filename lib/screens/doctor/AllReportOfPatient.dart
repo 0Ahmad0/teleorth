@@ -7,6 +7,8 @@
 //import 'dart:ui';
 
 import 'package:_finalproject/Screens/doctor/Mypatients.dart';
+import 'package:_finalproject/firebase/chatting.dart';
+import 'package:_finalproject/firebase/firebase.dart';
 import 'package:flutter/material.dart';
 
 import 'EachReportOfPatient.dart';
@@ -28,8 +30,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SafeArea(
+    return  SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey[50],
           body: SingleChildScrollView(
@@ -75,7 +76,8 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                     bottom: 35,
                     left: 100,
                     child: Text(
-                      'Lama Khaled',
+                      Chatting.LISTUSER[FirebaseController.indexPatient]["displayName"],
+                      //'Lama Khaled',
                       style: TextStyle(
                         fontSize: 30.0,
                         color: Colors.white,
@@ -243,8 +245,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
             ]),
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget allreportsP(String reportID, BuildContext context) {

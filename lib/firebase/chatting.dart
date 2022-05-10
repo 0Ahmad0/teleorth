@@ -18,6 +18,7 @@ class Chatting {
   static String? TYPE_USER2;
   static DateTime? TEXT_DATE;
   static var listHellper;
+  static var LISTUSER=[];
   
   static Future<bool> getIdMessages() async {
     try {
@@ -264,6 +265,7 @@ class Chatting {
   }
   static Future<bool> getAdditives() async{
   //  name="";
+    LISTUSER=[];
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection('additives')
@@ -393,6 +395,7 @@ class Chatting {
           .where("email",isEqualTo: "${email}")
           .get();
       if(snapshot.docs.isNotEmpty){
+        LISTUSER.add(snapshot.docs[0]);
         // print("length addvities : ${snapshot}");
       //*  print("done fetch name : "+snapshot.docs[0]['displayName']);
         return snapshot.docs[0]['displayName'];

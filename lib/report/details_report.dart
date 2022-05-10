@@ -140,7 +140,9 @@ class DetailsReport{
   ,
 };
   static Map<String,dynamic> report={
-    "tens":false,
+    "tensD":false,
+    "tensP":false,
+    "tens":0,
     "isVisible":false,
     "date":DateTime.now(),
     "userName":"",
@@ -185,10 +187,12 @@ class DetailsReport{
     report["date"]=DateTime.now();
   }
   static setReport(var sReport){
-    report=={
+    report={
       "tens":sReport["tens"],
+      "tensD":sReport["tensD"],
+      "tensP":sReport["tensP"],
       "isVisible":sReport["isVisible"],
-      "date":sReport["date"],
+      "date":sReport["date"].toDate(),
       "userName":sReport["userName"],
       "details":sReport["details"],
       "doctor":sReport["doctor"],
