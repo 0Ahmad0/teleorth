@@ -1,4 +1,3 @@
-import 'package:_finalproject/report/details_report.dart';
 import 'package:get/get.dart';
 
 import '../model/answer_model.dart';
@@ -72,8 +71,6 @@ class QuestionsController extends GetxController {
       reportStage = await apiService.fetchReportStage(flowEntry!.id);
       if (reportStage != null) {
         if (reportStage!.terminateQuiz) {
-          print(reportStage!.report.final_diagnose+"\n"+reportStage!.report.pre_diagnose);
-          DetailsReport.setDetailsReport(reportStage!.report.final_diagnose,reportStage!.report.pre_diagnose);
           Get.to(
             () => const ReportStageScreen(),
             fullscreenDialog: true,

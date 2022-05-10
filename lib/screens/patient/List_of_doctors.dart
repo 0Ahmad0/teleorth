@@ -152,7 +152,9 @@ class _List_of_doctorsState extends State<List_of_doctors> {
                 child: CircularProgressIndicator(),
                 );
                 }else{
-                  return ListView.builder(
+                  return Chatting.listHellper == null
+                      ?Center(child: Text('OOps!'),)
+                      :ListView.builder(
                     itemCount: Chatting.listHellper.length,
                     itemBuilder: (_,index){
                       return FutureBuilder(
