@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../model/answer_model.dart';
 import '../model/flow_entry_model.dart';
 import '../model/question_model.dart';
 import '../model/report_status_model.dart';
+import '../report/details_report.dart';
 import '../report_stage_screen.dart';
 import '../service/api_service.dart';
 import '../ui_helper.dart';
@@ -66,23 +68,32 @@ class QuestionsController extends GetxController {
     _sendingAnswers(false);
   }
 
-  Future<void> fetchReportStage() async {
+  Future<bool> fetchReportStage() async {
+    bool fetch=false;
     try {
       reportStage = await apiService.fetchReportStage(flowEntry!.id);
       if (reportStage != null) {
         if (reportStage!.terminateQuiz) {
+          print(reportStage!.report.final_diagnose+"\n"+reportStage!.report.pre_diagnose);
+          DetailsReport.setDetailsReport(reportStage!.report.final_diagnose,reportStage!.report.pre_diagnose);
+          await FirebaseFirestore.instance.collection("reports").add(DetailsReport.report).
+            then((value){
+             fetch=true;
+          });
           Get.to(
             () => const ReportStageScreen(),
             fullscreenDialog: true,
           );
         } else {
           fetchQuestion();
+          fetch=true;
         }
       }
     } catch (e, s) {
       print("$e :: STACK TRACE $s");
       UIHelper.showErrorSnackBar("Couldn't Fetch Status Report");
     }
+    return fetch;
   }
 
   void resetFlow() {
