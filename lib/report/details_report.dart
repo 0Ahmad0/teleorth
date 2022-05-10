@@ -1,11 +1,16 @@
+import 'package:_finalproject/firebase/firebase.dart';
+import 'package:_finalproject/report/Report.dart';
+
+import '../firebase/user.dart';
+
 class DetailsReport{
   static var recommendations={
-    "Fracture":
+    "fracture":
         "•Don’t weight bearon the injured foot.\n•If there is wound,it must be coveredwith a sterile gauzeor cloth.\n" +
         "•Raise the leg and placeice on the swollen areafor less than 20 minutes.\n•See the doctor promptly.\n" +
         "•evaluate the stabilityof the joint.•inspect the knee joint.\n•Check neurovascularstatus of the limb.\n" +
         "•Pain relievingmedications",
-    "Sprain":
+    "sprain":
         "•Keep the ankle elevated(raised up) above the levelof the heart wheneverpossible, to decrease ankleswelling by lying downand propping the footon pillows.\n" +
         "•Place ice on theswollen area but Icingshould not be appliedfor any longer than20 minutes repeatedevery hour.\n" +
         "•Pain relievingmedications.•Put ACE bandage.\n•See your doctorif the swellingand pain continue.",
@@ -142,7 +147,8 @@ class DetailsReport{
       "date":DateTime.now(),
       "symptoms":"",
       "possibleInjury":"",
-      "recommedation":"",
+      "recommendation":"",
+      "type":"",
     },
     "doctor":{
       "weber":"A",
@@ -153,4 +159,25 @@ class DetailsReport{
     "injuryImages":[],
     "xrayImages":[],
   };
+
+  static setDetailsReport(String final_diagnose,String pre_diagnose){
+    var details={
+      "userName":MyUser.USERNAME,
+      "name":MyUser.FULLNAME,
+      "gender":MyUser.GENDER,
+        "date":DateTime.now(),
+        "symptoms":"${final_diagnose}"+"\n"+"${pre_diagnose}",
+        "possibleInjury":"",
+        "recommendation":"",
+        "type":"normal",
+    };
+    if(pre_diagnose.contains("fracture")){
+      details["recommendation"]="${recommendations["fracture"]}";
+      details["type"]="fracture";
+    }else if(pre_diagnose.contains("sprain")){
+      details["recommendation"]="${recommendations["sprain"]}";
+      details["type"]="sprain";
+    }
+    report["details"]=details;
+  }
 }

@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, import_of_legacy_library_into_null_safe, camel_case_types, prefer_const_literals_to_create_immutables, prefer_const_constructors, deprecated_member_use, avoid_unnecessary_containers, unnecessary_null_comparison, unused_field, unused_local_variable
 
 import 'dart:io';
+import 'package:_finalproject/firebase/firebase.dart';
+import 'package:_finalproject/firebase/firebase.dart';
 import 'package:_finalproject/report/Report.dart';
 import 'package:_finalproject/screens/patient/recovery_Plan_Summary.dart';
 import 'package:path/path.dart' as p;
@@ -10,8 +12,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:_finalproject/screens/patient/quetions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
-import '../../screen/questions_screen.dart';
+import '../../firebase/firebase.dart';
+import '../../report/details_report.dart';
 import 'main_PagePatient.dart';
+import 'questions_screen.dart';
 
 ///import 'package:image_picker/image_picker.dart';
 
@@ -129,11 +133,16 @@ class UploadPic extends State<Upload_injury> {
                   Builder(
                     builder: (context) => RaisedButton(
                       onPressed: () {
-                        uploadImage(context);
+                      //  uploadImage(context);
+                        List injuryImages=[];
+                        if(_image!=null){
+                          injuryImages.add("${basename(_image!.path)}");
+                          DetailsReport.report["injuryImages"]=injuryImages;
+                        }
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>  const QuestionsScreen()),
+                              builder: (context) =>   QuestionsScreen()),
                         );
                       },
                       color: Color(0xFF4d8d6e),

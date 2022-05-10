@@ -17,7 +17,8 @@ class Report{
 class RecoveryPlan{
 }
 class Details{
-  late String symptoms,possibleInjury,recommendation;
+  late String userName,name,gender,symptoms,possibleInjury,recommendation;
+  late DateTime date;
 }
 class Imager{
    File file;

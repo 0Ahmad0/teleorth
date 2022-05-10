@@ -1,12 +1,14 @@
 import 'package:_finalproject/screens/doctor/AddPatient.dart';
 import 'package:_finalproject/screens/doctor/Message.dart';
-import 'package:_finalproject/screens/doctor/Mypatients.dart';
+
 import 'package:_finalproject/screens/doctor/myPatient.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'Screens/doctor/Myprofile.dart';
@@ -15,8 +17,9 @@ import 'Screens/patient/Diagnosis_result.dart';
 import 'Screens/patient/recovery_plan.dart';
 import 'const/pattel.dart';
 import 'recovery_plan_creen1.dart';
-
-
+import 'service/api_service.dart';
+import 'controller/question_controller.dart';
+final apiService = ApiService();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // initialize firebase
   await Firebase.initializeApp(); 
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
     // This is the theme of your application.
@@ -43,7 +46,10 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: main_PagePatient(),
+      home: WelcomeScreen(),
+      initialBinding: BindingsBuilder.put(
+        () => QuestionsController(apiService),
+      ),
       //const Message(), // when the app run , welcomeScreen is the home page
     );
   }
