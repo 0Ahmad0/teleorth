@@ -6,18 +6,24 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables, non_constant_identifier_names, use_key_in_widget_constructors, must_be_immutable
 //import 'dart:ui';
 
+import 'package:_finalproject/firebase/firebase.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'Each_report.dart';
 import 'main_PagePatient.dart';
 
-class allreport_Patient extends StatelessWidget {
+class allreport_Patient extends StatefulWidget {
+  @override
+  State<allreport_Patient> createState() => _allreport_PatientState();
+}
+
+class _allreport_PatientState extends State<allreport_Patient> {
+  String search="";
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
+    return  Scaffold(
           backgroundColor: Colors.grey[50],
           body: SingleChildScrollView(
             child: Column(children: [
@@ -86,6 +92,10 @@ class allreport_Patient extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black)),
                         child: TextField(
+                          onChanged: (val){
+                            search=val;
+
+                          },
                           //controller: _search,
                           decoration: InputDecoration(
                             hintText: " No. Of Report 0r Date ",
@@ -98,7 +108,11 @@ class allreport_Patient extends StatelessWidget {
                         width: 6,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+
+                          });
+                        },
                         child: Text("Search",
                             style: TextStyle(
                               fontSize: 16.0,
@@ -125,31 +139,43 @@ class allreport_Patient extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               SizedBox(
                 height: 10,
               ),
               SizedBox(
                 height: 540,
-                child: ListView(scrollDirection: Axis.vertical, children: [
-                  allreportsP( "#1_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#2_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#3_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#4_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#5_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#6_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#7_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#8_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#9_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#10_"+SignInScreen.fullName+"_6-7-2021", context),
-                  allreportsP( "#11_"+SignInScreen.fullName+"_6-7-2021", context),
-                ]),
+                child: FutureBuilder(
+                      future: FirebaseController.fetchReportsPatient(),
+                      builder: (context,snapShot) {
+                      if (!snapShot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                      } else {
+
+                      return ListView.builder(
+                      itemCount: FirebaseController.listReport.length,//allreports.length,
+                      itemBuilder: (ctx, index) {
+                        FirebaseController.indexReport=index;
+                        String text="#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
+                            " | ${
+                                DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
+                            }";
+                           return (search==""||text.contains(search))?
+                           allreportsP( "#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
+                               " | ${
+                                   DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
+                               }",
+                               context):SizedBox();
+                      });
+                      }
+                      }
+                      ),
+
               ),
             ]),
           ),
-        ),
-      ),
-    );
+        );
+
   }
 
   Widget allreportsP(String reportID, BuildContext context) {

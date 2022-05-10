@@ -139,33 +139,35 @@ class DetailsReport{
     "Early movement of the ankle and foot is important to promote circulation and reduce the risk of developing a DVT (blood clot). Early weight bearing (putting weight through your injured foot) helps increase the speed of healing. Try to walk as normally as possible as this will help with your recovery."
   ,
 };
-  static var report={
-    "details":{
-      "userName":"",
+  static Map<String,dynamic> report={
+    "tens":false,
+    "isVisible":false,
+    "date":DateTime.now(),
+    "userName":"",
+    "details":
+      {
       "name":"",
       "gender":"",
-      "date":DateTime.now(),
       "symptoms":"",
       "possibleInjury":"",
       "recommendation":"",
-      "type":"",
-    },
+        "type":"",
+      },
     "doctor":{
       "weber":"A",
       "date":DateTime.now(),
     },
     "recoveryPlan":{
     },
+
     "injuryImages":[],
     "xrayImages":[],
   };
 
   static setDetailsReport(String final_diagnose,String pre_diagnose){
     var details={
-      "userName":MyUser.USERNAME,
       "name":MyUser.FULLNAME,
       "gender":MyUser.GENDER,
-        "date":DateTime.now(),
         "symptoms":"${final_diagnose}"+"\n"+"${pre_diagnose}",
         "possibleInjury":"",
         "recommendation":"",
@@ -179,5 +181,20 @@ class DetailsReport{
       details["type"]="sprain";
     }
     report["details"]=details;
+    report["userName"]=MyUser.USERNAME;
+    report["date"]=DateTime.now();
+  }
+  static setReport(var sReport){
+    report=={
+      "tens":sReport["tens"],
+      "isVisible":sReport["isVisible"],
+      "date":sReport["date"],
+      "userName":sReport["userName"],
+      "details":sReport["details"],
+      "doctor":sReport["doctor"],
+      "recoveryPlan":sReport["recoveryPlan"],
+      "injuryImages":sReport["injuryImages"],
+      "xrayImages":sReport["xrayImages"],
+    };
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
+import '../Screens/patient/Dignosisi_report.dart';
 import '../model/answer_model.dart';
 import '../model/flow_entry_model.dart';
 import '../model/question_model.dart';
@@ -81,7 +82,7 @@ class QuestionsController extends GetxController {
              fetch=true;
           });
           Get.to(
-            () => const ReportStageScreen(),
+            () =>  Dignosisi_report()/*ReportStageScreen()*/,
             fullscreenDialog: true,
           );
         } else {

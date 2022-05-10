@@ -34,8 +34,7 @@ class UploadPic extends State<Upload_injury> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return  Scaffold(
         body: SafeArea(
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.center,
@@ -133,12 +132,7 @@ class UploadPic extends State<Upload_injury> {
                   Builder(
                     builder: (context) => RaisedButton(
                       onPressed: () {
-                      //  uploadImage(context);
-                        List injuryImages=[];
-                        if(_image!=null){
-                          injuryImages.add("${basename(_image!.path)}");
-                          DetailsReport.report["injuryImages"]=injuryImages;
-                        }
+                        uploadImage(context);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -162,8 +156,7 @@ class UploadPic extends State<Upload_injury> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   void pickImage() async {
@@ -209,6 +202,9 @@ class UploadPic extends State<Upload_injury> {
         content: Text('Image uploaded successfully'),
       ));
       String url = await taskSnapshot.ref.getDownloadURL();
+      List injuryImages=[];
+        injuryImages.add(url);
+        DetailsReport.report["injuryImages"]=injuryImages;
       print('url $url');
       setState(() {
         _url = url;

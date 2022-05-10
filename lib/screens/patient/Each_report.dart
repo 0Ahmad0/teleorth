@@ -1,7 +1,10 @@
 // ignore_for_file: camel_case_types, file_names, deprecated_member_use, avoid_print, prefer_const_constructors
 
+import 'package:_finalproject/firebase/firebase.dart';
+import 'package:_finalproject/report/details_report.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'Diagnosis_result.dart';
 import 'Dignosisi_report.dart';
 import 'Injury_Image.dart';
@@ -39,11 +42,8 @@ class Each_report extends StatelessWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => allreport_Patient()),
-                          );
+                          Navigator.pop(
+                            context);
                         },
                       ),
                     ),
@@ -57,7 +57,7 @@ class Each_report extends StatelessWidget {
                       width: 20.0,
                     ),
                      Text(
-                      SignInScreen.fullName,
+                       FirebaseController.listReport[FirebaseController.indexReport]["details"]["name"],
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -76,7 +76,11 @@ class Each_report extends StatelessWidget {
                   child: Row(
                     children:  [
                       Text(
-                        "#1_"+SignInScreen.fullName+"_6-7-2021",
+                  "#${FirebaseController.indexReport+1}_"+FirebaseController.listReport[FirebaseController.indexReport]["details"]["name"]+
+                      " | ${
+                      DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.indexReport]["date"].toDate())
+                  }",
+                       // "#1_"+SignInScreen.fullName+"_6-7-2021",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20.0,
@@ -102,6 +106,7 @@ class Each_report extends StatelessWidget {
                 child: Expanded(
                   child: FlatButton(
                     onPressed: () {
+                      DetailsReport.setReport(FirebaseController.listReport[FirebaseController.indexReport]);
                       Navigator.push(
                         context,
                         MaterialPageRoute(

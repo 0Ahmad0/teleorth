@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../report/details_report.dart';
 import 'Each_report.dart';
 
 class Dignosisi_report extends StatelessWidget {
@@ -113,7 +114,9 @@ class Dignosisi_report extends StatelessWidget {
                         direction: Axis.horizontal,
                         children:  [
                           Text(
-                            "Username: "+SignInScreen.userName,
+                            "Username: ${
+                  DetailsReport.report["userName"]
+                  }",//SignInScreen.userName,
                             style: TextStyle(
                               color: Color.fromRGBO(0, 0, 0, 1),
                               fontSize: 15,
@@ -121,7 +124,7 @@ class Dignosisi_report extends StatelessWidget {
                           ),
                           SizedBox(width: 70),
                           Text(
-                            "Gender: ---------",
+                            "Gender: ${DetailsReport.report["details"]["gender"]}",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -134,7 +137,7 @@ class Dignosisi_report extends StatelessWidget {
                         direction: Axis.horizontal,
                         children:  [
                           Text(
-                            "Name: "+SignInScreen.fullName,
+                            "Name: ${DetailsReport.report["details"]["name"]}",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -142,7 +145,9 @@ class Dignosisi_report extends StatelessWidget {
                           ),
                           SizedBox(width: 70),
                           Text(
-                            "Date: "+formattedDate,
+                            "Date: ${
+                            DateFormat.yMd().format(DetailsReport.report["date"])
+                            }",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize:15,
@@ -191,8 +196,9 @@ class Dignosisi_report extends StatelessWidget {
                               horizontal: 25, vertical: 20)),
 
                       Text(
-                        "--------------------------------------------------\n" +
-                            "--------------------------------------------------",
+                        "${DetailsReport.report["details"]["symptoms"]}",
+                       /* "--------------------------------------------------\n" +
+                            "--------------------------------------------------",*/
                         overflow: TextOverflow.ellipsis,
                         maxLines: 5,
                         style: TextStyle(
@@ -301,7 +307,7 @@ class Dignosisi_report extends StatelessWidget {
                               color: Colors.black,
                               fontSize: 16.0,
                             ),
-                            children: <TextSpan>[TextSpan(text: Fracture)],
+                            children: <TextSpan>[TextSpan(text: "${DetailsReport.report["details"]["recommendation"]}"/*Fracture*/)],
                           ),
                         ),
                       ),
