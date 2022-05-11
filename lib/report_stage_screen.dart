@@ -96,6 +96,20 @@ static var diagnosis="";
             //   ],
             // ),
              const SizedBox(height: 20),
+                  Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Symptoms",
+                  style: subTitleStyle,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  controller.reportStage!.symptoms.join(", "),
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+              ],
+            ),
           ],
                         
         ),

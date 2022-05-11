@@ -167,11 +167,11 @@ class DetailsReport{
     "xrayImages":[],
   };
 
-  static setDetailsReport(String final_diagnose,String pre_diagnose){
+  static setDetailsReport(String final_diagnose,String pre_diagnose,List symptoms){
     var details={
       "name":MyUser.FULLNAME,
       "gender":MyUser.GENDER,
-        "symptoms":"",
+        "symptoms":symptoms.join(", "),
         "possibleInjury":"${final_diagnose}"+"\n"+"${pre_diagnose}",
         "recommendation":"",
         "type":"normal",
@@ -203,5 +203,18 @@ class DetailsReport{
       "injuryImages":sReport["injuryImages"],
       "xrayImages":sReport["xrayImages"],
     };
+  }
+  static  String convertSymptoms(List symptoms){
+    String convert="";
+    symptoms.forEach((element) {
+      if(element.contains()) convert+="\n";
+      else if(element.contains()) convert+="\n";
+      else if(element.contains()) convert+="\n";
+      else if(element.contains()) convert+="\n";
+      else if(element.contains()) convert+="\n";
+      else if(element.contains()) convert+="\n";
+      else if(element.contains()) convert+="\n";
+    });
+    return convert;
   }
 }

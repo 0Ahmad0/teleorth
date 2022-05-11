@@ -267,7 +267,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                                   DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
                                   }";
                                   return (search==""||text.contains(search))?
-                                  allreportsP( "#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
+                                  allreportsP( index,"#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
                                   " | ${
                                   DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
                                   }",
@@ -284,7 +284,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
       );
   }
 
-  Widget allreportsP(String reportID, BuildContext context) {
+  Widget allreportsP(int index,String reportID, BuildContext context) {
     return Card(
       elevation: 5,
       margin: const EdgeInsets.fromLTRB(15, 5, 15, 13),
@@ -333,6 +333,8 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                 color: Color(0xFF2d5240),
                 iconSize: 35,
                 onPressed: () {
+                  FirebaseController.namePatient=reportID;
+                  FirebaseController.indexReport=index;
                   Navigator.push(
                     context,
                     MaterialPageRoute(

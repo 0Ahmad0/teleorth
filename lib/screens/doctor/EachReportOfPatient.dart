@@ -1,7 +1,9 @@
 // ignore_for_file: camel_case_types, file_names, deprecated_member_use, avoid_print, prefer_const_constructors
 
 import 'package:_finalproject/Screens/doctor/recovery_Plan.dart';
+import 'package:_finalproject/firebase/firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'AllReportOfPatient.dart';
 import 'ImageOfInjury.dart';
@@ -55,8 +57,9 @@ class EachReportOfPatient extends StatelessWidget {
                     const SizedBox(
                       width: 20.0,
                     ),
-                    const Text(
-                      "Lama Khaled",
+                    Text(
+                      //"Lama Khaled",
+                      FirebaseController.listReport[FirebaseController.indexReport]["details"]["name"],
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -73,9 +76,13 @@ class EachReportOfPatient extends StatelessWidget {
                       vertical: 20.0, horizontal: 30.0),
                   color: Colors.white,
                   child: Row(
-                    children: const [
+                    children: [
                       Text(
-                        "#1_LamaKhaled_6-7-2021",
+                        //#1_LamaKhaled_6-7-2021",
+                    "#${FirebaseController.indexReport+1}_"+FirebaseController.listReport[FirebaseController.indexReport]["details"]["name"]+
+                      " | ${
+                          DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.indexReport]["date"].toDate())
+                      }",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20.0,

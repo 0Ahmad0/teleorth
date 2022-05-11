@@ -76,7 +76,7 @@ class QuestionsController extends GetxController {
       if (reportStage != null) {
         if (reportStage!.terminateQuiz) {
           print(reportStage!.report.final_diagnose+"\n"+reportStage!.report.pre_diagnose);
-          DetailsReport.setDetailsReport(reportStage!.report.final_diagnose,reportStage!.report.pre_diagnose);
+          DetailsReport.setDetailsReport(reportStage!.report.final_diagnose,reportStage!.report.pre_diagnose,reportStage!.symptoms);
           await FirebaseFirestore.instance.collection("reports").add(DetailsReport.report).
             then((value){
              fetch=true;

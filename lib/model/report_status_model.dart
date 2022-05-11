@@ -2,15 +2,17 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class ReportStage {
   final bool terminateQuiz;
   final Report report;
-  // final List<Symptom> symptoms;
+  final List<Symptom> symptoms;
 
   ReportStage({
     required this.terminateQuiz,
     required this.report,
-    // required this.symptoms,
+    required this.symptoms,
   });
 
   ReportStage copyWith({
@@ -21,7 +23,7 @@ class ReportStage {
     return ReportStage(
       terminateQuiz: terminate ?? this.terminateQuiz,
       report: report ?? this.report,
-      // symptoms: symptoms ?? this.symptoms,
+      symptoms: symptoms ?? this.symptoms,
     );
   }
 
@@ -29,7 +31,7 @@ class ReportStage {
     return {
       'terminate_quiz': terminateQuiz,
       'diagnose_report_data': report.toMap(),
-      // 'symptoms': symptoms.map((x) => x.toMap()).toList(),
+      'symptoms': symptoms.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -37,7 +39,7 @@ class ReportStage {
     return ReportStage(
       terminateQuiz: map['terminate_quiz'] ?? false,
       report: Report.fromMap(map['diagnose_report_data']),
-      // symptoms: List<Symptom>.from(map['symptoms']?.map((x) => Symptom.fromMap(x))),
+      symptoms: List<Symptom>.from(map['symptoms']?.map((x) => Symptom.fromMap(x))),
     );
   }
 
@@ -46,17 +48,20 @@ class ReportStage {
   factory ReportStage.fromJson(String source) => ReportStage.fromMap(json.decode(source));
 
   @override
-  String toString() => 'ReportStatus(terminate: $terminateQuiz, report: $report)';
+  String toString() => 'ReportStatus(terminate: $terminateQuiz, report: $report, symptoms: $symptoms)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is ReportStage && other.terminateQuiz == terminateQuiz && other.report == report;
+    return other is ReportStage &&
+        other.terminateQuiz == terminateQuiz &&
+        other.report == report &&
+        listEquals(other.symptoms, symptoms);
   }
 
   @override
-  int get hashCode => terminateQuiz.hashCode ^ report.hashCode;
+  int get hashCode => terminateQuiz.hashCode ^ report.hashCode ^ symptoms.hashCode;
 }
 
 class Report {
