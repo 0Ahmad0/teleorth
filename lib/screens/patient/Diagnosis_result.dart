@@ -167,8 +167,8 @@ class Diagnosis_result extends StatelessWidget {
                           horizontal: 25, vertical: 20)),
                   Container(
                     child: Text(
-                      "--------------------------------------------------\n" +
-                          "--------------------------------------------------",
+                      ("--------------------------------------------------\n" +
+                          "--------------------------------------------------"),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 5,
                       style: TextStyle(

@@ -214,7 +214,7 @@ class _Edit_ProfileState extends State<Edit_Profile> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                child:  buildTextField('E-mail', MyUser.EMAIL/*SignInScreen.email*/, false),
+                child:  buildTextField('E-mail', MyUser.EMAIL/*SignInScreen.email*/, true),
               ),
               Container(
                 width: 350.0,
@@ -489,7 +489,8 @@ class _Edit_ProfileState extends State<Edit_Profile> {
                       FirebaseAuth.instance.signOut().then((value) {
                         // Firebase sign out function
                         print("Signed Out"); //print to console
-                        Navigator.pop(
+                        Navigator.pop(context);
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>

@@ -2,11 +2,14 @@
 
 import 'dart:ui';
 
+import 'package:_finalproject/screens/doctor/homePageDoctor.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
+import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../report/details_report.dart';
 import 'Each_report.dart';
+import 'main_PagePatient.dart';
 
 class Dignosisi_report extends StatelessWidget {
   Dignosisi_report({Key? key}) : super(key: key);
@@ -62,7 +65,7 @@ class Dignosisi_report extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Each_report()),
+                                  builder: (context) => WelcomeScreen.isDoctor?(homePageDoctor()):(main_PagePatient())/*Each_report()*/),
                             );
                           },
                         ),
@@ -196,9 +199,9 @@ class Dignosisi_report extends StatelessWidget {
                               horizontal: 25, vertical: 20)),
 
                       Text(
-                        "${DetailsReport.report["details"]["symptoms"]}",
-                       /* "--------------------------------------------------\n" +
-                            "--------------------------------------------------",*/
+                        (DetailsReport.report["details"]["symptoms"]!="")?("${DetailsReport.report["details"]["symptoms"]}")
+                        :("--------------------------------------------------\n" +
+                            "--------------------------------------------------"),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 5,
                         style: TextStyle(
@@ -237,13 +240,15 @@ class Dignosisi_report extends StatelessWidget {
                   ),
 
                   Row(
-                    children: const [
+                    children:  [
                       Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 25, vertical: 20)),
                       Text(
-                        "--------------------------------------------------\n" +
-                            "--------------------------------------------------",
+                        (DetailsReport.report["details"]["possibleInjury"]!="")?
+                            ("${DetailsReport.report["details"]["possibleInjury"]}")
+                                :("--------------------------------------------------\n" +
+                                "--------------------------------------------------"),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 5,
                         style: TextStyle(
@@ -307,7 +312,9 @@ class Dignosisi_report extends StatelessWidget {
                               color: Colors.black,
                               fontSize: 16.0,
                             ),
-                            children: <TextSpan>[TextSpan(text: "${DetailsReport.report["details"]["recommendation"]}"/*Fracture*/)],
+                            children: <TextSpan>[TextSpan(
+                                text: (DetailsReport.report["details"]["type"]!="normal")?
+                                "${DetailsReport.report["details"]["recommendation"]}":("not found") /*Fracture*/)],
                           ),
                         ),
                       ),

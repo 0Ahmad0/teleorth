@@ -284,7 +284,7 @@ class Chatting {
       final snapshot = await FirebaseFirestore.instance
           .collection('additives')
           //.where('doctor_email',isEqualTo: "doctor@gmail.com")
-         .where('${MyUser.TYPEUSER}_email',isEqualTo:"${EMAIL}")
+         .where('${MyUser.TYPEUSER}_email',isEqualTo:"${MyUser.EMAIL}")
           .get();
             if(snapshot.docs.isNotEmpty){
               print("done emails additives :" );
@@ -308,7 +308,7 @@ class Chatting {
       final snapshot = await FirebaseFirestore.instance
           .collection('additives')
       //.where('doctor_email',isEqualTo: "doctor@gmail.com")
-          .where('${MyUser.TYPEUSER}_email',isEqualTo:"${EMAIL}")
+          .where('${MyUser.TYPEUSER}_email',isEqualTo:"${MyUser.EMAIL}")
           .where('${(MyUser.TYPEUSER=="patient")?"doctor":"patient"}_email',isEqualTo:"${email}")
           .get();
       if(snapshot.docs.isNotEmpty){

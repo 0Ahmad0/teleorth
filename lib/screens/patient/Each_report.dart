@@ -106,6 +106,7 @@ class Each_report extends StatelessWidget {
                 child: Expanded(
                   child: FlatButton(
                     onPressed: () {
+                    //  print(FirebaseController.listReport[FirebaseController.indexReport]["email"]);
                       DetailsReport.setReport(FirebaseController.listReport[FirebaseController.indexReport]);
                       Navigator.push(
                         context,
