@@ -156,9 +156,12 @@ class _List_of_dotorsState extends State<List_Of_Patient> {
                   builder: (context,snapshot){
                   if(!snapshot.hasData){
                     return SizedBox();
-                  }else{
+                  }
+                  else{
                     return snapshot.data.toString().contains(Chatting.name)?
-                        doctor('${snapshot.data}',Chatting.listHellper[index]['patient_email']):
+                        doctor('${snapshot.data}',
+                            Chatting.listHellper[index]['patient_email'])
+                        :
                         SizedBox.fromSize();
                    // return doctor(Chatting.listHellper[index]['patient_email']);
                   }

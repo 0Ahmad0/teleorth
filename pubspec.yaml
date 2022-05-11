@@ -46,6 +46,8 @@ dependencies:
   awesome_dialog:
   get:
   dio:
+  wc_form_validators:
+  image_downloader:
 
 
   # The following adds the Cupertino Icons font to your application.

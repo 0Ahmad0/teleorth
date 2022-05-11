@@ -2,8 +2,10 @@ import 'package:_finalproject/screens/doctor/AddPatient.dart';
 import 'package:_finalproject/screens/doctor/Message.dart';
 
 import 'package:_finalproject/screens/doctor/myPatient.dart';
+import 'package:_finalproject/screens/patient/allreport_Patient.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
+import 'package:_finalproject/screens/signup_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,9 @@ import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:overlay_support/overlay_support.dart';
 
+import 'Screens/doctor/AllReportOfPatient.dart';
+import 'Screens/doctor/EachReportOfPatient.dart';
+import 'Screens/doctor/List_Of_Patient.dart';
 import 'Screens/doctor/Myprofile.dart';
 import 'Screens/doctor/homePageDoctor.dart';
 import 'Screens/patient/Diagnosis_result.dart';
@@ -46,7 +51,9 @@ class MyApp extends StatelessWidget {
     // is not restarted.
     primarySwatch: Palette.kToDark,
       ),
-      home: WelcomeScreen(),
+      //List_of_Xray
+      // home: AllReportOfPatient(),
+      home: SignInScreen(),
       initialBinding: BindingsBuilder.put(
         () => QuestionsController(apiService),
       ),

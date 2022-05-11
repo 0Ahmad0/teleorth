@@ -3,6 +3,7 @@
 
 import 'package:_finalproject/firebase/firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../firebase/chatting.dart';
 import '../../firebase/user.dart';
@@ -107,7 +108,27 @@ class _MypatientsState extends State<Mypatients> {
                               return SizedBox();
                             }else{
                               return snapshot.data.toString().toLowerCase().contains(Chatting.name)?
-                              patient(index,'${snapshot.data}',Chatting.listHellper[index]['patient_email'])://Chatting.listHellper[index]['patient_email']):
+                              Dismissible(
+                                background: Container(
+                                  alignment: Alignment.center,
+                                  color: Colors.red,
+                                  child:
+                                    Icon(Icons.delete,color: Colors.white,),
+                                ),
+                                  key: Key(Chatting.listHellper[index]['patient_email']),
+                                  onDismissed: (val){
+                                    print(index);
+                                    //TODO delete Patient
+                                    Get.snackbar(
+                                      'Delete Patient',
+                                      'successfull',
+                                      margin: EdgeInsets.zero,
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      borderRadius: 0.0,
+                                      backgroundColor: Colors.blueGrey,
+                                    );
+                                  },
+                                  child: patient(index,'${snapshot.data}',Chatting.listHellper[index]['patient_email']))://Chatting.listHellper[index]['patient_email']):
                               SizedBox.fromSize();
                               // return doctor(Chatting.listHellper[index]['patient_email']);
                             }
