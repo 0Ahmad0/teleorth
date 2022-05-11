@@ -156,8 +156,7 @@ class _allreport_PatientState extends State<allreport_Patient> {
                       itemCount: FirebaseController.listReport.length,//allreports.length,
                       itemBuilder: (ctx, index) {
                         FirebaseController.indexReport=index;
-                        String text="#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
-                            " | ${
+                        String text="${
                                 DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
                             }";
                            return (search==""||text.contains(search))?

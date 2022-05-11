@@ -18,6 +18,7 @@ class Chatting {
   static String? TYPE_USER2;
   static DateTime? TEXT_DATE;
   static var listHellper;
+  static var additive;
   static var LISTUSER=[];
   
   static Future<bool> getIdMessages() async {
@@ -150,6 +151,9 @@ class Chatting {
         //"doctor_email": "${DOCTOR_EMAIL}",
         //  "patient_email": "patient@gmail.com",
         "patient_email": "${PATIENT_EMAIL}",
+        "tensD":false,
+        "tensP":false,
+        "tens":0,
        /* "doctor_name": "doctor",
         //"doctor_email": "${DOCTOR_EMAIL}",
         "patient_name": "patient",
@@ -159,6 +163,17 @@ class Chatting {
           :print("a patient already found");
     }on FirebaseException catch(e){
       print(e.message);
+    }
+    return true;
+  }
+  static Future<bool> editAdditive(String id)async{
+    try{
+      await FirebaseFirestore.instance
+          .collection("additives")
+          .doc(id).update(additive).then((value) => print("done edit patient"),);
+    }on FirebaseException catch(e){
+      print(e.message);
+      print("can not edit patient");
     }
     return true;
   }
@@ -265,7 +280,6 @@ class Chatting {
   }
   static Future<bool> getAdditives() async{
   //  name="";
-    LISTUSER=[];
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection('additives')
@@ -279,17 +293,6 @@ class Chatting {
                 print(snapshot.docs[i]["patient_email"]);
               }
               listHellper=snapshot.docs;
-              /*for(int i=0;i<snapshot.docs.length;i++){
-                print(i);
-                String? name=await getNameEmail(
-                  //email: listHellper[i]["${TYPE_USER2}"],
-                  email: listHellper[i]["patient_email"],
-                  typeUser: "patient",
-                );
-                listHellper[i]["name"]=name;
-                print("name : "+ listHellper[i]["name"]);
-                //print("name"+listHellper[i]['doctor_email']);
-              }*/
               return true;
             }else{
               print("NOT FOUND Eamil");
@@ -299,6 +302,32 @@ class Chatting {
     }
     return false;
   }
+  static Future<bool> getAdditive(String email) async{
+    //  name="";
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('additives')
+      //.where('doctor_email',isEqualTo: "doctor@gmail.com")
+          .where('${MyUser.TYPEUSER}_email',isEqualTo:"${EMAIL}")
+          .where('${(MyUser.TYPEUSER=="patient")?"doctor":"patient"}_email',isEqualTo:"${email}")
+          .get();
+      if(snapshot.docs.isNotEmpty){
+        print("done emails additives :" );
+        for(int i=0;i<snapshot.docs.length;i++){
+          //print(snapshot.docs[i]["${TYPE_USER2}"]);
+          print(snapshot.docs[i]["patient_email"]);
+        }
+        listHellper=snapshot.docs;
+        return true;
+      }else{
+        print("NOT FOUND Eamil");
+      }
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
+    return false;
+  }
+
   static Future<bool> getAdditives1() async{
     try {
       final snapshot = await FirebaseFirestore.instance
@@ -395,7 +424,7 @@ class Chatting {
           .where("email",isEqualTo: "${email}")
           .get();
       if(snapshot.docs.isNotEmpty){
-        LISTUSER.add(snapshot.docs[0]);
+        //LISTUSER.add(snapshot.docs[0]);
         // print("length addvities : ${snapshot}");
       //*  print("done fetch name : "+snapshot.docs[0]['displayName']);
         return snapshot.docs[0]['displayName'];

@@ -4,12 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 import '../Screens/patient/Diagnosis_result.dart';
+import 'chatting.dart';
 
 class FirebaseController{
   static List listReport=[];
   static int indexReport=0;
   static int indexPatient=0;
-  static String userNamePatient="";
+  static String namePatient="";
+  static String emailPatient="";
   static addReport() async {
     await FirebaseFirestore.instance.collection("reports").add(DetailsReport.report).then((value){
       print("done add report");
@@ -35,7 +37,7 @@ class FirebaseController{
   static Future<bool> fetchReportsDoctor() async {
     try{
       await FirebaseFirestore.instance.collection("reports").
-      where("userName",isEqualTo: userNamePatient).
+      where("email",isEqualTo: emailPatient).
       get().
       then((value){
         listReport=value.docs;
@@ -46,6 +48,16 @@ class FirebaseController{
       print(e);
       return false;
     }
+  }
+  static changeTens(String typeTens,var additive){
+    return {
+    "${typeTens}":!additive["tensD"],
+    "${((typeTens)=="tensD")?"tensP":"tensD"}":(typeTens=="tensD")?!additive["tensD"]:additive["tensD"],
+    "tens":additive["tens"],
+    "doctor_email":additive["doctor_email"],
+    "patient_email":additive["patient_email"],
+      "date_add":additive["date_add"],
+  };
   }
   static String formatTimestamp(Timestamp timestamp) {
     var format =  new DateFormat('yMd'); // <- use skeleton here

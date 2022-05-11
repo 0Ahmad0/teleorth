@@ -8,14 +8,21 @@
 
 import 'package:flutter/material.dart';
 
+import '../../firebase/chatting.dart';
+import '../../firebase/firebase.dart';
 import 'AllReportOfPatient.dart';
 import 'homePageDoctor.dart';
 
-class emergency_request extends StatelessWidget {
+class emergency_request extends StatefulWidget {
+  @override
+  State<emergency_request> createState() => _emergency_requestState();
+}
+
+class _emergency_requestState extends State<emergency_request> {
+  String search="";
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SafeArea(
+    return SafeArea(
         child: Scaffold(
           backgroundColor: Colors.grey[50],
           body: SingleChildScrollView(
@@ -85,6 +92,9 @@ class emergency_request extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black)),
                         child: TextField(
+                          onChanged: (val){
+                            search=val;
+                          },
                           //controller: _search,
                           decoration: InputDecoration(
                             hintText: "  Patient name or username",
@@ -97,7 +107,11 @@ class emergency_request extends StatelessWidget {
                         width: 6,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+
+                          });
+                        },
                         child: Text("Search",
                             style: TextStyle(
                               fontSize: 16.0,
@@ -127,22 +141,47 @@ class emergency_request extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                height: 540,
-                child: ListView(scrollDirection: Axis.vertical, children: [
-                  allreportsP("Lama Khaled", context),
-                  allreportsP("Shahad Ahmad", context),
-                  allreportsP("Ali Saleh", context),
-                ]),
-              ),
+        FutureBuilder(
+            future: Chatting.getAdditives(),
+                builder: (context,snapShot) {
+                if (!snapShot.hasData) {
+                return Center(child: CircularProgressIndicator());
+                } else {
+                  return SizedBox(
+                    height: 540,
+                    child:
+                    ListView.builder(
+                      itemCount: Chatting.listHellper.length,
+                      itemBuilder: (_,index){
+                        return (Chatting.listHellper[index]["tensD"]==Chatting.listHellper[index]["tensP"])?
+                              FutureBuilder(
+                            future: Chatting.getNameEmail(
+                                email: Chatting.listHellper[index]['patient_email'],
+                                typeUser:"patient"
+                            ),
+                            builder: (context,snapshot){
+                              if(!snapshot.hasData){
+                                return SizedBox();
+                              }else{
+                                return snapshot.data.toString().toLowerCase().contains(search.toLowerCase())?
+                                allreportsP(snapshot.data.toString(),Chatting.listHellper[index]['patient_email'], context)://Chatting.listHellper[index]['patient_email']):
+                                SizedBox.fromSize();
+                                // return doctor(Chatting.listHellper[index]['patient_email']);
+                              }
+                            }):
+                              SizedBox();
+
+                      },
+                    ),
+                  );
+                }}),
             ]),
           ),
         ),
-      ),
-    );
+      );
   }
 
-  Widget allreportsP(String reportID, BuildContext context) {
+  Widget allreportsP(String reportID, String email, BuildContext context) {
     return Card(
       elevation: 5,
       margin: const EdgeInsets.fromLTRB(15, 5, 15, 13),
@@ -173,7 +212,7 @@ class emergency_request extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 5),
               // margin: EdgeInsets.symmetric(horizontal: 5),
-              width: 210,
+              width: 295,
               child: Text(
                 reportID,
                 style: TextStyle(
@@ -191,6 +230,8 @@ class emergency_request extends StatelessWidget {
                 color: Color(0xFF2d5240),
                 iconSize: 35,
                 onPressed: () {
+                  FirebaseController.namePatient=reportID;
+                  FirebaseController.emailPatient=email;
                   Navigator.push(
                     context,
                     MaterialPageRoute(

@@ -106,10 +106,8 @@ class _MypatientsState extends State<Mypatients> {
                             if(!snapshot.hasData){
                               return SizedBox();
                             }else{
-                              FirebaseController.userNamePatient=Chatting.LISTUSER[index]["userName"];
-                              FirebaseController.indexPatient=index;
                               return snapshot.data.toString().toLowerCase().contains(Chatting.name)?
-                              patient('${snapshot.data}',snapshot.data.toString())://Chatting.listHellper[index]['patient_email']):
+                              patient(index,'${snapshot.data}',Chatting.listHellper[index]['patient_email'])://Chatting.listHellper[index]['patient_email']):
                               SizedBox.fromSize();
                               // return doctor(Chatting.listHellper[index]['patient_email']);
                             }
@@ -129,7 +127,7 @@ class _MypatientsState extends State<Mypatients> {
     );
   }
 
-  Widget patient(String name, String email) {
+  Widget patient(int index,String name, String email) {
     return Card(
       elevation: 4,
       margin: const EdgeInsets.fromLTRB(10, 0, 10, 8),
@@ -147,7 +145,7 @@ class _MypatientsState extends State<Mypatients> {
               width: 30,
             ),
             Container(
-              width: 110,
+              width: 180,
               child: Text(
                 name,
                 style: TextStyle(
@@ -156,7 +154,7 @@ class _MypatientsState extends State<Mypatients> {
               ),
             ),
             SizedBox(
-              width: 60,
+              width: 110,
             ),
             SizedBox(
               height: 40,
@@ -169,12 +167,17 @@ class _MypatientsState extends State<Mypatients> {
                   //print(Chatting.PATIENT_EMAIL);
                   Chatting.PATIENT_NAME="${name}";
                   Chatting.NAME="${name}";
-                  print(FirebaseController.indexPatient);
-                  /*Navigator.push(
+                  FirebaseController.namePatient=name;
+                  FirebaseController.emailPatient=email;
+                  print(FirebaseController.emailPatient);
+                  //FirebaseController.userNamePatient="";//Chatting.LISTUSER[index]["userName"];
+                  //FirebaseController.indexPatient=index;
+                 // print("${index}"+Chatting.LISTUSER[index]["email"]);
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => AllReportOfPatient()),
-                  );*/
+                  );
                   // setState(() {
                   //   _isBluetoothOn = !_isBluetoothOn;
                   // });

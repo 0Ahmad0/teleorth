@@ -8,9 +8,10 @@
 
 import 'package:_finalproject/Screens/doctor/Mypatients.dart';
 import 'package:_finalproject/firebase/chatting.dart';
-import 'package:_finalproject/firebase/firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../../firebase/firebase.dart';
 import 'EachReportOfPatient.dart';
 import 'homePageDoctor.dart';
 
@@ -21,6 +22,7 @@ class AllReportOfPatient extends StatefulWidget {
 
 class _AllReportOfPatientState extends State<AllReportOfPatient> {
   bool _isActive = false;
+  String search="";
 
   void _onChanged(bool value) {
     setState(() {
@@ -76,7 +78,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                     bottom: 35,
                     left: 100,
                     child: Text(
-                      Chatting.LISTUSER[FirebaseController.indexPatient]["displayName"],
+                      FirebaseController.namePatient,
                       //'Lama Khaled',
                       style: TextStyle(
                         fontSize: 30.0,
@@ -100,6 +102,9 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black)),
                         child: TextField(
+                          onChanged: (val){
+                            search=val;
+                          },
                           //controller: _search,
                           decoration: InputDecoration(
                             hintText: "  No. Of report or Date ",
@@ -112,7 +117,11 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                         width: 6,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+
+                          });
+                        },
                         child: Text("Search",
                             style: TextStyle(
                               fontSize: 16.0,
@@ -139,109 +148,136 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                   ),
                 ),
               ),
-              Material(
-                elevation: 5,
-                child: Container(
-                  color: Color(0xFFA9C2B6),
-                  child: Stack(
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Positioned(
-                        left: 12,
-                        top: 25,
-                        child: Text(
-                          "Tens Intensity: ",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17.0,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 130, vertical: 12),
-                        // padding: EdgeInsets.symmetric(horizontal: 100),
-                        color: Color(0xFFFCFFFD),
-                        child: Positioned(
-                          left: 120,
-                          top: 10,
-                          child: Row(
+              FutureBuilder(
+                  future: Chatting.getAdditive(FirebaseController.emailPatient),
+                  builder: (context,snapShot) {
+                    if (!snapShot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+
+                      _isActive=Chatting.listHellper[0]["tensP"];
+                     // print(Chatting.listHellper.length);
+                      return Material(
+                        elevation: 5,
+                        child: Container(
+                          color: Color(0xFFA9C2B6),
+                          child: Stack(
+                            //crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(7.0, 8.0, 0, 10),
-                                height: 33,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black)),
-                                child: TextField(
-                                  //controller: _search,
-                                  decoration: InputDecoration(
-                                    hintText: "  25 ",
-                                    hintStyle: TextStyle(
-                                        fontSize: 16.0, color: Colors.grey),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 6.0),
                               Positioned(
-                                left: 230,
-                                top: 20,
+                                left: 12,
+                                top: 25,
                                 child: Text(
-                                  "Hz",
+                                  "Tens Intensity: ",
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 19.0,
+                                    fontSize: 17.0,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      /*Positioned(
+                              Container(
+                                margin:
+                                EdgeInsets.symmetric(horizontal: 130, vertical: 12),
+                                // padding: EdgeInsets.symmetric(horizontal: 100),
+                                color: Color(0xFFFCFFFD),
+                                child: Positioned(
+                                  left: 120,
+                                  top: 10,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        margin:
+                                        const EdgeInsets.fromLTRB(7.0, 8.0, 0, 10),
+                                        height: 33,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(color: Colors.black)),
+                                        child: TextField(
+                                          //controller: _search,
+                                          decoration: InputDecoration(
+                                            hintText: "${Chatting.listHellper[0]["tens"]}",//"  25 ",
+                                            hintStyle: TextStyle(
+                                                fontSize: 16.0, color: Colors.grey),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 6.0),
+                                      Positioned(
+                                        left: 230,
+                                        top: 20,
+                                        child: Text(
+                                          "Hz",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 19.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              /*Positioned(
                         left: 285,
                         top: 20,
                         child: Text('TENS',
                             style: TextStyle(color: Colors.black, fontSize: 15)),
                       ),*/
 
-                      SwitchListTile(
-                        activeColor: Colors.green,
-                        activeTrackColor: Colors.grey[400],
-                        inactiveThumbColor: Colors.red,
-                        // secondary: const Icon(Icons.home),
-                        controlAffinity: ListTileControlAffinity.trailing,
-                        value: _isActive,
-                        onChanged: (value) {
-                          setState(() {
-                            _isActive = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                              SwitchListTile(
+                                activeColor: Colors.green,
+                                activeTrackColor: Colors.grey[400],
+                                inactiveThumbColor: Colors.red,
+                                // secondary: const Icon(Icons.home),
+                                controlAffinity: ListTileControlAffinity.trailing,
+                                value: _isActive,
+                                onChanged: (value) async {
+                                 Chatting.additive = FirebaseController.changeTens("tensD", Chatting.listHellper[0]);
+                                  await Chatting.editAdditive(Chatting.listHellper[0].id);
+                                  setState(() {
+                                    _isActive = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }}
               ),
-              SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 540,
-                child: ListView(scrollDirection: Axis.vertical, children: [
-                  allreportsP("#1_LamaKhaled_6-7-2021", context),
-                  allreportsP("#2_LamaKhaled_15-7-2021", context),
-                  allreportsP("#3_LamaKhaled_20-7-2021", context),
-                  allreportsP("#4_LamaKhaled_30-7-2021", context),
-                  allreportsP("#5_LamaKhaled_3-8-2021", context),
-                  allreportsP("#6_LamaKhaled_6-8-2021", context),
-                  allreportsP("#7_LamaKhaled_8-9-2021", context),
-                  allreportsP("#84_LamaKhaled_16-10-2021", context),
-                  allreportsP("#84_LamaKhaled_16-10-2021", context),
-                  allreportsP("#84_LamaKhaled_16-10-2021", context),
-                  allreportsP("#84_LamaKhaled_16-10-2021", context),
-                ]),
-              ),
+              FutureBuilder(
+              future: FirebaseController.fetchReportsDoctor(),
+                    builder: (context,snapShot) {
+                    if (!snapShot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                    } else {
+                      return Column(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 540,
+                              child: ListView.builder(
+                                  itemCount: FirebaseController.listReport.length,//allreports.length,
+                                  itemBuilder: (ctx, index) {
+                                  FirebaseController.indexReport=index;
+                                  String text="#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
+                                  " | ${
+                                  DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
+                                  }";
+                                  return (search==""||text.contains(search))?
+                                  allreportsP( "#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
+                                  " | ${
+                                  DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
+                                  }",
+                                  context):SizedBox();
+                                  }),
+
+                            ),
+                          ]);
+                    }}
+                    ),
             ]),
           ),
         ),

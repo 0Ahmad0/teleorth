@@ -146,6 +146,7 @@ class DetailsReport{
     "isVisible":false,
     "date":DateTime.now(),
     "userName":"",
+    "email":"",
     "details":
       {
       "name":"",
@@ -170,8 +171,8 @@ class DetailsReport{
     var details={
       "name":MyUser.FULLNAME,
       "gender":MyUser.GENDER,
-        "symptoms":"${final_diagnose}"+"\n"+"${pre_diagnose}",
-        "possibleInjury":"",
+        "symptoms":"",
+        "possibleInjury":"${final_diagnose}"+"\n"+"${pre_diagnose}",
         "recommendation":"",
         "type":"normal",
     };
@@ -184,10 +185,12 @@ class DetailsReport{
     }
     report["details"]=details;
     report["userName"]=MyUser.USERNAME;
+    report["email"]=MyUser.EMAIL;
     report["date"]=DateTime.now();
   }
   static setReport(var sReport){
     report={
+      "email":sReport["email"],
       "tens":sReport["tens"],
       "tensD":sReport["tensD"],
       "tensP":sReport["tensP"],

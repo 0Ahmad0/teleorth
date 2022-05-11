@@ -225,7 +225,7 @@ class _MyprofileState extends State<Myprofile> {
 
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                  child: buildTextField('E-mail',MyUser.EMAIL /*SignInScreen.email*/, false),
+                  child: buildTextField('E-mail',MyUser.EMAIL /*SignInScreen.email*/,true),
                 ),
 
                 Container(
