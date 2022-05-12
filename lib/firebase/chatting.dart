@@ -177,6 +177,17 @@ class Chatting {
     }
     return true;
   }
+  static Future<bool> deleteAdditive(String id)async{
+    try{
+      await FirebaseFirestore.instance
+          .collection("additives")
+          .doc(id).delete().then((value) => print("done delete patient"),);
+    }on FirebaseException catch(e){
+      print(e.message);
+      print("can not edit patient");
+    }
+    return true;
+  }
 
   static getPatient()async{
     try{

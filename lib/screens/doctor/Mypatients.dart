@@ -119,6 +119,7 @@ class _MypatientsState extends State<Mypatients> {
                                   onDismissed: (val){
                                     print(index);
                                     //TODO delete Patient
+                                    Chatting.deleteAdditive(Chatting.listHellper[index].id);
                                     Get.snackbar(
                                       'Delete Patient',
                                       'successfull',
