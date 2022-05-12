@@ -2,9 +2,13 @@
 
 import 'package:_finalproject/Screens/doctor/recovery_Plan.dart';
 import 'package:_finalproject/firebase/firebase.dart';
+import 'package:_finalproject/report/Report.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../recovery_plan_creen1.dart';
+import '../../recovery_plan_screen2.dart';
+import '../../report/details_report.dart';
 import 'AllReportOfPatient.dart';
 import 'ImageOfInjury.dart';
 import 'List_of_Xray.dart';
@@ -151,11 +155,24 @@ class EachReportOfPatient extends StatelessWidget {
                 color: Colors.white70,
                 child: Expanded(
                   child: FlatButton(
-                    onPressed: () {  Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => recovery_Plan()),
-                      );},
+                    onPressed: () {
+                      //DetailsReport.recoveryPlan=DetailsReport.recoveryPlan1;
+                      if(!FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => (FirebaseController.listReport[FirebaseController.indexReport]["details"]["type"]!="fracture")
+                                  ?recovery_Plan():RecoveryPlanScreen1()),
+                        );
+                      }else{
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => (FirebaseController.listReport[FirebaseController.indexReport]["details"]["type"]!="fracture")
+                                  ?recovery_Plan():RecoveryPlanScreen2()),
+                        );
+                      }
+                      },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 13, horizontal: 7),
@@ -194,6 +211,7 @@ class EachReportOfPatient extends StatelessWidget {
                 child: Expanded(
                   child: FlatButton(
                     onPressed: () {
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => List_of_Xray()),

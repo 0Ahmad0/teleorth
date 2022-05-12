@@ -3,7 +3,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../../firebase/firebase.dart';
 import 'EachReportOfPatient.dart';
 
 class recovery_Plan extends StatelessWidget {
@@ -107,9 +109,9 @@ class recovery_Plan extends StatelessWidget {
                     children: [
                       Wrap(
                         direction: Axis.horizontal,
-                        children: const [
+                        children:  [
                           Text(
-                            "Username: ---------",
+                            "Username:  ${FirebaseController.listReport[FirebaseController.indexReport]["userName"]}",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 17.0,
@@ -117,7 +119,7 @@ class recovery_Plan extends StatelessWidget {
                           ),
                           SizedBox(width: 90),
                           Text(
-                            "Gender: ---------",
+                            "Gender:  ${FirebaseController.listReport[FirebaseController.indexReport]["details"]["gender"]}",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 17.0,
@@ -128,9 +130,9 @@ class recovery_Plan extends StatelessWidget {
                       SizedBox(height: 5),
                       Wrap(
                         direction: Axis.horizontal,
-                        children: const [
+                        children:  [
                           Text(
-                            "Name: ---------",
+                            "Name: ${FirebaseController.listReport[FirebaseController.indexReport]["details"]["name"]}",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 17.0,
@@ -138,7 +140,7 @@ class recovery_Plan extends StatelessWidget {
                           ),
                           SizedBox(width: 124),
                           Text(
-                            "Date: ---------",
+                            "Date: ${  DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.indexReport]["date"].toDate())}",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 17.0,

@@ -1,5 +1,6 @@
 import 'package:_finalproject/firebase/user.dart';
 import 'package:_finalproject/report/details_report.dart';
+import 'package:_finalproject/screens/patient/recovery_plan.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
@@ -48,6 +49,29 @@ class FirebaseController{
       print(e);
       return false;
     }
+  }
+
+  static updateRecoveryPlan() async {
+    try{
+      await FirebaseFirestore.instance.collection("reports").
+      doc(listReport[indexReport]).
+      update({
+        "recoveryPlan":DetailsReport.recoveryPlan,
+        "doctor":DetailsReport.report["doctor"],
+        "isVisible":true,
+      }).
+      then((value){
+        print("done update recovery plan");
+        return true;
+      });
+
+    }catch(e){
+      print(e);
+      print("dont update recovery plan");
+      return false;
+    }
+    print("dont update recovery plan");
+    return false;
   }
   static changeTens(String typeTens,var additive){
     return {

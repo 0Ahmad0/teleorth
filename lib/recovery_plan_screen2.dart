@@ -1,24 +1,41 @@
 import 'package:_finalproject/report/details_report.dart';
 import 'package:_finalproject/reusable_widgets/reusable_widget.dart';
+import 'package:_finalproject/screens/doctor/AllReportOfPatient.dart';
+import 'package:_finalproject/screens/doctor/EachReportOfPatient.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/doctor/homePageDoctor.dart';
 import 'const/get_size.dart';
+import 'firebase/firebase.dart';
 
 class RecoveryPlanScreen2 extends StatefulWidget{
   List? weberList;
   String? weberName;
   bool canEdit = false;
-
-  RecoveryPlanScreen2({this.weberList, this.weberName,this.canEdit = false});
+  Future<void> update() async {
+    await FirebaseController.updateRecoveryPlan();
+  }
+  RecoveryPlanScreen2({this.weberList, this.weberName,this.canEdit = false}){
+    if(FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]){
+     weberName="Weber${FirebaseController.listReport[FirebaseController.indexReport]["doctor"]["weber"]}";
+     weberList=FirebaseController.listReport[FirebaseController.indexReport]["recoveryPlan"]["${weberName}"] as List?;
+     DetailsReport.recoveryPlan=FirebaseController.listReport[FirebaseController.indexReport]["recoveryPlan"];
+    }else if(weberName==null){
+      weberName="WeberA";
+      weberList=DetailsReport.recoveryPlan["${weberName}"] as List?;
+      DetailsReport.recoveryPlan=DetailsReport.recoveryPlan1;
+    }
+  }
 
   @override
   _RecoveryPlanScreen2State createState() => _RecoveryPlanScreen2State();
 }
 
 class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
+
   @override
   Widget build(BuildContext context) {
     print(widget.weberList);
@@ -547,10 +564,27 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                 ),
               ),
               SizedBox(height: 15.0,),
-              GestureDetector(
+              (!FirebaseController.listReport[FirebaseController.indexReport]["isVisible"])?GestureDetector(
                 onTap: (){
-                 Navigator.pushReplacement(context, MaterialPageRoute
-                   (builder: (ctx)=>homePageDoctor()));
+                  DetailsReport.setDoctor({
+                      "weber":(widget.weberName=="WeberA")?"A":"B",
+                      "date":DateTime.now(),
+                      "email":"",
+                      "name":"",
+                      "userName":"",
+                  });
+                  DetailsReport.recoveryPlan["${widget.weberName}"]=(widget.weberList!);
+                  FirebaseFirestore.instance.collection("reports").
+                  doc("${FirebaseController.listReport[FirebaseController.indexReport]}").
+                  update(DetailsReport.report).
+                  then((value){
+                    print("done update recovery plan");
+                    Navigator.pushReplacement(context, MaterialPageRoute
+                      (builder: (ctx)=>AllReportOfPatient()));
+                  });
+                // widget.update();
+               /*  Navigator.pushReplacement(context, MaterialPageRoute
+                   (builder: (ctx)=>AllReportOfPatient()));*/
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -564,7 +598,7 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                       color: Colors.white
                   ),),
                 ),
-              )
+              ):SizedBox()
 
             ],
           ),
