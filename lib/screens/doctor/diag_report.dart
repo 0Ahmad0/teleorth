@@ -189,14 +189,17 @@ class diag_report extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 25, vertical: 20)),
 
-                      Text(
-                        "--------------------------------------------------\n" +
-                            "--------------------------------------------------",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 5,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17.0,
+                      Expanded(
+                        child:Text(
+                          (FirebaseController.listReport[FirebaseController.indexReport]["details"]["symptoms"]!="")?("${FirebaseController.listReport[FirebaseController.indexReport]["details"]["symptoms"]}")
+                              :("--------------------------------------------------\n" +
+                              "--------------------------------------------------"),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 5,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17.0,
+                          ),
                         ),
                       ),
                       //       Padding(padding: EdgeInsets.symmetric(horizontal: 50)),
@@ -230,13 +233,15 @@ class diag_report extends StatelessWidget {
                   ),
 
                   Row(
-                    children: const [
+                    children:  [
                       Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 25, vertical: 20)),
                       Text(
-                        "--------------------------------------------------\n" +
-                            "--------------------------------------------------",
+                        (FirebaseController.listReport[FirebaseController.indexReport]["details"]["possibleInjury"]!="")?
+                        ("${FirebaseController.listReport[FirebaseController.indexReport]["details"]["possibleInjury"]}")
+                            :("--------------------------------------------------\n" +
+                            "--------------------------------------------------"),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 5,
                         style: TextStyle(
