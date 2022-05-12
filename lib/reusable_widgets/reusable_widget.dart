@@ -35,9 +35,11 @@ Widget childMainLabel({text,context}){
 }
 
 
-TextField reusableTextField(String text, IconData icon, bool isPasswordType, //used with the sign in and signup fields
-    TextEditingController controller) {
-  return TextField(
+TextFormField reusableTextField(String text, IconData icon, bool isPasswordType, //used with the sign in and signup fields
+    TextEditingController controller, {validate  , helperText}) {
+  return TextFormField(
+
+    validator: validate,
     controller: controller, // allow us to access the text and handle it
     obscureText: isPasswordType, // check if the password is a password type or not and, obscure the Text if it is a password type
     enableSuggestions: !isPasswordType, // enable suggestions and auto correct if it is not a password
@@ -45,7 +47,7 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType, //u
     cursorColor: Colors.black,
     style: const TextStyle(color: Colors.black), // styling if the text
     decoration: InputDecoration(
-     
+      helperText: helperText,
       prefixIcon: Icon( // prefix icon in the left for both the sign in and signup fields
         icon,
         color: Colors.black,

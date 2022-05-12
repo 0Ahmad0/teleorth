@@ -32,128 +32,128 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.grey[50],
-          body: SingleChildScrollView(
-            child: Column(children: [
-              Stack(
-                children: [
-                  ClipPath(
-                    child: Container(
-                      height: 102,
-                      width: 392.7,
-                      color: Color(0xFF4d8d6e),
-                    ),
-                  ),
-                  Positioned(
-                    top: 10,
-                    left: 1,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        size: 30.0,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Mypatients()),
-                        );
-                      },
-                    ),
-                  ),
-                  /*  Positioned(
-                    bottom: 50,
-                    left: 20,
-                    child: Image(
-                      //width: 20,
-                      // height: 20,
-                      image: AssetImage('Pictures/patient.png'),
-                      width: 10,
-                      height: 10,
-                    ),
-                  ),*/
-                  Positioned(
-                    bottom: 35,
-                    left: 100,
-                    child: Text(
-                      FirebaseController.namePatient,
-                      //'Lama Khaled',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Material(
-                elevation: 3,
+    return  Scaffold(
+      appBar: AppBar(),
+      backgroundColor: Colors.grey[50],
+      body: SingleChildScrollView(
+        child: Column(children: [
+          Stack(
+            children: [
+              ClipPath(
                 child: Container(
-                  color: Colors.white,
-                  child: Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(10.0, 12.0, 0, 10),
-                        height: 44,
-                        width: 300,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black)),
-                        child: TextField(
-                          onChanged: (val){
-                            search=val;
-                          },
-                          //controller: _search,
-                          decoration: InputDecoration(
-                            hintText: "  No. Of report or Date ",
-                            hintStyle:
-                                TextStyle(fontSize: 16.0, color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-
-                          });
-                        },
-                        child: Text("Search",
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Color(0xFF4d8d6e),
-                            )),
-                      ),
-                      /*ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Color(0xFF4d8d6e)),
-                            shape:
-                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40)))),
-                        child: Text(
-                          'Add patient',
-                          style: TextStyle(
-                            fontSize: 14.0,
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),*/
-                    ],
+                  height: 102,
+                  width: 392.7,
+                  color: Color(0xFF4d8d6e),
+                ),
+              ),
+              Positioned(
+                top: 10,
+                left: 1,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    size: 30.0,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Mypatients()),
+                    );
+                  },
+                ),
+              ),
+              /*  Positioned(
+                bottom: 50,
+                left: 20,
+                child: Image(
+                  //width: 20,
+                  // height: 20,
+                  image: AssetImage('Pictures/patient.png'),
+                  width: 10,
+                  height: 10,
+                ),
+              ),*/
+              Positioned(
+                bottom: 35,
+                left: 100,
+                child: Text(
+                  FirebaseController.namePatient,
+                  //'Lama Khaled',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              FutureBuilder(
-                  future: Chatting.getAdditive(FirebaseController.emailPatient),
-                  builder: (context,snapShot) {
-                    if (!snapShot.hasData) {
-                      return Center(child: CircularProgressIndicator());
-                    } else {
+            ],
+          ),
+          Material(
+            elevation: 3,
+            child: Container(
+              color: Colors.white,
+              child: Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(10.0, 12.0, 0, 10),
+                    height: 44,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black)),
+                    child: TextField(
+                      onChanged: (val){
+                        search=val;
+                      },
+                      //controller: _search,
+                      decoration: InputDecoration(
+                        hintText: "  No. Of report or Date ",
+                        hintStyle:
+                            TextStyle(fontSize: 16.0, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+
+                      });
+                    },
+                    child: Text("Search",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Color(0xFF4d8d6e),
+                        )),
+                  ),
+                  /*ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xFF4d8d6e)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(40)))),
+                    child: Text(
+                      'Add patient',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                    ),
+                    onPressed: () {},
+                  ),*/
+                ],
+              ),
+            ),
+          ),
+          FutureBuilder(
+              future: Chatting.getAdditive(FirebaseController.emailPatient),
+              builder: (context,snapShot) {
+                if (!snapShot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
 
                       _isActive=Chatting.listHellper[0]["tensP"];
                      // print(Chatting.listHellper.length);
@@ -274,14 +274,13 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                                   context):SizedBox();
                                   }),
 
-                            ),
-                          ]);
-                    }}
-                    ),
-            ]),
-          ),
-        ),
-      );
+                        ),
+                      ]);
+                }}
+                ),
+        ]),
+      ),
+    );
   }
 
   Widget allreportsP(int index,String reportID, BuildContext context) {

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:image_downloader/image_downloader.dart';
 //import 'package:http/http.dart';
 //import 'package:http/http.dart';
 /*import 'package:image_picker/image_picker.dart';
@@ -12,6 +15,22 @@ import 'List_of_Xray.dart';
 // ignore: camel_case_types
 class Xray_pic extends StatelessWidget {
   const Xray_pic({Key? key}) : super(key: key);
+
+  downloadIMG({url})async{
+    try {
+      // Saved with this method.
+      var imageId = await
+      ImageDownloader.downloadImage
+        (url).then((value) {
+          Get.snackbar('Success full', 'download complete',backgroundColor: Colors.green,colorText: Colors.white);
+      });
+      // if (imageId == null) {
+      //   Get.snackbar("Error", "Filed Download Image",backgroundColor: Colors.red,colorText: Colors.white);
+      // }
+    } on PlatformException catch (error) {
+      print(error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +90,11 @@ class Xray_pic extends StatelessWidget {
                             size: 30.0,
                             color: Color(0xFF4d8d6e),
                           ),
-                          onPressed: () {},
+                          onPressed: () async{
+                            await downloadIMG(
+                              url: 'https://imgs.developpaper.com/imgs/20200119110400.jpg'
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -85,6 +108,7 @@ class Xray_pic extends StatelessWidget {
                   height: 500,
                   fit: BoxFit.cover,
                   alignment: Alignment.center,
+
                   image: AssetImage("assets/images/AnkleSprain.jpg"),
                 ),
               ),
