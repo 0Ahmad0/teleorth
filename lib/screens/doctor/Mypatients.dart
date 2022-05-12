@@ -107,7 +107,8 @@ class _MypatientsState extends State<Mypatients> {
                             if(!snapshot.hasData){
                               return SizedBox();
                             }else{
-                              return snapshot.data.toString().toLowerCase().contains(Chatting.name)?
+                              return snapshot.data.toString().
+                              toLowerCase().contains(Chatting.name)?
                               Dismissible(
                                 background: Container(
                                   alignment: Alignment.center,
@@ -175,11 +176,7 @@ class _MypatientsState extends State<Mypatients> {
                 ),
               ),
             ),
-            SizedBox(
-              width: 110,
-            ),
-            SizedBox(
-              height: 40,
+            Expanded(
               child: IconButton(
                 icon: const Icon(Icons.keyboard_arrow_right_outlined),
                 color: Color(0xFF2d5240),

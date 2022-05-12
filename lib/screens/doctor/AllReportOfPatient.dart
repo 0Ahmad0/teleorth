@@ -9,6 +9,7 @@
 import 'package:_finalproject/Screens/doctor/Mypatients.dart';
 import 'package:_finalproject/firebase/chatting.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../firebase/firebase.dart';
@@ -30,10 +31,11 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
     });
   }
 
+  int valueHZ = 0;
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(),
       backgroundColor: Colors.grey[50],
       body: SingleChildScrollView(
         child: Column(children: [
@@ -154,57 +156,73 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                 if (!snapShot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 } else {
-
                       _isActive=Chatting.listHellper[0]["tensP"];
                      // print(Chatting.listHellper.length);
                       return Material(
                         elevation: 5,
                         child: Container(
-                          color: Color(0xFFA9C2B6),
-                          child: Stack(
-                            //crossAxisAlignment: CrossAxisAlignment.center,
+                          alignment: Alignment.center,
+                          height: Get.width * 0.25,
+                          color: Colors.white,
+                          child: Row(
                             children: [
-                              Positioned(
-                                left: 12,
-                                top: 25,
-                                child: Text(
-                                  "Tens Intensity: ",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 17.0,
-                                  ),
+                              Text(
+                                "Tens Intensity: ",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17.0,
                                 ),
                               ),
-                              Container(
-                                margin:
-                                EdgeInsets.symmetric(horizontal: 130, vertical: 12),
-                                // padding: EdgeInsets.symmetric(horizontal: 100),
-                                color: Color(0xFFFCFFFD),
-                                child: Positioned(
-                                  left: 120,
-                                  top: 10,
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  padding: EdgeInsets.all(5.0),
+                                  color: Colors.white,
+                                  width: Get.width * 0.4,
                                   child: Row(
                                     children: [
-                                      Container(
-                                        margin:
-                                        const EdgeInsets.fromLTRB(7.0, 8.0, 0, 10),
-                                        height: 33,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.black)),
-                                        child: TextField(
-                                          //controller: _search,
-                                          decoration: InputDecoration(
-                                            hintText: "${Chatting.listHellper[0]["tens"]}",//"  25 ",
-                                            hintStyle: TextStyle(
-                                                fontSize: 16.0, color: Colors.grey),
+
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            if(valueHZ<9){
+                                              valueHZ++;
+                                              setState(() {
+print(valueHZ);
+                                              });
+                                            }
+                                          },
+                                          child: CircleAvatar(
+                                            child: Text('+',style: TextStyle(
+                                              color: Colors.white,
+                                            ),),
+                                            radius: Get.width * 0.05,
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: 6.0),
-                                      Positioned(
-                                        left: 230,
-                                        top: 20,
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: TextFormField(
+                                          readOnly: true,
+                                            initialValue: '${valueHZ}',
+                                            keyboardType: TextInputType.phone,
+                                            textAlign: TextAlign.center,
+                                            //controller: _search,
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.all(
+                                                5
+                                              ),
+                                              border: OutlineInputBorder(),
+                                              hintText: "${Chatting.listHellper[0]["tens"]}",//"  25 ",
+                                              hintStyle: TextStyle(
+                                                  fontSize: 16.0, color: Colors.grey),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
                                         child: Text(
                                           "Hz",
                                           style: TextStyle(
@@ -213,10 +231,46 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                                           ),
                                         ),
                                       ),
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            if(valueHZ>0){
+                                              valueHZ--;
+                                              setState(() {
+
+                                              });
+                                            }
+                                          },
+                                          child: CircleAvatar(
+                                            child: Text('-',style: TextStyle(
+                                              color: Colors.white,
+                                            ),),
+                                            radius: Get.width * 0.05,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
+                              Expanded(
+                                child: SwitchListTile(
+                                  activeColor: Colors.green,
+                                  activeTrackColor: Colors.grey[400],
+                                  inactiveThumbColor: Colors.red,
+                                  // secondary: const Icon(Icons.home),
+                                  controlAffinity: ListTileControlAffinity.trailing,
+                                  value: _isActive,
+                                  onChanged: (value) async {
+                                    Chatting.additive = FirebaseController.changeTens("tensD", Chatting.listHellper[0]);
+                                    await Chatting.editAdditive(Chatting.listHellper[0].id);
+                                    setState(() {
+                                      _isActive = value;
+                                    });
+                                  },
+                                ),
+                              ),
+
                               /*Positioned(
                         left: 285,
                         top: 20,
@@ -224,21 +278,6 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                             style: TextStyle(color: Colors.black, fontSize: 15)),
                       ),*/
 
-                              SwitchListTile(
-                                activeColor: Colors.green,
-                                activeTrackColor: Colors.grey[400],
-                                inactiveThumbColor: Colors.red,
-                                // secondary: const Icon(Icons.home),
-                                controlAffinity: ListTileControlAffinity.trailing,
-                                value: _isActive,
-                                onChanged: (value) async {
-                                 Chatting.additive = FirebaseController.changeTens("tensD", Chatting.listHellper[0]);
-                                  await Chatting.editAdditive(Chatting.listHellper[0].id);
-                                  setState(() {
-                                    _isActive = value;
-                                  });
-                                },
-                              ),
                             ],
                           ),
                         ),
