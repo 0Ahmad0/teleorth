@@ -23,7 +23,7 @@ class AllReportOfPatient extends StatefulWidget {
 
 class _AllReportOfPatientState extends State<AllReportOfPatient> {
   bool _isActive = false;
-  String search="";
+  String search = "";
 
   void _onChanged(bool value) {
     setState(() {
@@ -35,7 +35,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.grey[50],
       body: SingleChildScrollView(
         child: Column(children: [
@@ -101,11 +101,11 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                     margin: const EdgeInsets.fromLTRB(10.0, 12.0, 0, 10),
                     height: 44,
                     width: 300,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black)),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
                     child: TextField(
-                      onChanged: (val){
-                        search=val;
+                      onChanged: (val) {
+                        search = val;
                       },
                       //controller: _search,
                       decoration: InputDecoration(
@@ -120,9 +120,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                   ),
                   TextButton(
                     onPressed: () {
-                      setState(() {
-
-                      });
+                      setState(() {});
                     },
                     child: Text("Search",
                         style: TextStyle(
@@ -152,177 +150,185 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
           ),
           FutureBuilder(
               future: Chatting.getAdditive(FirebaseController.emailPatient),
-              builder: (context,snapShot) {
+              builder: (context, snapShot) {
                 if (!snapShot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 } else {
-                      _isActive=Chatting.listHellper[0]["tensP"];
-                     // print(Chatting.listHellper.length);
-                      return Material(
-                        elevation: 5,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: Get.width * 0.25,
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              Text(
-                                "Tens Intensity: ",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 17.0,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  color: Colors.white,
-                                  width: Get.width * 0.4,
-                                  child: Row(
-                                    children: [
-
-                                      Expanded(
-                                        child: GestureDetector(
-                                          onTap: (){
-                                            if(valueHZ<9){
-                                              valueHZ++;
-                                              setState(() {
-print(valueHZ);
-                                              });
-                                            }
-                                          },
-                                          child: CircleAvatar(
-                                            child: Text('+',style: TextStyle(
-                                              color: Colors.white,
-                                            ),),
-                                            radius: Get.width * 0.05,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: TextFormField(
-                                          readOnly: true,
-                                            initialValue: '${valueHZ}',
-                                            keyboardType: TextInputType.phone,
-                                            textAlign: TextAlign.center,
-                                            //controller: _search,
-                                            decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.all(
-                                                5
-                                              ),
-                                              border: OutlineInputBorder(),
-                                              hintText: "${Chatting.listHellper[0]["tens"]}",//"  25 ",
-                                              hintStyle: TextStyle(
-                                                  fontSize: 16.0, color: Colors.grey),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
+                  _isActive = Chatting.listHellper[0]["tensP"];
+                  // print(Chatting.listHellper.length);
+                  return Material(
+                    elevation: 5,
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: Get.width * 0.25,
+                      color: Color(0xFF4d8d6e),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Tens Intensity: ",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17.0,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Container(
+                              padding: EdgeInsets.all(5.0),
+                              color: Colors.white,
+                              width: Get.width * 0.4,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (valueHZ < 9) {
+                                          valueHZ++;
+                                          setState(() {
+                                            print(valueHZ);
+                                          });
+                                        }
+                                      },
+                                      child: CircleAvatar(
                                         child: Text(
-                                          "Hz",
+                                          '+',
                                           style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 19.0,
+                                            color: Colors.white,
                                           ),
                                         ),
+                                        radius: Get.width * 0.05,
                                       ),
-                                      Expanded(
-                                        child: GestureDetector(
-                                          onTap: (){
-                                            if(valueHZ>0){
-                                              valueHZ--;
-                                              setState(() {
-
-                                              });
-                                            }
-                                          },
-                                          child: CircleAvatar(
-                                            child: Text('-',style: TextStyle(
-                                              color: Colors.white,
-                                            ),),
-                                            radius: Get.width * 0.05,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10.0),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                color: Colors.black,
+                                                width: 1.5,
+                                              )),
+                                          child: Text.rich(TextSpan(children: [
+                                            TextSpan(
+                                              text: "${valueHZ}",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: Get.width * 0.05,
+                                                color: Color(0xFF4d8d6e),
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: " Hz",
+                                              style: TextStyle(
+                                              ),
+                                            )
+                                          ]))),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (valueHZ > 0) {
+                                          valueHZ--;
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: CircleAvatar(
+                                        child: Text(
+                                          '-',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        radius: Get.width * 0.05,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Expanded(
-                                child: SwitchListTile(
-                                  activeColor: Colors.green,
-                                  activeTrackColor: Colors.grey[400],
-                                  inactiveThumbColor: Colors.red,
-                                  // secondary: const Icon(Icons.home),
-                                  controlAffinity: ListTileControlAffinity.trailing,
-                                  value: _isActive,
-                                  onChanged: (value) async {
-                                    Chatting.additive = FirebaseController.changeTens("tensD", Chatting.listHellper[0]);
-                                    await Chatting.editAdditive(Chatting.listHellper[0].id);
-                                    setState(() {
-                                      _isActive = value;
-                                    });
-                                  },
-                                ),
-                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: SwitchListTile(
+                              activeColor: Colors.green,
+                              activeTrackColor: Colors.grey[400],
+                              inactiveThumbColor: Colors.red,
+                              // secondary: const Icon(Icons.home),
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              value: _isActive,
+                              onChanged: (value) async {
+                                Chatting.additive =
+                                    FirebaseController.changeTens(
+                                        "tensD", Chatting.listHellper[0]);
+                                await Chatting.editAdditive(
+                                    Chatting.listHellper[0].id);
+                                setState(() {
+                                  _isActive = value;
+                                });
+                              },
+                            ),
+                          ),
 
-                              /*Positioned(
+                          /*Positioned(
                         left: 285,
                         top: 20,
                         child: Text('TENS',
                             style: TextStyle(color: Colors.black, fontSize: 15)),
                       ),*/
-
-                            ],
-                          ),
-                        ),
-                      );
-                    }}
-              ),
-              FutureBuilder(
+                        ],
+                      ),
+                    ),
+                  );
+                }
+              }),
+          FutureBuilder(
               future: FirebaseController.fetchReportsDoctor(),
-                    builder: (context,snapShot) {
-                    if (!snapShot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                    } else {
-                      return Column(
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(
-                              height: 540,
-                              child: ListView.builder(
-                                  itemCount: FirebaseController.listReport.length,//allreports.length,
-                                  itemBuilder: (ctx, index) {
-                                  FirebaseController.indexReport=index;
-                                  String text="#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
-                                  " | ${
-                                  DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
-                                  }";
-                                  return (search==""||text.contains(search))?
-                                  allreportsP( index,"#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
-                                  " | ${
-                                  DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
-                                  }",
-                                  context):SizedBox();
-                                  }),
-
-                        ),
-                      ]);
-                }}
-                ),
+              builder: (context, snapShot) {
+                if (!snapShot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  return Column(children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 540,
+                      child: ListView.builder(
+                          itemCount: FirebaseController.listReport.length,
+                          //allreports.length,
+                          itemBuilder: (ctx, index) {
+                            FirebaseController.indexReport = index;
+                            String text = "#${index + 1}_" +
+                                FirebaseController.listReport[index]["details"]
+                                    ["name"] +
+                                " | ${DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())}";
+                            return (search == "" || text.contains(search))
+                                ? allreportsP(
+                                    index,
+                                    "#${index + 1}_" +
+                                        FirebaseController.listReport[index]
+                                            ["details"]["name"] +
+                                        " | ${DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())}",
+                                    context)
+                                : SizedBox();
+                          }),
+                    ),
+                  ]);
+                }
+              }),
         ]),
       ),
     );
   }
 
-  Widget allreportsP(int index,String reportID, BuildContext context) {
+  Widget allreportsP(int index, String reportID, BuildContext context) {
     return Card(
       elevation: 5,
       margin: const EdgeInsets.fromLTRB(15, 5, 15, 13),
@@ -331,7 +337,8 @@ print(valueHZ);
         borderRadius: BorderRadius.circular(10),
       ),
       shadowColor: Colors.grey,
-      color: Colors.grey[100], //5FA080 //grey[50]
+      color: Colors.grey[100],
+      //5FA080 //grey[50]
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         //padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
@@ -371,8 +378,8 @@ print(valueHZ);
                 color: Color(0xFF2d5240),
                 iconSize: 35,
                 onPressed: () {
-                  FirebaseController.namePatient=reportID;
-                  FirebaseController.indexReport=index;
+                  FirebaseController.namePatient = reportID;
+                  FirebaseController.indexReport = index;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -503,7 +510,7 @@ class Edit_Profile extends StatelessWidget {
                       ),
                       onPressed: () {},
                     ),
-                    title: 
+                    title:
                     Text(
                       'Name',
                       style: TextStyle(
@@ -523,7 +530,7 @@ class Edit_Profile extends StatelessWidget {
                 /*Card(
                   elevation: 0,
                   child: ListTile(
-                    title: 
+                    title:
                     Text(
                       'Username',
                       style: TextStyle(
@@ -845,13 +852,9 @@ class Edit_Profile extends StatelessWidget {
                         );
                       },
                     ),
-                  ),*/ 
+                  ),*/
 
 */
-
-
-
-
 
 ////////////////////////////////////
 ///

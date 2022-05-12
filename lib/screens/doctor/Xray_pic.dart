@@ -22,7 +22,8 @@ class Xray_pic extends StatelessWidget {
       var imageId = await
       ImageDownloader.downloadImage
         (url).then((value) {
-          Get.snackbar('Success full', 'download complete',backgroundColor: Colors.green,colorText: Colors.white);
+          Get.snackbar('Success full', 'download complete',
+              backgroundColor: Colors.green,colorText: Colors.white);
       });
       // if (imageId == null) {
       //   Get.snackbar("Error", "Filed Download Image",backgroundColor: Colors.red,colorText: Colors.white);
@@ -34,105 +35,102 @@ class Xray_pic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: const Color(0xFFf5f5f5),
-        body: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Material(
-                elevation: 5,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20.0,
-                    horizontal: 10,
-                  ),
-                  color: Colors.white,
-                  child: Row(
-                    children: [
-                      Positioned(
-                        top: 10,
-                        left: 8,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            size: 30.0,
-                            color: Color(0xFF4d8d6e),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const List_of_Xray()),
-                            );
-                          },
+        body: Column(
+          children: <Widget>[
+            Material(
+              elevation: 5,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20.0,
+                  horizontal: 10,
+                ),
+                color: Colors.white,
+                child: Row(
+                  children: [
+                    Positioned(
+                      top: 10,
+                      left: 8,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          size: 30.0,
+                          color: Color(0xFF4d8d6e),
                         ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const List_of_Xray()),
+                          );
+                        },
                       ),
-                      const SizedBox(
-                        width: 60,
+                    ),
+                    const SizedBox(
+                      width: 60,
+                    ),
+                    const Text(
+                      "#1_6-7-2021",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 27.0,
                       ),
-                      const Text(
-                        "#1_6-7-2021",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 27.0,
+                    ),
+                    const SizedBox(
+                      width: 60,
+                    ),
+                    Positioned(
+                      top: 10,
+                      left: 8,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.download,
+                          size: 30.0,
+                          color: Color(0xFF4d8d6e),
                         ),
+                        onPressed: () async{
+                          await downloadIMG(
+                            url: 'https://imgs.developpaper.com/imgs/20200119110400.jpg'
+                          );
+                        },
                       ),
-                      const SizedBox(
-                        width: 60,
-                      ),
-                      Positioned(
-                        top: 10,
-                        left: 8,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.download,
-                            size: 30.0,
-                            color: Color(0xFF4d8d6e),
-                          ),
-                          onPressed: () async{
-                            await downloadIMG(
-                              url: 'https://imgs.developpaper.com/imgs/20200119110400.jpg'
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(10, 40, 10, 0),
-                child: Image(
-                  width: 400,
-                  height: 500,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
-
-                  image: AssetImage("assets/images/AnkleSprain.jpg"),
-                ),
-              ),
-
-              /* Image.network(
-                get,
-                height: double.infinity,
-                width: double.infinity,
+            ),
+            Container(
+              margin: const EdgeInsets.fromLTRB(10, 40, 10, 0),
+              child: Image(
+                width: 400,
+                height: 500,
                 fit: BoxFit.cover,
+                alignment: Alignment.center,
+
+                image: AssetImage("assets/images/AnkleSprain.jpg"),
               ),
-              FloatingActionButton(
-                onPressed: () {
-                  _onImageDownloadButtonPressed();
-                },
-                child: const Icon(
-                  Icons.download,
-                  size: 30.0,
-                  color: Color(0xFF4d8d6e),
-                ),
-              ),*/
-            ],
-          ),
+            ),
+
+            /* Image.network(
+              get,
+              height: double.infinity,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                _onImageDownloadButtonPressed();
+              },
+              child: const Icon(
+                Icons.download,
+                size: 30.0,
+                color: Color(0xFF4d8d6e),
+              ),
+            ),*/
+          ],
         ),
-      ),
+
     );
   }
 

@@ -209,39 +209,35 @@ class _emergency_requestState extends State<emergency_request> {
             SizedBox(
               width: 25,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              // margin: EdgeInsets.symmetric(horizontal: 5),
-              width: 295,
-              child: Text(
-                reportID,
-                style: TextStyle(
-                  fontSize: 18.0,
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                // margin: EdgeInsets.symmetric(horizontal: 5),
+                child: Text(
+                  reportID,
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
                 ),
               ),
             ),
-            SizedBox(
-              width: 5,
-            ),
-            SizedBox(
-              height: 40,
-              child: IconButton(
-                icon: const Icon(Icons.keyboard_arrow_right_outlined),
-                color: Color(0xFF2d5240),
-                iconSize: 35,
-                onPressed: () {
-                  FirebaseController.namePatient=reportID;
-                  FirebaseController.emailPatient=email;
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AllReportOfPatient()),
-                  );
-                  // setState(() {
-                  //   _isBluetoothOn = !_isBluetoothOn;
-                  // });
-                },
-              ),
+           
+            IconButton(
+              icon: const Icon(Icons.keyboard_arrow_right_outlined),
+              color: Color(0xFF2d5240),
+              iconSize: 35,
+              onPressed: () {
+                FirebaseController.namePatient=reportID;
+                FirebaseController.emailPatient=email;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AllReportOfPatient()),
+                );
+                // setState(() {
+                //   _isBluetoothOn = !_isBluetoothOn;
+                // });
+              },
             ),
           ],
         ),
