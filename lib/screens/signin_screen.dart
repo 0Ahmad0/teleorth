@@ -9,8 +9,10 @@ import 'package:_finalproject/screens/home_screen.dart';
 import 'package:_finalproject/screens/reset_password.dart';
 import 'package:_finalproject/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:wc_form_validators/wc_form_validators.dart';
 import 'edit_profile.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
 
@@ -39,7 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
     String myGender="";
     String typeUser="";
   bool showSpinner = false;
-
+  final _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,126 +58,144 @@ class _SignInScreenState extends State<SignInScreen> {
         inAsyncCall: showSpinner,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              const Expanded(
-                child: Hero(
-                  tag: 'logo',
-                  child: SizedBox(
-                    width: 300,
-                    child: Image(
-                      image: AssetImage("assets/images/logo1.png"),
-                      //  width: 800.0,
+          child: Form(
+            key: _key,
+            child: Column(
+              children: <Widget>[
+                const Expanded(
+                  child: Hero(
+                    tag: 'logo',
+                    child: SizedBox(
+                      width: 300,
+                      child: Image(
+                        image: AssetImage("assets/images/logo1.png"),
+                        //  width: 800.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
 
-              const SizedBox(
-                height: 30,
-              ),
-              reusableTextField(
-                  "Enter Your Email",
-                  Icons.person_outline,
-                  false, // call reusableTextField from the reusable widget
-                  _emailTextController),
-              const SizedBox(
-                height: 20,
-              ),
-              reusableTextField(
-                  "Enter Your Password",
-                  Icons.lock_outline,
-                  true, // call reusableTextField from the reusable widget
-                  _passwordTextController
-              ),
-              const SizedBox(
-                height: 21,
-              ),
-              forgetPassword(
-                  context), // call forgetPassword function after "Enter Password" field to write the "Forgot Password?" and handle it
-              firebaseUIButton(context, "Sign In", () {
-                //call firebaseUIButton from the reusable widget, to make Sign In button
-                FirebaseAuth.instance
-                    .signInWithEmailAndPassword(
-                        // sign in function
-                        email: _emailTextController.text,
-                        password: _passwordTextController.text,
-                )
-                    .then((value) async {
-                  setState(() {
-                    showSpinner = true;
-                  });
-
-                  User user = FirebaseAuth.instance.currentUser!;
-                  await _fetchUser();
-                  MyUser.EMAIL=_emailTextController.text;
-                 /* MyUser.FULLNAME = "$myName";
-                  MyUser.USERNAME = "$myuserName";
-                 MyUser.GENDER ="$myGender";*/
-                  if (WelcomeScreen.isDoctor) {
-                    MyUser.TYPEUSER="doctor";
-                    Future.delayed(const Duration(milliseconds: 2000), () {
-                      setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const homePageDoctor())); // take me to home screen after sign up
-                        setState(() {
-                          showSpinner = false;
-                        });
-                      });
-                    });
-                  } else {
-                    MyUser.TYPEUSER="patient";
-                    Future.delayed(const Duration(milliseconds: 2000), () {
-                      setState(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const main_PagePatient())); // take me to home screen after sign up
-                        setState(() {
-                          showSpinner = false;
-                        });
-                      });
-                    });
+                const SizedBox(
+                  height: 30,
+                ),
+                reusableTextField(
+                    "Enter Your Email",
+                    Icons.person_outline,
+                    false, // call reusableTextField from the reusable widget
+                    _emailTextController,
+                  validate: (String? val){
+                      return (val!.trim().isEmpty || (!val.trim().isEmail))
+                          ?"enter valid email"
+                          :null;
                   }
-                }).onError((error, stackTrace) {
-                  if (error != null) {
-                    print("${error.toString()}"); // print the error in console
-                    switch (error.toString()) {
-                      case "[firebase_auth/invalid-email] The email address is badly formatted.":
-                        {
-                          onClick("Email is wrong");
-                        }
-                        break;
 
-                      case "[firebase_auth/wrong-password] The password is invalid or the user does not have a password.":
-                        {
-                          onClick("check your password again");
-                        }
-                        break;
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                reusableTextField(
+                    "Enter Your Password",
+                    Icons.lock_outline,
+                    true, // call reusableTextField from the reusable widget
+                    _passwordTextController,
+                  validate: Validators.compose([
+                    Validators.required('Password is required'),
+                    Validators.patternString(
+                        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$',
+                        'password must include [a-z] [A-Z] [0-9] and length > 8')
+                  ]),
 
-                      case "[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.":
-                        {
-                          onClick(
-                              "No user found with this email, Go to signup page");
-                        }
-                        break;
-                      case "[firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.":
-                        onClick(
-                            "Too many requests to log into this account. Try again later.");
-                        break;
-                      default:
-                        onClick("Login failed. Please try again.");
-                        break;
+
+                ),
+                const SizedBox(
+                  height: 21,
+                ),
+                forgetPassword(
+                    context), // call forgetPassword function after "Enter Password" field to write the "Forgot Password?" and handle it
+                firebaseUIButton(context, "Sign In", () {
+                  //call firebaseUIButton from the reusable widget, to make Sign In button
+                  FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          // sign in function
+                          email: _emailTextController.text,
+                          password: _passwordTextController.text,
+                  )
+                      .then((value) async {
+                    setState(() {
+                      showSpinner = true;
+                    });
+
+                    User user = FirebaseAuth.instance.currentUser!;
+                    await _fetchUser();
+                    MyUser.EMAIL=_emailTextController.text;
+                   /* MyUser.FULLNAME = "$myName";
+                    MyUser.USERNAME = "$myuserName";
+                   MyUser.GENDER ="$myGender";*/
+                    if (WelcomeScreen.isDoctor) {
+                      MyUser.TYPEUSER="doctor";
+                      Future.delayed(const Duration(milliseconds: 2000), () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const homePageDoctor())); // take me to home screen after sign up
+                          setState(() {
+                            showSpinner = false;
+                          });
+                        });
+                      });
+                    } else {
+                      MyUser.TYPEUSER="patient";
+                      Future.delayed(const Duration(milliseconds: 2000), () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const main_PagePatient())); // take me to home screen after sign up
+                          setState(() {
+                            showSpinner = false;
+                          });
+                        });
+                      });
                     }
-                  }
-                });
-              }),
-              signUpOption() // call signUpOption
-            ],
+                  }).onError((error, stackTrace) {
+                    if (error != null) {
+                      print("${error.toString()}"); // print the error in console
+                      switch (error.toString()) {
+                        case "[firebase_auth/invalid-email] The email address is badly formatted.":
+                          {
+                            onClick("Email is wrong");
+                          }
+                          break;
+
+                        case "[firebase_auth/wrong-password] The password is invalid or the user does not have a password.":
+                          {
+                            onClick("check your password again");
+                          }
+                          break;
+
+                        case "[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.":
+                          {
+                            onClick(
+                                "No user found with this email, Go to signup page");
+                          }
+                          break;
+                        case "[firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.":
+                          onClick(
+                              "Too many requests to log into this account. Try again later.");
+                          break;
+                        default:
+                          onClick("Login failed. Please try again.");
+                          break;
+                      }
+                    }
+                  });
+                }),
+                signUpOption() // call signUpOption
+              ],
+            ),
           ),
         ),
       ),
