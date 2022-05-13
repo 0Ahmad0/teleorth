@@ -164,7 +164,10 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                                 ),
                                 child: TextFormField(
                           readOnly: widget.canEdit,
-                                  onChanged: (val){},
+                                  onChanged: (val){
+                                    revPlan[index] = val;
+                                    // print(revPlan[index]);
+                                  },
                                   style: TextStyle(
                                       fontSize: 14
                                   ),
@@ -234,7 +237,10 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                             ),
                             child: TextFormField(
                                 readOnly: widget.canEdit,
-                              onChanged: (val){},
+                              onChanged: (val){
+                                ex1[index]=val;
+                                // print( ex1[index]);
+                              },
                               style: TextStyle(
                                 fontSize: 14
                               ),
@@ -276,7 +282,10 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                 initialValue: "${
                     DetailsReport.recoveryPlan['Advice']
                 }",
-                onChanged: (val){},
+                onChanged: (val){
+                  DetailsReport.recoveryPlan['Advice'] = val;
+                  // print( DetailsReport.recoveryPlan['Advice']);
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder()
                 ),
@@ -337,7 +346,10 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                               ),
                               child: TextFormField(
                                   readOnly: widget.canEdit,
-                                onChanged: (val){},
+                                onChanged: (val){
+                                  ex2[index] = val;
+                                  // print(ex2[index]);
+                                },
                                 style: TextStyle(
                                     fontSize: 14
                                 ),
@@ -420,7 +432,10 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                               ),
                               child: TextFormField(
                                   readOnly: widget.canEdit,
-                                onChanged: (val){},
+                                onChanged: (val){
+                                  balance[index]["text"] = val;
+                                  print(balance[index]["text"]);
+                                },
                                 style: TextStyle(
                                     fontSize: 14
                                 ),
@@ -470,7 +485,10 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                       initialValue: "${
                           DetailsReport.recoveryPlan['Heel Raises']
                       }",
-                      onChanged: (val){},
+                      onChanged: (val){
+                        DetailsReport.recoveryPlan['Heel Raises'] = val;
+                        // print(DetailsReport.recoveryPlan['Heel Raises']);
+                      },
                       decoration: InputDecoration(
                           border: OutlineInputBorder()
                       ),
@@ -534,7 +552,10 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                                   ),
                                   child: TextFormField(
                                       readOnly: widget.canEdit,
-                                    onChanged: (val){},
+                                    onChanged: (val){
+                                      ex3[index] = val;
+                                        // print(ex3[index]);
+                                    },
                                     style: TextStyle(
                                         fontSize: 14
                                     ),

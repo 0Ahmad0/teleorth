@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       ),
       //List_of_Xray
       // home: AllReportOfPatient(),
-      home: WelcomeScreen(),
+      home: RecoveryPlanScreen1(),
       initialBinding: BindingsBuilder.put(
         () => QuestionsController(apiService),
       ),
