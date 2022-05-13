@@ -137,23 +137,30 @@ class _RecoveryPlanScreen1State extends State<RecoveryPlanScreen1> {
                     ),
                     itemCount: 8,
                     itemBuilder: (_,index){
-                      return Container(
-                          padding: EdgeInsets.all(5.0),
-                          child: TextFormField(
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            initialValue: "${c[index]}",
-                            onChanged: (val){
-                              c[index] = val;
-                              print(c);
-                              setState(() {
+                      return Column(
+                    //    mainAxisAlignment: ,
+                        children: [
+                          (index%2==0)?Text("Phase ${((index/2)+1).floor()} (in wakes)",):SizedBox(),
+                          (index%2!=0)?Text(""):SizedBox(),
+                      Container(
+                      padding: EdgeInsets.all(5.0),
+                      child: TextFormField(
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      initialValue: "${c[index]}",
+                      onChanged: (val){
+                      c[index] = val;
+                      print(c);
+                      setState(() {
 
-                              });
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                            ),
-                          ));
+                      });
+                      },
+                      decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      ),
+                      )),
+                        ],
+                      );
                     }
                 ),
               ),
@@ -172,6 +179,11 @@ class _RecoveryPlanScreen1State extends State<RecoveryPlanScreen1> {
                       },
                     )..show();
                   }else{
+                    bool check=true;
+                    for(int i=0;i<c.length;i++){
+                     // if(c[i]<0) check=false;
+                    }
+                    print(check);
                     Navigator.push(context, MaterialPageRoute(builder: (ctx)=>
                         RecoveryPlanScreen2(
                           weberList: c,

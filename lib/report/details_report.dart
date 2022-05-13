@@ -299,7 +299,7 @@ class DetailsReport{
       "name":MyUser.FULLNAME,
       "gender":MyUser.GENDER,
         "symptoms":convertSymptoms(symptoms),
-        "possibleInjury":"${final_diagnose}"+"\n"+"${pre_diagnose}",
+        "possibleInjury":"${pre_diagnose}"+"\n"+"${final_diagnose}",
         "recommendation":"",
         "type":"normal",
     };

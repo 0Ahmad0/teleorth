@@ -327,7 +327,7 @@ class _Edit_ProfileState extends State<Edit_Profile> {
               //     onChanged: (_) {},
               //   ),
               // ),
-              Container(
+             /* Container(
                 width: 350.0,
                 height: 14.0,
                 margin: const EdgeInsets.fromLTRB(4.0, 10.0, 0, 0),
@@ -380,7 +380,7 @@ class _Edit_ProfileState extends State<Edit_Profile> {
                   ],
                   onChanged: (_) {},
                 ),
-              ),
+              ),*/
               /*Card(
                   elevation: 0,
                   child: ListTile(
@@ -430,7 +430,7 @@ class _Edit_ProfileState extends State<Edit_Profile> {
                 ),*/
               SizedBox(
                 width: 350.0,
-                height: 15.0,
+                height: 75.0,
                 /*child: Divider(
                     color: Colors.grey,
                   ),*/

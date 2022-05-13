@@ -8,6 +8,7 @@ import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Screens/doctor/homePageDoctor.dart';
 import 'const/get_size.dart';
@@ -31,6 +32,7 @@ class RecoveryPlanScreen2 extends StatefulWidget{
       weberList=DetailsReport.recoveryPlan["${weberName}"] as List?;
       DetailsReport.recoveryPlan=DetailsReport.recoveryPlan1;
     }
+    if(!WelcomeScreen.isDoctor) canEdit=true;
   }
 
   @override
@@ -44,7 +46,604 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
     print(widget.weberList);
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
+
+            body: (!(FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]))?SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: 5.0,
+                vertical: 10.0
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children:
+                  List.generate(5, (index) =>
+                      Expanded(
+                        flex: index == 0 ? 3 : 2,
+                        child: Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)
+                            ),
+                            child: Text("${
+                                index == 0
+                                    ? "Type/Phase"
+                                    : index
+                            }")),
+                      )),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black)
+                        ),
+                        child: Text("${  widget.weberName  }"),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 8,
+                      child: Row(
+                          children:
+                          List.generate(
+                              8,
+                                  (index) =>
+                              index.isEven? Expanded(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(10.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black)
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(""
+                                          "${widget.weberList![index]}"
+                                          " - "
+                                          "${widget.weberList![index+1]}"),
+                                    ],
+                                  )
+                                  ,),
+                              ):SizedBox())
+
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15.0,),
+                Row(
+                  children: [
+                    Expanded(child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.black
+                          )
+                      ),
+                      child: Text('Phase'),
+                    )),
+                    Expanded(
+                        flex: 4,
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Recovery Plan'),
+                        )),
+                  ],
+                ),
+                Column(
+                  children: List.generate(
+                      4,
+                          (index) {
+                        List revPlan = DetailsReport.recoveryPlan["Phases"] as List;
+                        return Row(
+                          children: [
+                            Expanded(child: CircleAvatar(
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(10.0),
+                                child: Text("${index+1}"),
+                              ),
+                            )),
+                            Expanded(
+                                flex: 4,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(10.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.black)
+                                  ),
+                                  child: TextFormField(
+                                    readOnly: widget.canEdit,
+                                    onChanged: (val){
+                                      revPlan[index] = val;
+                                      // print(revPlan[index]);
+                                    },
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),
+                                    initialValue: '${
+                                        revPlan[index]
+                                    }',
+                                    minLines: 1,
+                                    maxLines: 10,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                )),
+                          ],
+                        );
+                      }
+                  ),
+                ),
+                SizedBox(height: 15.0,),
+                mainLabel(
+                    text: "Stage 1 Exercises & Advice.",
+                    context: context
+                ),
+                SizedBox(height: 15.0,),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Exercises'),
+                        )),
+                    Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Explanation'),
+                        )),
+                  ],
+                ),
+                Column(
+                  children: List.generate(
+                      3,
+                          (index) {
+                        List stage1 = DetailsReport.recoveryPlan["Stages"] as List;
+                        List ex1 = stage1[0]["Exercises"];
+                        List img1 = stage1[0]["Explanation"];
+                        return Row(
+                          children: [
+                            Expanded(child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(10.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.black
+                                    )
+                                ),
+                                child: TextFormField(
+                                  readOnly: widget.canEdit,
+                                  onChanged: (val){
+                                    ex1[index]=val;
+                                    // print( ex1[index]);
+                                  },
+                                  style: TextStyle(
+                                      fontSize: 14
+                                  ),
+                                  initialValue: '${
+                                      ex1[index]
+                                  }',
+                                  minLines: 1,
+                                  maxLines: 10,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                )
+                            )),
+                            Expanded(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                    ),
+                                    child:img1[index] == null?SizedBox()
+                                        : Image.asset(
+                                      "${
+                                          img1[index]
+                                      }",
+                                    )
+                                )),
+                          ],
+                        );
+                      }
+                  ),
+                ),
+                SizedBox(height: 15.0,),
+                childMainLabel(
+                    text: "Advice",
+                    context: context
+                ),
+                TextFormField( readOnly: widget.canEdit,
+                  maxLines: 20,
+                  initialValue: "${
+                      DetailsReport.recoveryPlan['Advice']
+                  }",
+                  onChanged: (val){
+                    DetailsReport.recoveryPlan['Advice'] = val;
+                    // print( DetailsReport.recoveryPlan['Advice']);
+                  },
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder()
+                  ),
+                ),
+                SizedBox(height: 15.0,),
+                mainLabel(
+                    text: "Stage 2 Exercises (3-4 times a day) ",
+                    context: context
+                ),
+                childMainLabel(
+                    text: "Ankle Stretches",
+                    context: context
+                ),
+                SizedBox(height: 15.0,),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Exercises'),
+                        )),
+                    Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Explanation'),
+                        )),
+                  ],
+                ),
+                Column(
+                  children: List.generate(
+                      2,
+                          (index) {
+                        List stage2 = DetailsReport.recoveryPlan["Stages"] as List;
+                        List ex2 = stage2[1]["Exercises"];
+                        List img2 = stage2[1]["Explanation"];
+                        return Row(
+                          children: [
+                            Expanded(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.black
+                                        )
+                                    ),
+                                    child: TextFormField(
+                                      readOnly: widget.canEdit,
+                                      onChanged: (val){
+                                        ex2[index] = val;
+                                        // print(ex2[index]);
+                                      },
+                                      style: TextStyle(
+                                          fontSize: 14
+                                      ),
+                                      initialValue: '${
+                                          ex2[index]
+                                      }',
+                                      minLines: 1,
+                                      maxLines: 12,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                      ),
+                                    )
+                                )),
+                            Expanded(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                    ),
+                                    child:img2[index] == null?SizedBox()
+                                        : Image.asset(
+                                      "${
+                                          img2[index]
+                                      }",
+                                    )
+                                )),
+                          ],
+                        );
+                      }
+                  ),
+                ),
+                Divider(
+                  color: Colors.green,
+                ),
+                childMainLabel(
+                    text: "Balance Exercises",
+                    context: context
+                ),
+                SizedBox(height: 15.0,),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Exercises'),
+                        )),
+                    Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Explanation'),
+                        )),
+                  ],
+                ),
+                Column(
+                  children: List.generate(
+                      2,
+                          (index) {
+                        List balance = DetailsReport.recoveryPlan["BalanceExercises"] as List;
+                        return Row(
+                          children: [
+                            Expanded(child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(10.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.black
+                                    )
+                                ),
+                                child: TextFormField(
+                                  readOnly: widget.canEdit,
+                                  onChanged: (val){
+                                    balance[index]["text"] = val;
+                                    print(balance[index]["text"]);
+                                  },
+                                  style: TextStyle(
+                                      fontSize: 14
+                                  ),
+                                  initialValue: '${
+                                      balance[index]["text"]
+                                  }',
+                                  minLines: 1,
+                                  maxLines: 25,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                )
+                            )),
+                            Expanded(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                    ),
+                                    child:Image.asset(
+                                      "${
+                                          balance[index]["image"]
+                                      }",
+                                    )
+                                )),
+                          ],
+                        );
+                      }
+                  ),
+                ),
+                Divider(
+                  color: Colors.green,
+                ),
+                SizedBox(height: 15.0,),
+                childMainLabel(
+                    text: "Heel Raises",
+                    context: context
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: TextFormField(
+                        readOnly: widget.canEdit,
+                        minLines: 3,
+                        maxLines: 5,
+                        initialValue: "${
+                            DetailsReport.recoveryPlan['Heel Raises']
+                        }",
+                        onChanged: (val){
+                          DetailsReport.recoveryPlan['Heel Raises'] = val;
+                          // print(DetailsReport.recoveryPlan['Heel Raises']);
+                        },
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder()
+                        ),
+                      ),
+                    ),
+                    Expanded(child: Image.asset('assets/images/recoveryImages/h1R1.png'))
+                  ],
+                ),
+                SizedBox(height: 15.0,),
+                mainLabel(
+                    text: "Stage 3 Exercises (3-4 times a day) ",
+                    context: context
+                ),
+                Text("These are optional advanced exercises designed for sports rehabilitation.",style: TextStyle(
+                    fontSize: getScreenSize(context).width * 0.04
+                ),),
+                SizedBox(height: 15.0,),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Exercises'),
+                        )),
+                    Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black
+                              )
+                          ),
+                          child: Text('Explanation'),
+                        )),
+                  ],
+                ),
+                Column(
+                  children: List.generate(
+                      2,
+                          (index) {
+                        List stage3 = DetailsReport.recoveryPlan["Stages"] as List;
+                        List ex3 = stage3[2]["Exercises"];
+                        List img3 = stage3[2]["Explanation"];
+                        return Row(
+                          children: [
+                            Expanded(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.black
+                                        )
+                                    ),
+                                    child: TextFormField(
+                                      readOnly: widget.canEdit,
+                                      onChanged: (val){
+                                        ex3[index] = val;
+                                        // print(ex3[index]);
+                                      },
+                                      style: TextStyle(
+                                          fontSize: 14
+                                      ),
+                                      initialValue: '${
+                                          ex3[index]
+                                      }',
+                                      minLines: 15,
+                                      maxLines: 25,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                      ),
+                                    )
+                                )),
+                            Expanded(
+                                child: Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                    ),
+                                    child:img3[index] == null?SizedBox()
+                                        : Image.asset(
+                                      "${
+                                          img3[index]
+                                      }",
+                                    )
+                                )),
+                          ],
+                        );
+                      }
+                  ),
+                ),
+                SizedBox(height: 15.0,),
+                ((/*!FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]*/WelcomeScreen.isDoctor))?GestureDetector(
+                  onTap: (){
+                    DetailsReport.setReport(FirebaseController.listReport[FirebaseController.indexReport]);
+                    DetailsReport.setDoctor({
+                      "weber":(widget.weberName=="WeberA")?"A":"B",
+                      "date":DateTime.now(),
+                      "email":MyUser.EMAIL,
+                      "name":MyUser.FULLNAME,
+                      "userName":MyUser.USERNAME,
+                    });
+                    DetailsReport.recoveryPlan["${widget.weberName}"]=(widget.weberList!);
+                    // print(DetailsReport.report["recoveryPlan"]);
+                    //  print("${FirebaseController.listReport[FirebaseController.indexReport].id}");
+                    FirebaseFirestore.instance.collection("reports").
+                    doc(FirebaseController.listReport[FirebaseController.indexReport].id).
+                    update(DetailsReport.report).
+                    then((value){
+                      print("done update recovery plan");
+                      Get.snackbar("correct", "done update recovery plan",backgroundColor: Colors.white,colorText: Colors.black);
+                      /*Navigator.pushReplacement(context, MaterialPageRoute
+                      (builder: (ctx)=>AllReportOfPatient()));*/
+                    });
+                    // widget.update();
+                    /*  Navigator.pushReplacement(context, MaterialPageRoute
+                   (builder: (ctx)=>AllReportOfPatient()));*/
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: getScreenSize(context).width * 0.5,
+                    height: getScreenSize(context).width * 0.15,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    child: Text('Accept',style: TextStyle(
+                        color: Colors.white
+                    ),),
+                  ),
+                ):SizedBox()
+
+              ],
+            ),
+          ),
+        ):
+       FutureBuilder(
+        future: FirebaseController.fetchReportDoctor(),
+    builder: (context, snapShot) {
+    if (!snapShot.hasData) {
+    return Center(child: CircularProgressIndicator());
+    } else{
+      print("ddddddddddddddddddd");
+      DetailsReport.setecoveryplane(FirebaseController.report["recoveryPlan"]);
+      return SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: 5.0,
@@ -78,7 +677,7 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black)
+                          border: Border.all(color: Colors.black)
                       ),
                       child: Text("${  widget.weberName  }"),
                     ),
@@ -90,24 +689,24 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                         List.generate(
                             8,
                                 (index) =>
-                               index.isEven? Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.all(10.0),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.black)
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(""
-                                            "${widget.weberList![index]}"
-                                            " - "
-                                            "${widget.weberList![index+1]}"),
-                                      ],
-                                    )
-                                    ,),
-                                ):SizedBox())
+                            index.isEven? Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(10.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black)
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(""
+                                        "${widget.weberList![index]}"
+                                        " - "
+                                        "${widget.weberList![index+1]}"),
+                                  ],
+                                )
+                                ,),
+                            ):SizedBox())
 
                     ),
                   ),
@@ -120,24 +719,24 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black
-                      )
+                        border: Border.all(
+                            color: Colors.black
+                        )
                     ),
                     child: Text('Phase'),
                   )),
                   Expanded(
                       flex: 4,
                       child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black
-                      )
-                    ),
-                    child: Text('Recovery Plan'),
-                  )),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.black
+                            )
+                        ),
+                        child: Text('Recovery Plan'),
+                      )),
                 ],
               ),
               Column(
@@ -163,7 +762,7 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                                     border: Border.all(color: Colors.black)
                                 ),
                                 child: TextFormField(
-                          readOnly: widget.canEdit,
+                                  readOnly: widget.canEdit,
                                   onChanged: (val){
                                     revPlan[index] = val;
                                     // print(revPlan[index]);
@@ -183,28 +782,28 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                               )),
                         ],
                       );
-                        }
+                    }
                 ),
               ),
               SizedBox(height: 15.0,),
               mainLabel(
-                text: "Stage 1 Exercises & Advice.",
-                context: context
+                  text: "Stage 1 Exercises & Advice.",
+                  context: context
               ),
               SizedBox(height: 15.0,),
               Row(
                 children: [
                   Expanded(
                       child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.black
-                        )
-                    ),
-                    child: Text('Exercises'),
-                  )),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.black
+                            )
+                        ),
+                        child: Text('Exercises'),
+                      )),
                   Expanded(
                       child: Container(
                         alignment: Alignment.center,
@@ -228,44 +827,44 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                       return Row(
                         children: [
                           Expanded(child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.black
-                              )
-                            ),
-                            child: TextFormField(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black
+                                  )
+                              ),
+                              child: TextFormField(
                                 readOnly: widget.canEdit,
-                              onChanged: (val){
-                                ex1[index]=val;
-                                // print( ex1[index]);
-                              },
-                              style: TextStyle(
-                                fontSize: 14
-                              ),
-                              initialValue: '${
-                              ex1[index]
-                              }',
-                              minLines: 1,
-                              maxLines: 10,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                              ),
-                            )
+                                onChanged: (val){
+                                  ex1[index]=val;
+                                  // print( ex1[index]);
+                                },
+                                style: TextStyle(
+                                    fontSize: 14
+                                ),
+                                initialValue: '${
+                                    ex1[index]
+                                }',
+                                minLines: 1,
+                                maxLines: 10,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                              )
                           )),
                           Expanded(
                               child: Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                ),
-                                child:img1[index] == null?SizedBox()
-                                    : Image.asset(
-                                  "${
-                                  img1[index]
-                                  }",
-                                )
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(10.0),
+                                  decoration: BoxDecoration(
+                                  ),
+                                  child:img1[index] == null?SizedBox()
+                                      : Image.asset(
+                                    "${
+                                        img1[index]
+                                    }",
+                                  )
                               )),
                         ],
                       );
@@ -274,8 +873,8 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
               ),
               SizedBox(height: 15.0,),
               childMainLabel(
-                text: "Advice",
-                context: context
+                  text: "Advice",
+                  context: context
               ),
               TextFormField( readOnly: widget.canEdit,
                 maxLines: 20,
@@ -287,7 +886,7 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                   // print( DetailsReport.recoveryPlan['Advice']);
                 },
                 decoration: InputDecoration(
-                  border: OutlineInputBorder()
+                    border: OutlineInputBorder()
                 ),
               ),
               SizedBox(height: 15.0,),
@@ -296,8 +895,8 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                   context: context
               ),
               childMainLabel(
-                text: "Ankle Stretches",
-                context: context
+                  text: "Ankle Stretches",
+                  context: context
               ),
               SizedBox(height: 15.0,),
               Row(
@@ -337,32 +936,32 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                         children: [
                           Expanded(
                               child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.all(10.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.black
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(10.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.black
+                                      )
+                                  ),
+                                  child: TextFormField(
+                                    readOnly: widget.canEdit,
+                                    onChanged: (val){
+                                      ex2[index] = val;
+                                      // print(ex2[index]);
+                                    },
+                                    style: TextStyle(
+                                        fontSize: 14
+                                    ),
+                                    initialValue: '${
+                                        ex2[index]
+                                    }',
+                                    minLines: 1,
+                                    maxLines: 12,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                    ),
                                   )
-                              ),
-                              child: TextFormField(
-                                  readOnly: widget.canEdit,
-                                onChanged: (val){
-                                  ex2[index] = val;
-                                  // print(ex2[index]);
-                                },
-                                style: TextStyle(
-                                    fontSize: 14
-                                ),
-                                initialValue: '${
-                                    ex2[index]
-                                }',
-                                minLines: 1,
-                                maxLines: 12,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                ),
-                              )
-                          )),
+                              )),
                           Expanded(
                               child: Container(
                                   alignment: Alignment.center,
@@ -431,7 +1030,7 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                                   )
                               ),
                               child: TextFormField(
-                                  readOnly: widget.canEdit,
+                                readOnly: widget.canEdit,
                                 onChanged: (val){
                                   balance[index]["text"] = val;
                                   print(balance[index]["text"]);
@@ -551,10 +1150,10 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                                       )
                                   ),
                                   child: TextFormField(
-                                      readOnly: widget.canEdit,
+                                    readOnly: widget.canEdit,
                                     onChanged: (val){
                                       ex3[index] = val;
-                                        // print(ex3[index]);
+                                      // print(ex3[index]);
                                     },
                                     style: TextStyle(
                                         fontSize: 14
@@ -588,29 +1187,30 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                 ),
               ),
               SizedBox(height: 15.0,),
-              ((!FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]&&WelcomeScreen.isDoctor))?GestureDetector(
+              ((/*!FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]*/WelcomeScreen.isDoctor))?GestureDetector(
                 onTap: (){
                   DetailsReport.setReport(FirebaseController.listReport[FirebaseController.indexReport]);
                   DetailsReport.setDoctor({
-                      "weber":(widget.weberName=="WeberA")?"A":"B",
-                      "date":DateTime.now(),
-                      "email":MyUser.EMAIL,
-                      "name":MyUser.FULLNAME,
-                      "userName":MyUser.USERNAME,
+                    "weber":(widget.weberName=="WeberA")?"A":"B",
+                    "date":DateTime.now(),
+                    "email":MyUser.EMAIL,
+                    "name":MyUser.FULLNAME,
+                    "userName":MyUser.USERNAME,
                   });
-                 DetailsReport.recoveryPlan["${widget.weberName}"]=(widget.weberList!);
-                 // print(DetailsReport.report["recoveryPlan"]);
-                //  print("${FirebaseController.listReport[FirebaseController.indexReport].id}");
-                 FirebaseFirestore.instance.collection("reports").
+                  DetailsReport.recoveryPlan["${widget.weberName}"]=(widget.weberList!);
+                  // print(DetailsReport.report["recoveryPlan"]);
+                  //  print("${FirebaseController.listReport[FirebaseController.indexReport].id}");
+                  FirebaseFirestore.instance.collection("reports").
                   doc(FirebaseController.listReport[FirebaseController.indexReport].id).
                   update(DetailsReport.report).
                   then((value){
                     print("done update recovery plan");
-                   /* Navigator.pushReplacement(context, MaterialPageRoute
+                    Get.snackbar("correct", "done update recovery plan",backgroundColor: Colors.white,colorText: Colors.black);
+                    /*Navigator.pushReplacement(context, MaterialPageRoute
                       (builder: (ctx)=>AllReportOfPatient()));*/
                   });
-                // widget.update();
-               /*  Navigator.pushReplacement(context, MaterialPageRoute
+                  // widget.update();
+                  /*  Navigator.pushReplacement(context, MaterialPageRoute
                    (builder: (ctx)=>AllReportOfPatient()));*/
                 },
                 child: Container(
@@ -630,7 +1230,8 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
             ],
           ),
         ),
-      ),
+      );
+    }}),
     );
   }
 }

@@ -97,67 +97,75 @@ class _List_of_XrayState extends State<List_of_Xray> {
           print(image!.path);
         },
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.all(10.0),
-        //TODO : Set Your List Here Nagel
-        itemCount:  FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"].length,
-        itemBuilder: (_,index) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Xray_pic()),
-              );
-            },
-            child: Card(
-            elevation: 5.0,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Color(0xFF4d8d6e), width: 1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            margin:
-            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
-            color: Colors.white70,
-            child: Expanded(
-              child: FlatButton(
-                onPressed: () {
-                  FirebaseController.indexXrayImages=index;
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Xray_pic()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 13, horizontal: 7),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.microwave_outlined,
-                        color: Color(0xFF3b6b54),
-                        size: 30.0,
+      body:  FutureBuilder(
+    future: FirebaseController.fetchReportDoctor(),
+    builder: (context, snapShot) {
+    if (!snapShot.hasData) {
+    return Center(child: CircularProgressIndicator());
+    } else{
+
+      return ListView.builder(
+          padding: EdgeInsets.all(10.0),
+          //TODO : Set Your List Here Nagel
+          itemCount:  FirebaseController.report["xrayImages"].length,
+          itemBuilder: (_,index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Xray_pic()),
+                );
+              },
+              child: Card(
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Color(0xFF4d8d6e), width: 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                margin:
+                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+                color: Colors.white70,
+                child: Expanded(
+                  child: FlatButton(
+                    onPressed: () {
+                      FirebaseController.indexXrayImages=index;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Xray_pic()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 13, horizontal: 7),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.microwave_outlined,
+                            color: Color(0xFF3b6b54),
+                            size: 30.0,
+                          ),
+                          SizedBox(
+                            width: 20.0,
+                          ),
+                          Text(
+                            "#${(index + 1)}_" +
+                                "${DateFormat.yMd().format(FirebaseController.report["xrayImages"][index]["date"].toDate())}",
+                            //"#1_06-07-2021",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 17.0,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Text(
-                        "#${(index + 1)}_" +
-                            "${DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"][index]["date"].toDate())}",
-                        //"#1_06-07-2021",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 17.0,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          );
-        }
-      ),
+            );
+          }
+      );
+    }}),
     );
   }
    Future uploadImage(BuildContext context) async {
@@ -172,17 +180,19 @@ class _List_of_XrayState extends State<List_of_Xray> {
          content: Text('Image uploaded successfully'),
        ));*/
        String url = await taskSnapshot.ref.getDownloadURL();
-       List xrayImages=FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"];
+       List xrayImages=FirebaseController.report["xrayImages"];;
        xrayImages.add({"image":url,"date":DateTime.now()});
-       await FirebaseFirestore.instance.collection("reports").
+       final awt=await FirebaseFirestore.instance.collection("reports").
        doc(FirebaseController.listReport[FirebaseController.indexReport].id).
        update({
          "xrayImages":xrayImages,
-       }).then((value) => print('url $url'));
-       //Navigator.push(context, Mypatients());
-       setState(() {
+       }).then((value) => {
+         print('url $url'),
+       //  FirebaseController.fetchReportDoctor(),
 
        });
+       Navigator.pop(context);
+       //Navigator.push(context, Mypatients());
      } catch (ex) {
        print(ex);
        /*Scaffold.of(context).showSnackBar(SnackBar(

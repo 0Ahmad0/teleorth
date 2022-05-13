@@ -293,7 +293,7 @@ class _MyprofileState extends State<Myprofile> {
                 ),
 
                 ///////////////////////////////////////////////////
-                Container(
+               /* Container(
                   width: 350.0,
                   height: 14.0,
                   margin: const EdgeInsets.fromLTRB(4.0, 6.0, 0, 0),
@@ -334,7 +334,7 @@ class _MyprofileState extends State<Myprofile> {
                     ],
                     onChanged: (_) {},
                   ),
-                ),
+                ),*/
                 SizedBox(
                   width: 350.0,
                   height: 15.0,

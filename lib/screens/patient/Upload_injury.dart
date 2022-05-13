@@ -31,7 +31,62 @@ class Upload_injury extends StatefulWidget {
 class UploadPic extends State<Upload_injury> {
   File? _image;
   String? _url;
+  PickedFile? image=null;
+  void openCamera(BuildContext context)  async{
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera ,
+    );
+    image = pickedFile!;
+    Navigator.pop(context);
+   // await uploadImage(context);
 
+  }
+
+  void openGallery(BuildContext context) async{
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery ,
+    );
+
+    image = pickedFile!;
+    Navigator.pop(context);
+    //await uploadImage(context);
+
+  }
+  ///
+  Future<void> showChoiceDialog(BuildContext context) {
+    return showDialog(context: context,builder: (BuildContext context){
+
+      return AlertDialog(
+        title: Text("Choose option",style: TextStyle(
+            color:                           Color(0xFF4d8d6e)
+        ),),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: [
+              Divider(height: 1,color: Color(0xFF4d8d6e),),
+              ListTile(
+                onTap: (){
+                  openGallery(context);
+                },
+                title: Text("Gallery"),
+                leading: Icon(Icons.account_box,
+                  color: Color(0xFF4d8d6e),),
+              ),
+
+              Divider(height: 1,color: Color(0xFF4d8d6e),),
+              ListTile(
+                onTap: (){
+                  openCamera(context);
+                },
+                title: Text("Camera"),
+                leading: Icon(Icons.camera,
+                  color: Color(0xFF4d8d6e),),
+              ),
+            ],
+          ),
+        ),);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -97,7 +152,7 @@ class UploadPic extends State<Upload_injury> {
                   ),
                   Container(
                     child: GestureDetector(
-                        onTap: pickImage,
+                        onTap:() {showChoiceDialog(context);},//pickImage,
                         child: Icon(
                           Icons.add_a_photo,
                           size: 50,
@@ -192,11 +247,11 @@ class UploadPic extends State<Upload_injury> {
 
   Future uploadImage(BuildContext context) async {
     try {
-      String path = basename(_image!.path);
-
+      String path = basename(image!.path);
+      File _images=File(image!.path);
 //FirebaseStorage storage = FirebaseStorage.instance.ref().child(path);
       Reference storage = FirebaseStorage.instance.ref().child('patient/$path');
-      UploadTask storageUploadTask = storage.putFile(_image!);
+      UploadTask storageUploadTask = storage.putFile(_images);
       TaskSnapshot taskSnapshot = await storageUploadTask;
       Scaffold.of(context).showSnackBar(SnackBar(
         content: Text('Image uploaded successfully'),

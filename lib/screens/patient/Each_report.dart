@@ -4,6 +4,7 @@ import 'package:_finalproject/firebase/firebase.dart';
 import 'package:_finalproject/report/details_report.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../recovery_plan_creen1.dart';
 import '../../recovery_plan_screen2.dart';
@@ -201,18 +202,23 @@ class Each_report extends StatelessWidget {
                 child: Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ((FirebaseController.listReport[FirebaseController.indexReport]["details"]["type"]=="fracture")&&
-                                FirebaseController.listReport[FirebaseController.indexReport]["isVisible"])
-                                ?RecoveryPlanScreen2():recovery_Plan())
+                      if((FirebaseController.listReport[FirebaseController.indexReport]["details"]["type"]=="fracture")&&
+                          FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    RecoveryPlanScreen2()/*recovery_Plan()*/)
                           /*,recovery_plan(
                               weberList: DetailsReport.recoveryPlan["WeberA"] as List,
                               weberName: "Weber A",
 
                             )),*/
-                      );
+                        );
+                      }else{
+                        Get.snackbar("Error", "wait",backgroundColor: Colors.red,colorText: Colors.white);
+                      }
+
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -252,10 +258,16 @@ class Each_report extends StatelessWidget {
                 child: Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => List_of_Xray()),
-                      );
+                      List xray=FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"];
+    if(xray.length>0){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => List_of_Xray()),
+      );
+    }else{
+      Get.snackbar("Error", "wait",backgroundColor: Colors.red,colorText: Colors.white);
+    }
+
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(

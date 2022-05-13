@@ -317,14 +317,14 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                             String text = "#${index + 1}_" +
                                 FirebaseController.listReport[index]["details"]
                                     ["name"] +
-                                " | ${DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())}";
-                            return (search == "" || text.contains(search))
+                                " | ${DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.listReport.length-index-1]["date"].toDate())}";
+                            return (search=="#${index+1}"||search == "" || text.contains(search))
                                 ? allreportsP(
                                     index,
-                                    "#${index + 1}_" +
-                                        FirebaseController.listReport[index]
+                                    "#${FirebaseController.listReport.length-index }_" +
+                                        FirebaseController.listReport[FirebaseController.listReport.length-index-1]
                                             ["details"]["name"] +
-                                        " | ${DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())}",
+                                        " | ${DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.listReport.length-index-1]["date"].toDate())}",
                                     context)
                                 : SizedBox();
                           }),
@@ -388,7 +388,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                 iconSize: 35,
                 onPressed: () {
                   FirebaseController.namePatient = reportID;
-                  FirebaseController.indexReport = index;
+                  FirebaseController.indexReport = FirebaseController.listReport.length-index-1;
                   Navigator.push(
                     context,
                     MaterialPageRoute(

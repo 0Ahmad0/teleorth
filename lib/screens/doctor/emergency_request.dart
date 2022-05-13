@@ -164,7 +164,7 @@ class _emergency_requestState extends State<emergency_request> {
                                 return SizedBox();
                               }else{
                                 return snapshot.data.toString().toLowerCase().contains(search.toLowerCase())?
-                                allreportsP(snapshot.data.toString(),Chatting.listHellper[index]['patient_email'], context)://Chatting.listHellper[index]['patient_email']):
+                                allreportsP(index,snapshot.data.toString(),Chatting.listHellper[index]['patient_email'], context)://Chatting.listHellper[index]['patient_email']):
                                 SizedBox.fromSize();
                                 // return doctor(Chatting.listHellper[index]['patient_email']);
                               }
@@ -181,7 +181,7 @@ class _emergency_requestState extends State<emergency_request> {
       );
   }
 
-  Widget allreportsP(String reportID, String email, BuildContext context) {
+  Widget allreportsP(int index,String reportID, String email, BuildContext context) {
     return Card(
       elevation: 5,
       margin: const EdgeInsets.fromLTRB(15, 5, 15, 13),
@@ -229,11 +229,17 @@ class _emergency_requestState extends State<emergency_request> {
               onPressed: () {
                 FirebaseController.namePatient=reportID;
                 FirebaseController.emailPatient=email;
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AllReportOfPatient()),
+
+                Chatting.additive=FirebaseController.changeTensC(Chatting.listHellper[index]);
+                Chatting.editAdditive(
+                    Chatting.listHellper[index].id).then((value) =>
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AllReportOfPatient()),
+                    ),
                 );
+
                 // setState(() {
                 //   _isBluetoothOn = !_isBluetoothOn;
                 // });

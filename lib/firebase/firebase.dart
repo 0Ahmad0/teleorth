@@ -9,6 +9,7 @@ import 'chatting.dart';
 
 class FirebaseController{
   static List listReport=[];
+  static var report;
   static int indexReport=0;
   static int indexPatient=0;
   static int indexXrayImages=0;
@@ -44,6 +45,21 @@ class FirebaseController{
       then((value){
         listReport=value.docs;
         print("listReport : "+"${listReport.length}");
+      });
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }
+  }
+  static Future<bool> fetchReportDoctor() async {
+    try{
+      FirebaseFirestore.instance.collection("reports").
+      doc(FirebaseController.listReport[FirebaseController.indexReport].id).
+      get().
+      then((value){
+        report=value;
+        print("listXray : "+"${report["xrayImages"].length}");
       });
       return true;
     }catch(e){
@@ -88,6 +104,16 @@ class FirebaseController{
     return {
       "${typeTens}":!additive["tensD"],
       "${((typeTens)=="tensD")?"tensP":"tensD"}":(typeTens=="tensD")?!additive["tensD"]:additive["tensD"],
+      "tens":additive["tens"],
+      "doctor_email":additive["doctor_email"],
+      "patient_email":additive["patient_email"],
+      "date_add":additive["date_add"],
+    };
+  }
+  static changeTensC(var additive){
+    return {
+      "tensD":false,
+      "tensP":false,
       "tens":additive["tens"],
       "doctor_email":additive["doctor_email"],
       "patient_email":additive["patient_email"],

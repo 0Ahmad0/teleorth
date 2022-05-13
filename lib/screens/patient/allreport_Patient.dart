@@ -155,14 +155,14 @@ class _allreport_PatientState extends State<allreport_Patient> {
                       return ListView.builder(
                       itemCount: FirebaseController.listReport.length,//allreports.length,
                       itemBuilder: (ctx, index) {
-
+                        FirebaseController.listReport.reversed;
                         String text="${
-                                DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
+                                DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.listReport.length-index-1]["date"].toDate())
                             }";
-                           return (search==""||text.contains(search))?
-                           allreportsP( index,"#${index+1}_"+FirebaseController.listReport[index]["details"]["name"]+
+                           return (search=="#${index+1}"||search==""||text.contains(search))?
+                           allreportsP( index,"#${FirebaseController.listReport.length-index}_"+FirebaseController.listReport[FirebaseController.listReport.length-index-1]["details"]["name"]+
                                " | ${
-                                   DateFormat.yMd().format(FirebaseController.listReport[index]["date"].toDate())
+                                   DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.listReport.length-index-1]["date"].toDate())
                                }",
                                context):SizedBox();
                       });
@@ -226,7 +226,7 @@ class _allreport_PatientState extends State<allreport_Patient> {
                 color: Color(0xFF2d5240),
                 iconSize: 35,
                 onPressed: () {
-                  FirebaseController.indexReport=index;
+                  FirebaseController.indexReport=FirebaseController.listReport.length-index-1;
                   Navigator.push(
                     context,
                     MaterialPageRoute(

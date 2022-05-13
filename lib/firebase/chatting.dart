@@ -147,8 +147,8 @@ class Chatting {
       await FirebaseFirestore.instance
           .collection("additives")
           .add({
-         "doctor_email": "doctor@gmail.com",
-        //"doctor_email": "${DOCTOR_EMAIL}",
+        // "doctor_email": "doctor@gmail.com",
+        "doctor_email": "${MyUser.EMAIL}",
         //  "patient_email": "patient@gmail.com",
         "patient_email": "${PATIENT_EMAIL}",
         "tensD":false,
