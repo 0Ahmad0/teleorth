@@ -39,6 +39,9 @@ class UploadPic extends State<Upload_injury> {
     image = pickedFile!;
     Navigator.pop(context);
    // await uploadImage(context);
+    setState(() {
+      _image = File(image!.path);
+    });
 
   }
 
@@ -50,7 +53,9 @@ class UploadPic extends State<Upload_injury> {
     image = pickedFile!;
     Navigator.pop(context);
     //await uploadImage(context);
-
+    setState(() {
+      _image = File(image!.path);
+    });
   }
   ///
   Future<void> showChoiceDialog(BuildContext context) {

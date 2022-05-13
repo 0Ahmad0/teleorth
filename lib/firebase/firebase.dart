@@ -15,6 +15,7 @@ class FirebaseController{
   static int indexXrayImages=0;
   static String namePatient="";
   static String emailPatient="";
+  static int indexReportPage=-1;
   static addReport() async {
     await FirebaseFirestore.instance.collection("reports").add(DetailsReport.report).then((value){
       print("done add report");
@@ -136,5 +137,37 @@ class FirebaseController{
     return DateFormat.yMMMMd()
         .add_jms()
         .format(timestamp.toDate());
+  }
+  static String getPhase(){
+    String phase="Not found plan !";
+    indexReportPage=-1;
+    for(int i=0;i<listReport.length;i++){
+      if(listReport[i]["isVisible"]){
+        if(indexReportPage==-1){
+          num subtract=Timestamp.now().seconds-listReport[i]["date"].seconds;
+          if(subtract<0)return phase;
+          subtract=subtract/60/60/24/7;
+          phase=getPhaseHelper(subtract, listReport[i]["recoveryPlan"]["Weber${listReport[i]["doctor"]["weber"]}"]);
+         // subtract=int.parse(listReport[i]["recoveryPlan"]["WeberA"][0]);
+          print("index ${indexReportPage} ,${subtract}");
+          print(phase);
+          indexReportPage=i;
+          return phase;
+        }
+      }
+    }
+    print(phase);
+    return phase;
+  }
+  static String getPhaseHelper(num subtract,var weber){
+    String phase="Not found plan !";
+    int numphase=1;
+    for(int i=0;i<weber.length;i+=2){
+      if(subtract-int.parse(weber[i])>=0&&int.parse(weber[i+1])-subtract>0){
+        return "Phase${numphase} : Week ${(subtract-int.parse(weber[i])).ceil()}";
+      }
+      numphase++;
+    }
+    return phase;
   }
 }

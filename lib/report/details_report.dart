@@ -356,33 +356,33 @@ class DetailsReport{
       String element1=element.toString();
       if(element1.contains("Do you smoke")) {
           convert+="Smoking:";
-          element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+          element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have pain")) {
         convert += "Pain:";
-        element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+        element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have Ecchymosis")) {convert+="Ecchymosis:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have an osteoporosis")) {convert+="Osteoporosis:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have Absent pulse")) {convert+="Absent pulse:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have discolouration of the skin")) {convert+="Discolouration of the skin:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have a deformity of the ankle")) {convert+="Deformity of the ankle:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have joint swelling?")) {convert+="joint swelling:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       //else if(element1.contains("Enter the weight in Kg and the height in cm")) convert+="Overweight:";
       else if(element1.contains("Do you have stiffness in your ankle")) {convert+="Stiffness in ankle:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have difficulty and pain while walkin")){ convert+="Difficulty and pain while walking:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have bruising")) {convert+="Bruising:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Do you have swelling accompanied by pain right away")){ convert+="Swelling accompanied by pain:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Are you twisted your ankle")) {convert+=" Ankle twist:";
-      element1.contains("answer: yes")?convert+=" yes\n":convert+=" no\n";}
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else convert+="${element1}\n";
     });
     return convert;

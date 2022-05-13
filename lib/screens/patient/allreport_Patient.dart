@@ -151,7 +151,10 @@ class _allreport_PatientState extends State<allreport_Patient> {
                       if (!snapShot.hasData) {
                       return Center(child: CircularProgressIndicator());
                       } else {
-
+                        FirebaseController.listReport.sort((a,b) => a["date"].compareTo(b["date"]));
+                       /* FirebaseController.listReport.forEach((element) {
+                          print(element["date"].toDate());
+                        });*/
                       return ListView.builder(
                       itemCount: FirebaseController.listReport.length,//allreports.length,
                       itemBuilder: (ctx, index) {

@@ -8,6 +8,7 @@ import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import '../../firebase/chatting.dart';
 import '../../firebase/firebase.dart';
+import '../../recovery_plan_screen2.dart';
 import 'Edit_Profile.dart';
 //import 'Upload_injury.dart';
 import 'Upload_injury.dart';
@@ -185,44 +186,55 @@ class _main_PagePatientState extends State<main_PagePatient> {
                           direction: Axis.vertical,
                           //  spacing: 5.0,
                           children: [
-                            Wrap(
-                              direction: Axis.horizontal,
-                              // spacing: 5,
-                              children: [
-                                Icon(
-                                  Icons.restore_outlined,
-                                  color: Color(0xFF4d8d6e),
-                                  size: 30.0,
-                                ),
-                                SizedBox(
-                                  width: 13,
-                                ),
-                                Text(
-                                  "Phase1: Week 2",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 130,
-                                ),
-                                InkWell(
-                                  child: Icon(
-                                    Icons.description_outlined,
-                                    color: Color(0xFF4d8d6e),
-                                    size: 30.0,
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => recovery_Plan_Summary()),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
+                            FutureBuilder(
+                            future: FirebaseController.fetchReportsPatient(),
+                            builder: (context,snapShot) {
+                                  if (!snapShot.hasData) {
+                                  return Center(child: CircularProgressIndicator());
+                                  } else {
+                                      FirebaseController.listReport.sort((a,b) => a["date"].compareTo(b["date"]));
+                                      String phase=FirebaseController.getPhase();
+                                      return Wrap(
+                                        direction: Axis.horizontal,
+                                        // spacing: 5,
+                                        children: [
+                                          Icon(
+                                            Icons.restore_outlined,
+                                            color: Color(0xFF4d8d6e),
+                                            size: 30.0,
+                                          ),
+                                          SizedBox(
+                                            width: 13,
+                                          ),
+                                          Text(
+                                            phase,
+                                            //"Phase1: Week 2",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 17.0,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 130,
+                                          ),
+                                          InkWell(
+                                            child: Icon(
+                                              Icons.description_outlined,
+                                              color: Color(0xFF4d8d6e),
+                                              size: 30.0,
+                                            ),
+                                            onTap: () {
+                                              FirebaseController.indexReport=FirebaseController.indexReportPage;
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => RecoveryPlanScreen2()/*recovery_Plan_Summary()*/),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                  }}),
                             SizedBox(
                               height: 10,
                             ),

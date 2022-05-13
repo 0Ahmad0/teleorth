@@ -303,6 +303,10 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                 if (!snapShot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 } else {
+                  FirebaseController.listReport.sort((a,b) => a["date"].compareTo(b["date"]));
+                 /* FirebaseController.listReport.forEach((element) {
+                    print(element["date"].toDate());
+                  });*/
                   return Column(children: [
                     SizedBox(
                       height: 10,

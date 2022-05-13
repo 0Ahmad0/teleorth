@@ -203,7 +203,7 @@ class Dignosisi_report extends StatelessWidget {
                         :("--------------------------------------------------\n" +
                             "--------------------------------------------------"),
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 5,
+                        maxLines: 8,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 17.0,
