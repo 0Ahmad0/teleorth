@@ -4,10 +4,12 @@ import 'package:_finalproject/const/get_size.dart';
 import 'dart:io';
 
 import 'package:_finalproject/firebase/firebase.dart';
+import 'package:_finalproject/screens/doctor/Mypatients.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import '../../report/details_report.dart';
 import 'EachReportOfPatient.dart';
@@ -98,51 +100,63 @@ class _List_of_XrayState extends State<List_of_Xray> {
       body: ListView.builder(
         padding: EdgeInsets.all(10.0),
         //TODO : Set Your List Here Nagel
-        itemCount: 15,
-        itemBuilder: (_,index){
+        itemCount:  FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"].length,
+        itemBuilder: (_,index) {
           return GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Xray_pic()),
               );
             },
             child: Card(
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Color(0xFF4d8d6e), width: 1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              margin:
-              const EdgeInsets.symmetric(vertical: 8.0),
-              color: Colors.white70,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 13, horizontal: 7),
-                child: Row(
-                  children:  [
-                    SizedBox(width: 20.0,),
-                    Icon(
-                      Icons.microwave_outlined,
-                      color: Color(0xFF3b6b54),
-                      size: 30.0,
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Text(
-                      "#${index+1}_06-07-2021",
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 17.0,
+            elevation: 5.0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Color(0xFF4d8d6e), width: 1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            margin:
+            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+            color: Colors.white70,
+            child: Expanded(
+              child: FlatButton(
+                onPressed: () {
+                  FirebaseController.indexXrayImages=index;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Xray_pic()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 13, horizontal: 7),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.microwave_outlined,
+                        color: Color(0xFF3b6b54),
+                        size: 30.0,
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      Text(
+                        "#${(index + 1)}_" +
+                            "${DateFormat.yMd().format(FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"][index]["date"].toDate())}",
+                        //"#1_06-07-2021",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 17.0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ],
+          );
+        }
       ),
     );
   }
@@ -165,6 +179,7 @@ class _List_of_XrayState extends State<List_of_Xray> {
        update({
          "xrayImages":xrayImages,
        }).then((value) => print('url $url'));
+       //Navigator.push(context, Mypatients());
        setState(() {
 
        });

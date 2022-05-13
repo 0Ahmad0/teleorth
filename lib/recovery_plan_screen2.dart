@@ -24,7 +24,8 @@ class RecoveryPlanScreen2 extends StatefulWidget{
     if(FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]){
      weberName="Weber${FirebaseController.listReport[FirebaseController.indexReport]["doctor"]["weber"]}";
      weberList=FirebaseController.listReport[FirebaseController.indexReport]["recoveryPlan"]["${weberName}"] as List?;
-     DetailsReport.recoveryPlan=FirebaseController.listReport[FirebaseController.indexReport]["recoveryPlan"];
+    // DetailsReport.recoveryPlan=FirebaseController.listReport[FirebaseController.indexReport]["recoveryPlan"];
+      DetailsReport.setecoveryplane(FirebaseController.listReport[FirebaseController.indexReport]["recoveryPlan"]);
     }else if(weberName==null){
       weberName="WeberA";
       weberList=DetailsReport.recoveryPlan["${weberName}"] as List?;
@@ -576,10 +577,11 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                       "name":MyUser.FULLNAME,
                       "userName":MyUser.USERNAME,
                   });
-                  DetailsReport.recoveryPlan["${widget.weberName}"]=(widget.weberList!);
+                 DetailsReport.recoveryPlan["${widget.weberName}"]=(widget.weberList!);
                  // print(DetailsReport.report["recoveryPlan"]);
+                //  print("${FirebaseController.listReport[FirebaseController.indexReport].id}");
                  FirebaseFirestore.instance.collection("reports").
-                  doc("${FirebaseController.listReport[FirebaseController.indexReport]}").
+                  doc(FirebaseController.listReport[FirebaseController.indexReport].id).
                   update(DetailsReport.report).
                   then((value){
                     print("done update recovery plan");

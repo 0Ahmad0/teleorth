@@ -331,6 +331,15 @@ class DetailsReport{
       "xrayImages":sReport["xrayImages"],
     };
   }
+  static setecoveryplane(var sRecoveryPlan){
+    recoveryPlan["WeberA"]=sRecoveryPlan["WeberA"];
+    recoveryPlan["WeberB"]=sRecoveryPlan["WeberB"];
+    recoveryPlan["Phases"]=sRecoveryPlan["Phases"];
+    recoveryPlan["Stages"]=sRecoveryPlan["Stages"];
+    recoveryPlan["BalanceExercises"]=sRecoveryPlan["BalanceExercises"];
+    recoveryPlan["Heel Raises"]=sRecoveryPlan["Heel Raises"];
+    recoveryPlan["Advice"]=sRecoveryPlan["Advice"];
+  }
   static setRecoveryPlane(var recoveryPlan,var doctor){
     report["recoveryPlan"]=recoveryPlan;
     report["doctor"]=doctor;

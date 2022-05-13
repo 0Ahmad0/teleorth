@@ -10,6 +10,7 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker_saver/image_picker_saver.dart';
 import 'dart:async';*/
+import '../../firebase/firebase.dart';
 import 'List_of_Xray.dart';
 
 // ignore: camel_case_types
@@ -91,7 +92,7 @@ class Xray_pic extends StatelessWidget {
                         ),
                         onPressed: () async{
                           await downloadIMG(
-                            url: 'https://imgs.developpaper.com/imgs/20200119110400.jpg'
+                            url: FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"][FirebaseController.indexXrayImages]["image"]//'https://imgs.developpaper.com/imgs/20200119110400.jpg'
                           );
                         },
                       ),
@@ -100,16 +101,20 @@ class Xray_pic extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 40,),
             Container(
+              height: 400,
+              width: 500,
               margin: const EdgeInsets.fromLTRB(10, 40, 10, 0),
-              child: Image(
+              child: Image.network(FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"][FirebaseController.indexXrayImages]["image"]),//"assets/images/AnkleSprain.jpg"),)/*Image(
+               /*Image(
                 width: 400,
                 height: 500,
                 fit: BoxFit.cover,
                 alignment: Alignment.center,
 
                 image: AssetImage("assets/images/AnkleSprain.jpg"),
-              ),
+              ),*/
             ),
 
             /* Image.network(
