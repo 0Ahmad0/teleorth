@@ -334,50 +334,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
                      }
                      else{
                        print("passwords is not equal!!");
-                     }
-                   }else{
-                     showDialog(
-                         context: context, builder: (_){
-                       return Material(
-                         color: Colors.transparent,
-                         child: Center(
-                           child: Container(
-                             height: Get.width * 0.35,
-                             padding: EdgeInsets.all(15.0),
-                             margin: EdgeInsets.all(20.0),
-                             decoration: BoxDecoration(
-                               color: Colors.white,
-                               borderRadius: BorderRadius.circular(8.0),
-                             ),
-                             child: Column(
-                               children: [
-                                 Expanded(
-                                   child: Text('Please set Strong Password',style: TextStyle(
-                                       fontWeight: FontWeight.bold,
-                                       fontSize: Get.width * 0.05,
-                                       color: Colors.red
-                                   ),),
-                                 ),
-                                 Row(
-                                   mainAxisAlignment: MainAxisAlignment.end,
-                                   children: [
-                                     TextButton(onPressed: (){
-                                       Navigator.pop(context);
-                                     }, child: Text('ok',
-                                     style: TextStyle(
-                                       color: Colors.black
-                                     ),
-                                     ))
-                                   ],
-                                 )
-                               ],
+                       showDialog(
+                           context: context, builder: (_){
+                         return Material(
+                           color: Colors.transparent,
+                           child: Center(
+                             child: Container(
+                               height: Get.width * 0.35,
+                               padding: EdgeInsets.all(15.0),
+                               margin: EdgeInsets.all(20.0),
+                               decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(8.0),
+                               ),
+                               child: Column(
+                                 children: [
+                                   Expanded(
+                                     child: Text('Please set Strong Password',style: TextStyle(
+                                         fontWeight: FontWeight.bold,
+                                         fontSize: Get.width * 0.05,
+                                         color: Colors.red
+                                     ),),
+                                   ),
+                                   Row(
+                                     mainAxisAlignment: MainAxisAlignment.end,
+                                     children: [
+                                       TextButton(onPressed: (){
+                                         Navigator.pop(context);
+                                       }, child: Text('ok',
+                                         style: TextStyle(
+                                             color: Colors.black
+                                         ),
+                                       ))
+                                     ],
+                                   )
+                                 ],
+                               ),
                              ),
                            ),
-                         ),
-                       );
-                     });
-
+                         );
+                       });
+                     }
                    }
+
 
                   })
                 ],
