@@ -10,11 +10,9 @@ class List_of_Xray extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: const Color(0xFFf5f5f5),
-        body: SafeArea(
-          child: Column(
+        body:  Column(
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.all(20.0),
@@ -103,8 +101,6 @@ class List_of_Xray extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
+      );
   }
 }

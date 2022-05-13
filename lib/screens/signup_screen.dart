@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
   static final TextEditingController _userNameTextController =
       TextEditingController();
-  static final TextEditingController _fullNameTextController =
+  static final TextEditingC1ontroller _fullNameTextController =
       TextEditingController();
   final TextEditingController _confirmPasswordTextController =
   TextEditingController();
