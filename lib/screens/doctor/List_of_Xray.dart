@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, file_names, deprecated_member_use, avoid_print, prefer_const_constructors
 
+import 'package:_finalproject/const/get_size.dart';
 import 'dart:io';
 
 import 'package:_finalproject/firebase/firebase.dart';
@@ -80,6 +81,13 @@ class _List_of_XrayState extends State<List_of_Xray> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("My Xray Pictures",style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: getScreenSize(context).width * 0.075
+        ),),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_photo_alternate_rounded),
         onPressed: ()async{
@@ -87,90 +95,49 @@ class _List_of_XrayState extends State<List_of_Xray> {
           print(image!.path);
         },
       ),
-      backgroundColor: const Color(0xFFf5f5f5),
-      body: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            color: const Color(0xFF4d8d6e),
-            child: Row(
-              children: [
-                Positioned(
-                  top: 10,
-                  left: 8,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
+      body: ListView.builder(
+        padding: EdgeInsets.all(10.0),
+        //TODO : Set Your List Here Nagel
+        itemCount: 15,
+        itemBuilder: (_,index){
+          return GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Xray_pic()),
+              );
+            },
+            child: Card(
+              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Color(0xFF4d8d6e), width: 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              margin:
+              const EdgeInsets.symmetric(vertical: 8.0),
+              color: Colors.white70,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 13, horizontal: 7),
+                child: Row(
+                  children:  [
+                    SizedBox(width: 20.0,),
+                    Icon(
+                      Icons.microwave_outlined,
+                      color: Color(0xFF3b6b54),
                       size: 30.0,
-                      color: Colors.white,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EachReportOfPatient()),
-                      );
-                    },
-                  ),
-                ),
-                const Positioned(
-                  top: 65,
-                  bottom: 8,
-                  left: 125,
-                  child: Text(
-                    '   My Xray Pictures',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: 20.0,
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 15.0,
-          ),
-          Card(
-            elevation: 5.0,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Color(0xFF4d8d6e), width: 1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            margin:
-            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
-            color: Colors.white70,
-            child: Expanded(
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Xray_pic()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 13, horizontal: 7),
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.microwave_outlined,
-                        color: Color(0xFF3b6b54),
-                        size: 30.0,
+                    Text(
+                      "#${index+1}_06-07-2021",
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 17.0,
                       ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Text(
-                        "#1_06-07-2021",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 17.0,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
