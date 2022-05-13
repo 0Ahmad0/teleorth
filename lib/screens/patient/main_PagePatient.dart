@@ -6,6 +6,7 @@ import 'package:_finalproject/screens/patient/List_of_doctors.dart';
 import 'package:_finalproject/screens/patient/recovery_Plan_Summary.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import '../../firebase/chatting.dart';
 import '../../firebase/firebase.dart';
 import 'Edit_Profile.dart';
 //import 'Upload_injury.dart';
@@ -79,136 +80,64 @@ class _main_PagePatientState extends State<main_PagePatient> {
               //     verticalDirection: VerticalDirection.down,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Stack(
-                  //crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Positioned(
-                      left: 20,
-                      top: 15,
-                      child: Text(
-                        "Summary",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20.0,
+              FutureBuilder(
+              future: Chatting.getAdditiveP(),
+              builder: (context,snapShot) {
+              if (!snapShot.hasData) {
+              return Center(child: CircularProgressIndicator());
+              } else{
+                _isActive = Chatting.listHellper[0]["tensP"];
+              return Column(
+                children: [
+                  Stack(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Positioned(
+                        left: 20,
+                        top: 15,
+                        child: Text(
+                          "Summary",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      left: 285,
-                      top: 20,
-                      child: Text('TENS',
-                          style: TextStyle(color: Colors.black, fontSize: 15)),
-                    ),
-                    SwitchListTile(
-                      activeColor: Colors.green,
-                      activeTrackColor: Colors.grey[400],
-                      inactiveThumbColor: Colors.red,
-                      // secondary: const Icon(Icons.home),
-                      controlAffinity: ListTileControlAffinity.trailing,
-                      value: _isActive,
-                      onChanged: (value) {
-                        setState(() {
-                          _isActive = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
+                      Positioned(
+                        left: 285,
+                        top: 20,
+                        child: Text('TENS',
+                            style: TextStyle(color: Colors.black, fontSize: 15)),
+                      ),
+                      SwitchListTile(
+                        activeColor: Colors.green,
+                        activeTrackColor: Colors.grey[400],
+                        inactiveThumbColor: Colors.red,
+                        // secondary: const Icon(Icons.home),
+                        controlAffinity: ListTileControlAffinity.trailing,
+                        value: _isActive,
 
-                /* Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 120),
-                child: SwitchListTile(
-                  title: Text('TENS',
-                      style: TextStyle(color: Colors.black, fontSize: 12)),
+                        onChanged: (value) async {
+                          if(_isActive){
+                          Chatting.additive =
+                              FirebaseController.changeTens(
+                                  "tensP", Chatting.listHellper[0]);
+                          await Chatting.editAdditive(
+                              Chatting.listHellper[0].id);
 
-                  activeColor: Colors.green,
+                            setState(() {
+                              _isActive = value;
+                            });
+                          }
 
-                  activeTrackColor: Colors.grey[400],
-
-                  inactiveThumbColor: Colors.red,
-
-                  // secondary: const Icon(Icons.home),
-
-                  controlAffinity: ListTileControlAffinity.trailing,
-
-                  value: _isActive,
-
-                  onChanged: (value) {
-                    setState(() {
-                      _isActive = value;
-                    });
-                  },
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                padding: EdgeInsets.all(16),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Text(
-                    "Summary",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20.0,
-                    ),
+                        },
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ],
-          ),*/
-
-                /*     Container(
-            color: Colors.yellow,
-            margin: EdgeInsets.symmetric(horizontal: 120),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 1),
-              child: SwitchListTile(
-                title: Text('TENS',
-                    style: TextStyle(color: Colors.black, fontSize: 12)),
-
-                activeColor: Colors.green,
-
-                activeTrackColor: Colors.grey[400],
-
-                inactiveThumbColor: Colors.red,
-
-                // secondary: const Icon(Icons.home),
-
-                controlAffinity: ListTileControlAffinity.trailing,
-
-                value: _isActive,
-
-                onChanged: (value) {
-                  setState(() {
-                    _isActive = value;
-                  });
-                },
-              ),
-            ),
-          ),*/
-
-                /*  Positioned(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: Text(
-                "Summary",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20.0,
-                ),
-              ),
-            ),
-          ),*/
-                //SizedBox(width: 8),
-
-                Wrap(
-                  direction: Axis.vertical,
-                  children: [
-                    /*      Container(
+                  Wrap(
+                    direction: Axis.vertical,
+                    children: [
+                      /*      Container(
                 padding: EdgeInsets.all(32.0),
                 child: Column(
                   children: <Widget>[
@@ -229,8 +158,8 @@ class _main_PagePatientState extends State<main_PagePatient> {
                 ),
               ),*/
 
-                    //  SizedBox(width: 5.0),
-                    /*  Container(
+                      //  SizedBox(width: 5.0),
+                      /*  Container(
                 margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
                 //      padding: EdgeInsets.all(9),
                 child: Text(
@@ -241,89 +170,93 @@ class _main_PagePatientState extends State<main_PagePatient> {
                   ),
                 ),
               ),*/
-                    SizedBox(height: 10.0),
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Color(0xFF4d8d6e)),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      // color: Colors.yellow,
+                      SizedBox(height: 10.0),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Color(0xFF4d8d6e)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        // color: Colors.yellow,
 
-                      //  margin: EdgeInsets.all(10.0),
-                      padding: EdgeInsets.all(9),
-                      width: 360,
-                      child: Wrap(
-                        direction: Axis.vertical,
-                        //  spacing: 5.0,
-                        children: [
-                          Wrap(
-                            direction: Axis.horizontal,
-                            // spacing: 5,
-                            children: [
-                              Icon(
-                                Icons.restore_outlined,
-                                color: Color(0xFF4d8d6e),
-                                size: 30.0,
-                              ),
-                              SizedBox(
-                                width: 13,
-                              ),
-                              Text(
-                                "Phase1: Week 2",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 17.0,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 130,
-                              ),
-                              InkWell(
-                                child: Icon(
-                                  Icons.description_outlined,
+                        //  margin: EdgeInsets.all(10.0),
+                        padding: EdgeInsets.all(9),
+                        width: 360,
+                        child: Wrap(
+                          direction: Axis.vertical,
+                          //  spacing: 5.0,
+                          children: [
+                            Wrap(
+                              direction: Axis.horizontal,
+                              // spacing: 5,
+                              children: [
+                                Icon(
+                                  Icons.restore_outlined,
                                   color: Color(0xFF4d8d6e),
                                   size: 30.0,
                                 ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => recovery_Plan_Summary()),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Wrap(
-                            direction: Axis.horizontal,
-                            //    spacing: 5,
-                            children: const [
-                              Icon(
-                                Icons.developer_board_outlined,
-                                color: Color(0xFF4d8d6e),
-                                size: 27.0,
-                              ),
-                              SizedBox(
-                                width: 13.0,
-                              ),
-                              Text(
-                                "TENS intensity: 15 Hz",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 17.0,
+                                SizedBox(
+                                  width: 13,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                                Text(
+                                  "Phase1: Week 2",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 130,
+                                ),
+                                InkWell(
+                                  child: Icon(
+                                    Icons.description_outlined,
+                                    color: Color(0xFF4d8d6e),
+                                    size: 30.0,
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => recovery_Plan_Summary()),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Wrap(
+                              direction: Axis.horizontal,
+                              //    spacing: 5,
+                              children:  [
+                                Icon(
+                                  Icons.developer_board_outlined,
+                                  color: Color(0xFF4d8d6e),
+                                  size: 27.0,
+                                ),
+                                SizedBox(
+                                  width: 13.0,
+                                ),
+                                Text(
+                                  "TENS intensity: ${Chatting.listHellper[0]["tens"]} Hz",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.0),
+                    ],
+                  ),
+
+                ],
+              );
+              }}),
+
                 /*       Container(
               // padding: EdgeInsets.all(10),
               margin: EdgeInsets.all(10),
@@ -387,7 +320,7 @@ class _main_PagePatientState extends State<main_PagePatient> {
               ),
             ),
 */
-
+                SizedBox(height: 10.0),
                 InkWell(
                   child: Image(
                     image: AssetImage("assets/images/initial diag.png"),
@@ -526,10 +459,13 @@ class _main_PagePatientState extends State<main_PagePatient> {
         //===============================================//
         SReport.report=Report();
         //===============================================//
+        Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Upload_injury()),
+
         );
+
       },
       child: Text("Ok"),
     );

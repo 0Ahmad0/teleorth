@@ -5,6 +5,9 @@ import 'package:_finalproject/report/details_report.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../recovery_plan_creen1.dart';
+import '../../recovery_plan_screen2.dart';
+import '../doctor/recovery_Plan.dart';
 import 'Diagnosis_result.dart';
 import 'Dignosisi_report.dart';
 import 'Injury_Image.dart';
@@ -201,11 +204,14 @@ class Each_report extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => recovery_plan(
+                            builder: (context) => ((FirebaseController.listReport[FirebaseController.indexReport]["details"]["type"]=="fracture")&&
+                                FirebaseController.listReport[FirebaseController.indexReport]["isVisible"])
+                                ?RecoveryPlanScreen2():recovery_Plan())
+                          /*,recovery_plan(
                               weberList: DetailsReport.recoveryPlan["WeberA"] as List,
                               weberName: "Weber A",
 
-                            )),
+                            )),*/
                       );
                     },
                     child: Padding(

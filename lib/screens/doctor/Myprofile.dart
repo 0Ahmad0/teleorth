@@ -165,7 +165,7 @@ class _MyprofileState extends State<Myprofile> {
 
                 Container(
                   width: 350.0,
-                  height: 12.0,
+                  height: 14.0,
                   margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
                   child: Text(
                     'Username',
@@ -177,7 +177,7 @@ class _MyprofileState extends State<Myprofile> {
                 ),
                 Container(
                   width: 350.0,
-                  height: 16.0,
+                  height: 18.0,
                   margin: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 8.0),
                   child: Text(
                     MyUser.USERNAME,
@@ -191,7 +191,7 @@ class _MyprofileState extends State<Myprofile> {
 
                 Container(
                   width: 350.0,
-                  height: 12.0,
+                  height: 14.0,
                   margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
                   child: Text(
                     'Scfhs Number',
@@ -203,7 +203,7 @@ class _MyprofileState extends State<Myprofile> {
                 ),
                 Container(
                   width: 350.0,
-                  height: 16.0,
+                  height: 18.0,
                   margin: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 8.0),
                   child: Text(
                     '12-A-A-0055232',
@@ -216,21 +216,51 @@ class _MyprofileState extends State<Myprofile> {
 
                 SizedBox(
                   width: 350.0,
-                  height: 12.0,
+                  height: 14.0,
+                  child: Divider(
+                    thickness: 1.3,
+                    color: Colors.grey[400],
+                  ),
+                ),
+                Container(
+                  width: 350.0,
+                  height: 14.0,
+                  margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
+                  child: Text(
+                    'E-mail',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 350.0,
+                  height: 18.0,
+                  margin: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 8.0),
+                  child: Text(
+                    MyUser.EMAIL,
+                    //SignInScreen.gender,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 350.0,
+                  height: 1.0,
                   child: Divider(
                     thickness: 1.3,
                     color: Colors.grey[400],
                   ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                  child: buildTextField('E-mail',MyUser.EMAIL /*SignInScreen.email*/,true),
-                ),
+
 
                 Container(
                   width: 350.0,
-                  height: 12.0,
+                  height: 14.0,
                   margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 8.0),
                   child: Text(
                     'Gender',
@@ -242,7 +272,7 @@ class _MyprofileState extends State<Myprofile> {
                 ),
                 Container(
                   width: 350.0,
-                  height: 16.0,
+                  height: 18.0,
                   margin: const EdgeInsets.fromLTRB(20.0, 4.0, 20.0, 8.0),
                   child: Text(
                     MyUser.GENDER,
@@ -265,7 +295,7 @@ class _MyprofileState extends State<Myprofile> {
                 ///////////////////////////////////////////////////
                 Container(
                   width: 350.0,
-                  height: 12.0,
+                  height: 14.0,
                   margin: const EdgeInsets.fromLTRB(4.0, 6.0, 0, 0),
                   child: Text(
                     'Language',

@@ -153,7 +153,7 @@ class _emergency_requestState extends State<emergency_request> {
                     ListView.builder(
                       itemCount: Chatting.listHellper.length,
                       itemBuilder: (_,index){
-                        return (Chatting.listHellper[index]["tensD"]==Chatting.listHellper[index]["tensP"])?
+                        return (Chatting.listHellper[index]["tensD"]!=Chatting.listHellper[index]["tensP"])?
                               FutureBuilder(
                             future: Chatting.getNameEmail(
                                 email: Chatting.listHellper[index]['patient_email'],

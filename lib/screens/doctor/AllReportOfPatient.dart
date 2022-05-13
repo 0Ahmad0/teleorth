@@ -154,6 +154,7 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                 if (!snapShot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 } else {
+                  valueHZ=Chatting.listHellper[0]["tens"];
                   _isActive = Chatting.listHellper[0]["tensP"];
                   // print(Chatting.listHellper.length);
                   return Material(
@@ -184,7 +185,10 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                                       onTap: () {
                                         if (valueHZ < 9) {
                                           valueHZ++;
+                                          Chatting.additive=FirebaseController.changeTensHz(valueHZ, Chatting.listHellper[0]);
                                           setState(() {
+                                            Chatting.editAdditive(
+                                              Chatting.listHellper[0].id);
                                             print(valueHZ);
                                           });
                                         }
@@ -237,7 +241,12 @@ class _AllReportOfPatientState extends State<AllReportOfPatient> {
                                       onTap: () {
                                         if (valueHZ > 0) {
                                           valueHZ--;
-                                          setState(() {});
+                                          Chatting.additive=FirebaseController.changeTensHz(valueHZ, Chatting.listHellper[0]);
+                                          setState(() {
+                                            Chatting.editAdditive(
+                                                Chatting.listHellper[0].id);
+                                            print(valueHZ);
+                                          });
                                         }
                                       },
                                       child: CircleAvatar(

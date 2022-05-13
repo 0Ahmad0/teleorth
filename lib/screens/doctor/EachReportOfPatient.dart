@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../../recovery_plan_creen1.dart';
 import '../../recovery_plan_screen2.dart';
 import '../../report/details_report.dart';
+import '../patient/Injury_Image.dart';
 import 'AllReportOfPatient.dart';
 import 'ImageOfInjury.dart';
 import 'List_of_Xray.dart';
@@ -258,7 +259,7 @@ class EachReportOfPatient extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ImageOfInjury()),
+                            builder: (context) => Injury_Image()),//ImageOfInjury()),
                       );
                     },
                     child: Padding(

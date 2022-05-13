@@ -1,8 +1,10 @@
+import 'package:_finalproject/firebase/user.dart';
 import 'package:_finalproject/report/details_report.dart';
 import 'package:_finalproject/reusable_widgets/reusable_widget.dart';
 import 'package:_finalproject/screens/doctor/AllReportOfPatient.dart';
 import 'package:_finalproject/screens/doctor/EachReportOfPatient.dart';
 import 'package:_finalproject/screens/patient/main_PagePatient.dart';
+import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -564,23 +566,25 @@ class _RecoveryPlanScreen2State extends State<RecoveryPlanScreen2> {
                 ),
               ),
               SizedBox(height: 15.0,),
-              (!FirebaseController.listReport[FirebaseController.indexReport]["isVisible"])?GestureDetector(
+              ((!FirebaseController.listReport[FirebaseController.indexReport]["isVisible"]&&WelcomeScreen.isDoctor))?GestureDetector(
                 onTap: (){
+                  DetailsReport.setReport(FirebaseController.listReport[FirebaseController.indexReport]);
                   DetailsReport.setDoctor({
                       "weber":(widget.weberName=="WeberA")?"A":"B",
                       "date":DateTime.now(),
-                      "email":"",
-                      "name":"",
-                      "userName":"",
+                      "email":MyUser.EMAIL,
+                      "name":MyUser.FULLNAME,
+                      "userName":MyUser.USERNAME,
                   });
                   DetailsReport.recoveryPlan["${widget.weberName}"]=(widget.weberList!);
-                  FirebaseFirestore.instance.collection("reports").
+                 // print(DetailsReport.report["recoveryPlan"]);
+                 FirebaseFirestore.instance.collection("reports").
                   doc("${FirebaseController.listReport[FirebaseController.indexReport]}").
                   update(DetailsReport.report).
                   then((value){
                     print("done update recovery plan");
-                    Navigator.pushReplacement(context, MaterialPageRoute
-                      (builder: (ctx)=>AllReportOfPatient()));
+                   /* Navigator.pushReplacement(context, MaterialPageRoute
+                      (builder: (ctx)=>AllReportOfPatient()));*/
                   });
                 // widget.update();
                /*  Navigator.pushReplacement(context, MaterialPageRoute

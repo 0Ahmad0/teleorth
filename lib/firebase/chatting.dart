@@ -338,6 +338,31 @@ class Chatting {
     }
     return false;
   }
+  static Future<bool> getAdditiveP() async{
+    //  name="";
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('additives')
+      //.where('doctor_email',isEqualTo: "doctor@gmail.com")
+          .where('${MyUser.TYPEUSER}_email',isEqualTo:"${MyUser.EMAIL}")
+          //.where('${(MyUser.TYPEUSER=="patient")?"doctor":"patient"}_email',isEqualTo:"${email}")
+          .get();
+      if(snapshot.docs.isNotEmpty){
+        print("done emails additives :" );
+        for(int i=0;i<snapshot.docs.length;i++){
+          //print(snapshot.docs[i]["${TYPE_USER2}"]);
+          print(snapshot.docs[i]["patient_email"]);
+        }
+        listHellper=snapshot.docs;
+        return true;
+      }else{
+        print("NOT FOUND Eamil");
+      }
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
+    return false;
+  }
 
   static Future<bool> getAdditives1() async{
     try {

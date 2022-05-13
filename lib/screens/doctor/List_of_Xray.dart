@@ -1,7 +1,14 @@
 // ignore_for_file: camel_case_types, file_names, deprecated_member_use, avoid_print, prefer_const_constructors
 
+import 'dart:io';
+
+import 'package:_finalproject/firebase/firebase.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import '../../report/details_report.dart';
 import 'EachReportOfPatient.dart';
 import 'Xray_pic.dart';
 
@@ -21,6 +28,8 @@ class _List_of_XrayState extends State<List_of_Xray> {
      );
      image = pickedFile!;
      Navigator.pop(context);
+     await uploadImage(context);
+
    }
 
     void openGallery(BuildContext context) async{
@@ -29,8 +38,9 @@ class _List_of_XrayState extends State<List_of_Xray> {
      );
 
      image = pickedFile!;
-
      Navigator.pop(context);
+     await uploadImage(context);
+
    }
    ///
     Future<void> showChoiceDialog(BuildContext context) {
@@ -169,4 +179,33 @@ class _List_of_XrayState extends State<List_of_Xray> {
       ),
     );
   }
+   Future uploadImage(BuildContext context) async {
+     try {
+       String path = basename(image!.path);
+       File _image=File(image!.path);
+//FirebaseStorage storage = FirebaseStorage.instance.ref().child(path);
+       Reference storage = FirebaseStorage.instance.ref().child('xray/$path');
+       UploadTask storageUploadTask = storage.putFile(_image);
+       TaskSnapshot taskSnapshot = await storageUploadTask;
+      /* Scaffold.of(context).showSnackBar(SnackBar(
+         content: Text('Image uploaded successfully'),
+       ));*/
+       String url = await taskSnapshot.ref.getDownloadURL();
+       List xrayImages=FirebaseController.listReport[FirebaseController.indexReport]["xrayImages"];
+       xrayImages.add({"image":url,"date":DateTime.now()});
+       await FirebaseFirestore.instance.collection("reports").
+       doc(FirebaseController.listReport[FirebaseController.indexReport].id).
+       update({
+         "xrayImages":xrayImages,
+       }).then((value) => print('url $url'));
+       setState(() {
+
+       });
+     } catch (ex) {
+       print(ex);
+       /*Scaffold.of(context).showSnackBar(SnackBar(
+         content: Text("Please, upload the image"), //ex.message
+       ));*/
+     }
+   }
 }

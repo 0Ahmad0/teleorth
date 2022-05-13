@@ -11,6 +11,7 @@ class FirebaseController{
   static List listReport=[];
   static int indexReport=0;
   static int indexPatient=0;
+  static int indexXrayImages=0;
   static String namePatient="";
   static String emailPatient="";
   static addReport() async {
@@ -82,6 +83,16 @@ class FirebaseController{
     "patient_email":additive["patient_email"],
       "date_add":additive["date_add"],
   };
+  }
+  static changeTensHz(int tens,var additive){
+    return {
+      "tensD":!additive["tensD"],
+      "tensP":additive["tensP"],
+      "tens":tens,
+      "doctor_email":additive["doctor_email"],
+      "patient_email":additive["patient_email"],
+      "date_add":additive["date_add"],
+    };
   }
   static String formatTimestamp(Timestamp timestamp) {
     var format =  new DateFormat('yMd'); // <- use skeleton here
