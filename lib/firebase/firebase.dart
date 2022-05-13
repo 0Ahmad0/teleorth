@@ -84,6 +84,16 @@ class FirebaseController{
       "date_add":additive["date_add"],
   };
   }
+  static changeTensP(String typeTens,var additive){
+    return {
+      "${typeTens}":!additive["tensD"],
+      "${((typeTens)=="tensD")?"tensP":"tensD"}":(typeTens=="tensD")?!additive["tensD"]:additive["tensD"],
+      "tens":additive["tens"],
+      "doctor_email":additive["doctor_email"],
+      "patient_email":additive["patient_email"],
+      "date_add":additive["date_add"],
+    };
+  }
   static changeTensHz(int tens,var additive){
     return {
       "tensD":!additive["tensD"],
