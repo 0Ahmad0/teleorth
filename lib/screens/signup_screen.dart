@@ -101,8 +101,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Icons.person_outline,
                       false, // call reusableTextField from the reusable widget
                       _emailTextController,
-                    validate: (val){
-                        return (val.trim().isEmpty || (!val.trim().isEmail))
+                    validate: (String? val){
+                        return (val!.trim().isEmpty || (!val.trim().isEmail))
                             ? "please enter valid email"
                             :null;
                     }
