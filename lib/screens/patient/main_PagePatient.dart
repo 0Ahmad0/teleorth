@@ -87,6 +87,7 @@ class _main_PagePatientState extends State<main_PagePatient> {
               if (!snapShot.hasData) {
               return Center(child: CircularProgressIndicator());
               } else{
+                if(Chatting.listHellper!=null)
                 _isActive = Chatting.listHellper[0]["tensP"];
               return Column(
                 children: [
@@ -251,7 +252,7 @@ class _main_PagePatientState extends State<main_PagePatient> {
                                   width: 13.0,
                                 ),
                                 Text(
-                                  "TENS intensity: ${Chatting.listHellper[0]["tens"]} Hz",
+                "TENS intensity: ${(Chatting.listHellper!=null)?Chatting.listHellper[0]["tens"]:0} Hz",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 17.0,
