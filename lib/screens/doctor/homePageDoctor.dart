@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, avoid_print, avoid_unnecessary_containers, camel_case_types
 
+import 'package:_finalproject/const/get_size.dart';
 import 'package:_finalproject/firebase/user.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,6 @@ class homePageDoctor extends StatelessWidget {
                   ),
                 ),
               ),*/
-
             InkWell(
               child: Image(
                 image: AssetImage("assets/images/my_profile.PNG"),
@@ -111,19 +111,42 @@ class homePageDoctor extends StatelessWidget {
               height: 5.0,
             ),
 
-            InkWell(
-              //  borderRadius: BorderRadius.circular(30),
-              child: Image(
-                image: AssetImage("assets/images/emergency_request.PNG"),
-                width: 300.0,
+            Container(
+              child: InkWell(
+                //  borderRadius: BorderRadius.circular(30),
+                child: Stack(
+                  children: [
+                    Image(
+                      image: AssetImage("assets/images/emergency_request.PNG"),
+                      width: 300.0,
+                    ),
+                    Positioned(
+                      top: 10,
+                        right: 10,
+                        child: CircleAvatar(
+                          radius: getScreenSize(context).width * 0.03,
+                          child: Flexible(
+                            child: Text(
+                              '${10}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: getScreenSize(context)
+                                    .width *0.032
+                              ),
+                            ),
+                          ),
+                        ),
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => emergency_request()),
+                  );
+                },
               ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => emergency_request()),
-                );
-              },
             ),
 
             SizedBox(

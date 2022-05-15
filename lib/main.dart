@@ -18,6 +18,7 @@ import 'Screens/doctor/EachReportOfPatient.dart';
 import 'Screens/doctor/List_Of_Patient.dart';
 import 'Screens/doctor/Myprofile.dart';
 import 'Screens/doctor/homePageDoctor.dart';
+import 'Screens/login_register_screen.dart';
 import 'Screens/patient/Diagnosis_result.dart';
 import 'Screens/patient/recovery_plan.dart';
 import 'const/pattel.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
       ),
       //List_of_Xray
       // home: AllReportOfPatient(),
-      home: WelcomeScreen(),
+      home: Login_Register(),
       initialBinding: BindingsBuilder.put(
         () => QuestionsController(apiService),
       ),

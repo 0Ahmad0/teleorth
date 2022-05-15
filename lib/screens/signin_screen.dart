@@ -9,6 +9,7 @@ import 'package:_finalproject/screens/home_screen.dart';
 import 'package:_finalproject/screens/reset_password.dart';
 import 'package:_finalproject/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -114,84 +115,91 @@ class _SignInScreenState extends State<SignInScreen> {
                     context), // call forgetPassword function after "Enter Password" field to write the "Forgot Password?" and handle it
                 firebaseUIButton(context, "Sign In", () {
                   //call firebaseUIButton from the reusable widget, to make Sign In button
-                  FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          // sign in function
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text,
-                  )
-                      .then((value) async {
-                    setState(() {
-                      showSpinner = true;
-                    });
+                  if(_key.currentState!.validate()){
+                    FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                      // sign in function
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text,
+                    )
+                        .then((value) async {
+                      setState(() {
+                        showSpinner = true;
+                      });
 
-                    User user = FirebaseAuth.instance.currentUser!;
-                    await _fetchUser();
-                    MyUser.EMAIL=_emailTextController.text;
-                   /* MyUser.FULLNAME = "$myName";
+                      User user = FirebaseAuth.instance.currentUser!;
+                      await _fetchUser();
+                      MyUser.EMAIL=_emailTextController.text;
+                      /* MyUser.FULLNAME = "$myName";
                     MyUser.USERNAME = "$myuserName";
                    MyUser.GENDER ="$myGender";*/
-                    if (WelcomeScreen.isDoctor) {
-                      MyUser.TYPEUSER="doctor";
-                      Future.delayed(const Duration(milliseconds: 2000), () {
-                        setState(() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const homePageDoctor())); // take me to home screen after sign up
+                      if (WelcomeScreen.isDoctor) {
+                        MyUser.TYPEUSER="doctor";
+                        Future.delayed(const Duration(milliseconds: 2000), () {
                           setState(() {
-                            showSpinner = false;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    const homePageDoctor())); // take me to home screen after sign up
+                            setState(() {
+                              showSpinner = false;
+                            });
                           });
                         });
-                      });
-                    } else {
-                      MyUser.TYPEUSER="patient";
-                      Future.delayed(const Duration(milliseconds: 2000), () {
-                        setState(() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const main_PagePatient())); // take me to home screen after sign up
+                      } else {
+                        MyUser.TYPEUSER="patient";
+                        Future.delayed(const Duration(milliseconds: 2000), () {
                           setState(() {
-                            showSpinner = false;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    const main_PagePatient())); // take me to home screen after sign up
+                            setState(() {
+                              showSpinner = false;
+                            });
                           });
                         });
-                      });
-                    }
-                  }).onError((error, stackTrace) {
-                    if (error != null) {
-                      print("${error.toString()}"); // print the error in console
-                      switch (error.toString()) {
-                        case "[firebase_auth/invalid-email] The email address is badly formatted.":
-                          {
-                            onClick("Email is wrong");
-                          }
-                          break;
-
-                        case "[firebase_auth/wrong-password] The password is invalid or the user does not have a password.":
-                          {
-                            onClick("check your password again");
-                          }
-                          break;
-
-                        case "[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.":
-                          {
-                            onClick(
-                                "No user found with this email, Go to signup page");
-                          }
-                          break;
-                        case "[firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.":
-                          onClick(
-                              "Too many requests to log into this account. Try again later.");
-                          break;
-                        default:
-                          onClick("Login failed. Please try again.");
-                          break;
                       }
-                    }
-                  });
+                    }).onError((error, stackTrace) {
+                      if (error != null) {
+                        print("${error.toString()}"); // print the error in console
+                        switch (error.toString()) {
+                          case "[firebase_auth/invalid-email] The email address is badly formatted.":
+                            {
+                              onClick("Email is wrong");
+                            }
+                            break;
+
+                          case "[firebase_auth/wrong-password] The password is invalid or the user does not have a password.":
+                            {
+                              onClick("check your password again");
+                            }
+                            break;
+
+                          case "[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.":
+                            {
+                            Get.snackbar("Error",  "No user found with this email, Go to signup page",
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                              borderRadius: 0,
+                              margin: EdgeInsets.all(0.0),
+                              snackPosition: SnackPosition.BOTTOM
+                            );
+                            }
+                            break;
+                          case "[firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.":
+                            onClick(
+                                "Too many requests to log into this account. Try again later.");
+                            break;
+                          default:
+                            onClick("Login failed. Please try again.");
+                            break;
+                        }
+                      }
+                    });
+                  }
                 }),
                 signUpOption() // call signUpOption
               ],
