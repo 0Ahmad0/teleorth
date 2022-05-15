@@ -8,6 +8,7 @@ import '../model/question_model.dart';
 import '../model/report_status_model.dart';
 import '../report/details_report.dart';
 import '../report_stage_screen.dart';
+import '../screens/patient/Dignosisi_reportCreate.dart';
 import '../service/api_service.dart';
 import '../ui_helper.dart';
 
@@ -82,7 +83,7 @@ class QuestionsController extends GetxController {
              fetch=true;
           });
           Get.to(
-            () =>  Dignosisi_report()/*ReportStageScreen()*/,
+            () =>  Dignosisi_report_create()/*ReportStageScreen()*/,
             fullscreenDialog: true,
           );
         } else {

@@ -383,6 +383,8 @@ class DetailsReport{
       element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else if(element1.contains("Are you twisted your ankle")) {convert+=" Ankle twist:";
       element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
+      else if(element1.contains("Are your age")) {convert+=" Age less 18:";
+      element1.toLowerCase().contains("yes")?convert+=" yes\n":convert+=" no\n";}
       else convert+="${element1}\n";
     });
     return convert;

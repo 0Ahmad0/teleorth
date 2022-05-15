@@ -17,7 +17,7 @@ class Chatting {
   static String? TYPE_USER;
   static String? TYPE_USER2;
   static DateTime? TEXT_DATE;
-  static var listHellper;
+  static var listHellper,listHellper1;
   static var additive;
   static var LISTUSER=[];
   
@@ -308,6 +308,33 @@ class Chatting {
             }else{
               print("NOT FOUND Eamil");
             }
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
+    return false;
+  }
+  static Future<bool> getAdditivesChange() async{
+    //  name="";
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('additives')
+      //.where('doctor_email',isEqualTo: "doctor@gmail.com")
+          .where('${MyUser.TYPEUSER}_email',isEqualTo:"${MyUser.EMAIL}")
+          .get();
+      if(snapshot.docs.isNotEmpty){
+        print("done emails additives :" );
+        for(int i=0;i<snapshot.docs.length;i++){
+          //print(snapshot.docs[i]["${TYPE_USER2}"]);
+          print(snapshot.docs[i]["patient_email"]);
+        }
+        listHellper1=[];
+        snapshot.docs.forEach((element) {
+          (element["tensD"]!=element["tensP"])? listHellper1.add(element):"";
+        });
+        return true;
+      }else{
+        print("NOT FOUND Eamil");
+      }
     } on FirebaseException catch (e) {
       print(e.message);
     }

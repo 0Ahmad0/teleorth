@@ -276,8 +276,10 @@ class _MessageState extends State<Message> {
                                 Chatting.sendMessage();
                                 text_msg.clear();
                               }
-
                             }
+                            setState(() {
+
+                            });
                           },
                           child: Text(
                             'send',

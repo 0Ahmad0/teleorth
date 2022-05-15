@@ -6,6 +6,7 @@ import 'package:_finalproject/screens/patient/List_of_doctors.dart';
 import 'package:_finalproject/screens/patient/recovery_Plan_Summary.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../firebase/chatting.dart';
 import '../../firebase/firebase.dart';
 import '../../recovery_plan_screen2.dart';
@@ -225,12 +226,17 @@ class _main_PagePatientState extends State<main_PagePatient> {
                                               size: 30.0,
                                             ),
                                             onTap: () {
-                                              FirebaseController.indexReport=FirebaseController.indexReportPage;
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => RecoveryPlanScreen2()/*recovery_Plan_Summary()*/),
-                                              );
+                                              if(FirebaseController.indexReportPage>0){
+                                                FirebaseController.indexReport=FirebaseController.indexReportPage;
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => RecoveryPlanScreen2()/*recovery_Plan_Summary()*/),
+                                                );
+                                              }
+                                              else {
+                                                Get.snackbar("Error", "Not found recovery plan !",backgroundColor: Colors.red,colorText: Colors.white);
+                                              }
                                             },
                                           ),
                                         ],

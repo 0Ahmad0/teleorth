@@ -42,7 +42,7 @@ class _MypatientsState extends State<Mypatients> {
             );
           }else{
 
-            print(Chatting.listHellper.length);
+            //print(Chatting.listHellper.length);
             return Column(children: [
 
               Row(
@@ -94,8 +94,9 @@ class _MypatientsState extends State<Mypatients> {
                 height: 10,
               ),
               Expanded(
-                  child:
-                  ListView.builder(
+                  child:Chatting.listHellper == null
+                      ?Center(child: Text('No patients found!'),)
+                      : ListView.builder(
                     itemCount: Chatting.listHellper.length,
                     itemBuilder: (_,index){
                       return FutureBuilder(

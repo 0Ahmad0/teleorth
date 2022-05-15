@@ -137,11 +137,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         MyUser.TYPEUSER="doctor";
                         Future.delayed(const Duration(milliseconds: 2000), () {
                           setState(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                    const homePageDoctor())); // take me to home screen after sign up
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (ctx)=>homePageDoctor()),
+                                    (route) => false);
+                            // take me to home screen after sign up
                             setState(() {
                               showSpinner = false;
                             });
@@ -151,11 +149,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         MyUser.TYPEUSER="patient";
                         Future.delayed(const Duration(milliseconds: 2000), () {
                           setState(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                    const main_PagePatient())); // take me to home screen after sign up
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (ctx)=>main_PagePatient()),
+                                    (route) => false);
+                           // take me to home screen after sign up
                             setState(() {
                               showSpinner = false;
                             });
@@ -174,7 +170,13 @@ class _SignInScreenState extends State<SignInScreen> {
 
                           case "[firebase_auth/wrong-password] The password is invalid or the user does not have a password.":
                             {
-                              onClick("check your password again");
+                              Get.snackbar("Error",  "check your password again",
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                  borderRadius: 0,
+                                  margin: EdgeInsets.all(0.0),
+                                  snackPosition: SnackPosition.BOTTOM
+                              );
                             }
                             break;
 

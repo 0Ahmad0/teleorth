@@ -5,6 +5,7 @@ import 'package:_finalproject/firebase/user.dart';
 import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
+import '../../firebase/chatting.dart';
 import 'List_Of_Patient.dart';
 import 'emergency_request.dart';
 
@@ -120,14 +121,20 @@ class homePageDoctor extends StatelessWidget {
                       image: AssetImage("assets/images/emergency_request.PNG"),
                       width: 300.0,
                     ),
-                    Positioned(
+                     Positioned(
                       top: 10,
                         right: 10,
-                        child: CircleAvatar(
+                        child: FutureBuilder(
+                            future: Chatting.getAdditivesChange(),
+                            builder: (context,snapShot) {
+                              if (!snapShot.hasData) {
+                                return Center(child: CircularProgressIndicator());
+                              } else{
+                                return CircleAvatar(
                           radius: getScreenSize(context).width * 0.03,
                           child: Flexible(
                             child: Text(
-                              '${10}',
+                                '${Chatting.listHellper1.length}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: getScreenSize(context)
@@ -135,8 +142,9 @@ class homePageDoctor extends StatelessWidget {
                               ),
                             ),
                           ),
+                        );}}
                         ),
-                    ),
+                     ),
                   ],
                 ),
                 onTap: () {

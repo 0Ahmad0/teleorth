@@ -103,8 +103,10 @@ class _List_of_XrayState extends State<List_of_Xray> {
     if (!snapShot.hasData) {
     return Center(child: CircularProgressIndicator());
     } else{
-
-      return ListView.builder(
+      var list=FirebaseController.report["xrayImages"];
+      return list==null
+          ?Center(child: Text('No doctors found!'),)
+          :ListView.builder(
           padding: EdgeInsets.all(10.0),
           //TODO : Set Your List Here Nagel
           itemCount:  FirebaseController.report["xrayImages"].length,

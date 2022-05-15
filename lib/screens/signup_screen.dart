@@ -28,17 +28,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String myName = "";
   String myuserName = "";
   String myGender = "";
-  static final TextEditingController _passwordTextController =
+   final TextEditingController _passwordTextController =
       TextEditingController();
-  static final TextEditingController _emailTextController =
+   final TextEditingController _emailTextController =
       TextEditingController();
-  static final TextEditingController _userNameTextController =
+   final TextEditingController _userNameTextController =
       TextEditingController();
-  static final TextEditingController _fullNameTextController =
+   final TextEditingController _fullNameTextController =
       TextEditingController();
   final TextEditingController _confirmPasswordTextController =
   TextEditingController();
-  static String _genderTextController = "";
+   String _genderTextController = "";
   bool validate(String password){
     String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     RegExp passwordRegex = new RegExp(pattern);
@@ -130,12 +130,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       "Confirm Password",
                       Icons.lock,
                       true, // call reusableTextField from the reusable widget
-                      _confirmPasswordTextController
+                      _confirmPasswordTextController,
+                    validate: (val){
+                        return (
+                        _passwordTextController.text
+                            ==
+                         _confirmPasswordTextController.text
+                        )?null
+                            : "password not match";
+                    }
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   DropdownButtonFormField(
+                    validator: (val){
+                      if(val==null){
+                        return "select gender";
+                      }
+                    },
                     iconDisabledColor: Color(0xFF4d8d6e),
                     decoration: const InputDecoration(
                       isDense: true,
@@ -249,10 +262,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                });
                                Future.delayed(const Duration(milliseconds: 2000), () {
                                  setState(() {
-                                   Navigator.of(context).pushAndRemoveUntil(
+                                   Navigator.of(context).pushReplacement(
                                        MaterialPageRoute(
                                            builder: (context) => const WelcomeScreen()/*main_PagePatient()*/),
-                                           (Route<dynamic> route) => true);
+                                           );
                                    /*  Navigator.push(
                                 context,
                                 MaterialPageRoute(

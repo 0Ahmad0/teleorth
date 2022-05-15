@@ -11,9 +11,9 @@ import '../../report/details_report.dart';
 import 'Each_report.dart';
 import 'main_PagePatient.dart';
 
-class Dignosisi_report extends StatelessWidget {
-  Dignosisi_report({Key? key}) : super(key: key);
-
+class Dignosisi_report_create extends StatelessWidget {
+  Dignosisi_report_create({Key? key}) : super(key: key);
+  
   String Fracture =
       "•Don’t weight bearon the injured foot.\n\n•If there is wound,it must be coveredwith a sterile gauzeor cloth.\n\n" +
           "•Raise the leg and placeice on the swollen areafor less than 20 minutes.\n\n•See the doctor promptly.\n\n" +
@@ -63,11 +63,11 @@ class Dignosisi_report extends StatelessWidget {
                           ),
                           onPressed: () {
                           //  if(!WelcomeScreen.isDoctor)
-                            Navigator.pop(context);/*push(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => WelcomeScreen.isDoctor?(homePageDoctor()):(main_PagePatient())/*Each_report()*/),
-                            );*/
+                            );
                           },
                         ),
                       ),
