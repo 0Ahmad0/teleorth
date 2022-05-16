@@ -17,7 +17,8 @@ class Chatting {
   static String? TYPE_USER;
   static String? TYPE_USER2;
   static DateTime? TEXT_DATE;
-  static var listHellper,listHellper1;
+  static var listHellper;
+  static var listHellper1;
   static var additive;
   static var LISTUSER=[];
   
@@ -315,6 +316,7 @@ class Chatting {
   }
   static Future<bool> getAdditivesChange() async{
     //  name="";
+    listHellper1=[];
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection('additives')

@@ -216,7 +216,7 @@ class Each_report extends StatelessWidget {
                             )),*/
                         );
                       }else{
-                        Get.snackbar("Error", "wait",backgroundColor: Colors.red,colorText: Colors.white);
+                        Get.snackbar("Error", "No recovery plan founded",backgroundColor: Colors.red,colorText: Colors.white);
                       }
 
                     },
@@ -265,7 +265,7 @@ class Each_report extends StatelessWidget {
         MaterialPageRoute(builder: (context) => List_of_Xray()),
       );
     }else{
-      Get.snackbar("Error", "wait",backgroundColor: Colors.red,colorText: Colors.white);
+      Get.snackbar("Error", "No X-ray picture founded",backgroundColor: Colors.red,colorText: Colors.white);
     }
 
                     },

@@ -134,7 +134,7 @@ class homePageDoctor extends StatelessWidget {
                           radius: getScreenSize(context).width * 0.03,
                           child: Flexible(
                             child: Text(
-                                '${Chatting.listHellper1.length}',
+                                '${Chatting.listHellper1.length??0}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: getScreenSize(context)

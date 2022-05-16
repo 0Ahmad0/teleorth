@@ -195,7 +195,7 @@ class _main_PagePatientState extends State<main_PagePatient> {
                                   return Center(child: CircularProgressIndicator());
                                   } else {
                                       FirebaseController.listReport.sort((a,b) => a["date"].compareTo(b["date"]));
-                                      String phase=FirebaseController.getPhase();
+                                      String phase= FirebaseController.getPhase();
                                       return Wrap(
                                         direction: Axis.horizontal,
                                         // spacing: 5,
@@ -226,7 +226,7 @@ class _main_PagePatientState extends State<main_PagePatient> {
                                               size: 30.0,
                                             ),
                                             onTap: () {
-                                              if(FirebaseController.indexReportPage>0){
+                                              if(FirebaseController.indexReportPage>=0){
                                                 FirebaseController.indexReport=FirebaseController.indexReportPage;
                                                 Navigator.push(
                                                   context,

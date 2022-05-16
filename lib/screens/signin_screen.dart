@@ -135,6 +135,7 @@ class _SignInScreenState extends State<SignInScreen> {
                    MyUser.GENDER ="$myGender";*/
                       if (WelcomeScreen.isDoctor) {
                         MyUser.TYPEUSER="doctor";
+                        print("doctor");
                         Future.delayed(const Duration(milliseconds: 2000), () {
                           setState(() {
                             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (ctx)=>homePageDoctor()),
@@ -147,6 +148,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         });
                       } else {
                         MyUser.TYPEUSER="patient";
+                        print("patient");
                         Future.delayed(const Duration(milliseconds: 2000), () {
                           setState(() {
                             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (ctx)=>main_PagePatient()),
@@ -326,15 +328,18 @@ class _SignInScreenState extends State<SignInScreen> {
     });}
   }
   _fetchUser() async{
+
     WelcomeScreen.isDoctor? typeUser="doctor":typeUser="patient";
     final firebaseUser = FirebaseAuth.instance.currentUser!;
+    //print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"+"${_emailTextController.text}");
     await FirebaseFirestore.instance.collection("${typeUser}").
-    where("email",isEqualTo: firebaseUser.email).get().then((value){
+    where("email",isEqualTo: _emailTextController.text).get().then((value){
        if(value.docs.isNotEmpty){
          MyUser.USERNAME=value.docs[0]["userName"];
          MyUser.GENDER=value.docs[0]["gender"];
          MyUser.FULLNAME=value.docs[0]["displayName"];
          MyUser.ID=value.docs[0]["uid"];
+
          return true;
        }
     });

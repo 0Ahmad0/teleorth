@@ -23,6 +23,7 @@ class FirebaseController{
     });
     print("done not report");
   }
+
   static Future<bool> fetchReportsPatient() async {
     try{
       await FirebaseFirestore.instance.collection("reports").
@@ -61,12 +62,13 @@ class FirebaseController{
       then((value){
         report=value;
         print("listXray : "+"${report["xrayImages"].length}");
+        return true;
       });
-      return true;
     }catch(e){
       print(e);
       return false;
     }
+    return false;
   }
 
   static updateRecoveryPlan() async {
@@ -146,12 +148,12 @@ class FirebaseController{
         if(indexReportPage==-1){
           num subtract=Timestamp.now().seconds-listReport[i]["date"].seconds;
           if(subtract<0)return phase;
+          indexReportPage=i;
           subtract=subtract/60/60/24/7;
           phase=getPhaseHelper(subtract, listReport[i]["recoveryPlan"]["Weber${listReport[i]["doctor"]["weber"]}"]);
          // subtract=int.parse(listReport[i]["recoveryPlan"]["WeberA"][0]);
           print("index ${indexReportPage} ,${subtract}");
           print(phase);
-          indexReportPage=i;
           return phase;
         }
       }

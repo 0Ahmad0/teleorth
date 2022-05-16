@@ -520,13 +520,9 @@ class _Edit_ProfileState extends State<Edit_Profile> {
                     onPressed: () {
                       FirebaseAuth.instance.signOut().then((value) {
                         // Firebase sign out function
-                        print("Signed Out"); //print to console
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                const WelcomeScreen())); // when Signed Out clicked go back to Sign In Screen
+                        print("Signed Out"); //
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (ctx)=>WelcomeScreen()),
+                                (route) => false);// print to console// when Signed Out clicked go back to Sign In Screen
                       });
                     },
                   ),

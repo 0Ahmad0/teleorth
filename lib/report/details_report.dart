@@ -6,14 +6,14 @@ import '../firebase/user.dart';
 class DetailsReport{
   static var recommendations={
     "fracture":
-        "•Don’t weight bearon the injured foot.\n•If there is wound,it must be coveredwith a sterile gauzeor cloth.\n" +
-        "•Raise the leg and placeice on the swollen areafor less than 20 minutes.\n•See the doctor promptly.\n" +
-        "•evaluate the stabilityof the joint.•inspect the knee joint.\n•Check neurovascularstatus of the limb.\n" +
-        "•Pain relievingmedications",
+        "•Don’t weight bear on the injured foot.\n•If there is wound,it must be covered with a sterile gauze or cloth.\n" +
+        "•Raise the leg and place ice on the swollen area for less than 20 minutes.\n•See the doctor promptly.\n" +
+        "•evaluate the stability of the joint.\n•inspect the knee joint.\n•Check neurovascular status of the limb.\n" +
+        "•Pain relieving medications",
     "sprain":
-        "•Keep the ankle elevated(raised up) above the levelof the heart wheneverpossible, to decrease ankleswelling by lying downand propping the footon pillows.\n" +
-        "•Place ice on theswollen area but Icingshould not be appliedfor any longer than20 minutes repeatedevery hour.\n" +
-        "•Pain relievingmedications.•Put ACE bandage.\n•See your doctorif the swellingand pain continue.",
+        "•Keep the ankle elevated(raised up) above the level of the heart when ever possible, to decrease ankle swelling by lying down and propping the foot on pillows.\n" +
+        "•Place ice on the swollen area but Icing should not be applied for any longer than20 minutes repeated every hour.\n" +
+        "•Pain relieving medications.•Put ACE bandage.\n•See your doctor if the swelling and pain continue.",
    };
   static var recoveryPlan={
     "WeberA":[

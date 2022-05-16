@@ -7,11 +7,13 @@ import 'package:_finalproject/screens/signin_screen.dart';
 import 'package:_finalproject/screens/wlcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../controller/question_controller.dart';
 import '../../report/details_report.dart';
 import 'Each_report.dart';
 import 'main_PagePatient.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-class Dignosisi_report_create extends StatelessWidget {
+class Dignosisi_report_create extends GetView<QuestionsController> {
   Dignosisi_report_create({Key? key}) : super(key: key);
   
   String Fracture =
@@ -62,12 +64,11 @@ class Dignosisi_report_create extends StatelessWidget {
                             color: Color(0xFF4d8d6e),
                           ),
                           onPressed: () {
+
+                            controller.resetFlow();
                           //  if(!WelcomeScreen.isDoctor)
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WelcomeScreen.isDoctor?(homePageDoctor()):(main_PagePatient())/*Each_report()*/),
-                            );
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (ctx)=>main_PagePatient()),
+                                    (route) => false);
                           },
                         ),
                       ),
